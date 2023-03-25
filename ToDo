@@ -1,0 +1,35 @@
+- [] Roles APIs
+    - [] Get Roles
+    - [] Post Role
+
+- [] Users APIs
+    - [] Post User Register
+    - [] Post User Login
+    - [] Post User Logout
+    - [] Get User Details
+
+- [] Grades APIs
+    - [] Post Grade
+    - [] Get Grades
+
+- [] Subjects APIs
+    - [] Post Subject
+    - [] Get Subjects
+
+- [] Students APIs
+    - [] Post Student
+    - [] Get Students
+
+- [] Batches APIs
+    - [] Post Batch
+    - [] Get Batches
+    - [] Get Batch Details
+
+- [] Events APIs
+    - [] Post Event
+    - [] Get Events
+    - [] Get Event Details
+
+- [] Event Students Performance APIs
+    - [] Post Event Students Performance
+    - [] Get Event Students Performance
