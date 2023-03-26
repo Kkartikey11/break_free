@@ -103,8 +103,8 @@ CREATE TABLE `event_teachers_mapping` (
 
 CREATE TABLE `event_performance` (
   `id` int PRIMARY KEY AUTO_INCREMENT,
-  `student_id` int not null,
   `event_id` int not null,
+  `performance_json` text,
   `is_deleted` int default 0,
   `created_at` timestamp default current_timestamp,
   `updated_at` timestamp default current_timestamp on update current_timestamp,
