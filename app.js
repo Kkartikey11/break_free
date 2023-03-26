@@ -22,9 +22,37 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 
+// role router
+const RoleRouter = require("./routes/v1/roles"); 
+app.use("/role", RoleRouter);
+
+// grade router
+const GradeRouter = require("./routes/v1/grades"); 
+app.use("/grade", GradeRouter);
+
+// user router
+const userRouter = require("./routes/v1/users/users");
+app.use("/users", userRouter);
+
+// student router
+const studentsRoutes = require("./routes/v1/students"); 
+app.use("/student", studentsRoutes);
+
+// subject router
+const SubjectRouter = require("./routes/v1/subjects"); 
+app.use("/subject", SubjectRouter);
+
+// batch router
+const batchesRouter = require("./routes/v1/batches"); 
+app.use("/batch", batchesRouter);
+
+// event router
+const eventsRouter = require("./routes/v1/events"); 
+app.use("/event", eventsRouter);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  next(createError(404));
+  return res.status(404).send({message: "not found"})
 });
 
 // error handler
