@@ -5,24 +5,6 @@ import { NavLink } from "react-router-dom";
 import {
   DashboardOutlined,
   ProfileOutlined,
-  UnorderedListOutlined,
-  DeploymentUnitOutlined,
-  FileTextOutlined,
-  MoneyCollectOutlined,
-  BookOutlined,
-  SettingOutlined,
-  ApartmentOutlined,
-  ClusterOutlined,
-  AppstoreOutlined,
-  UpOutlined,
-  DownOutlined,
-  RadarChartOutlined,
-  AreaChartOutlined,
-  AuditOutlined,
-  InboxOutlined,
-  HddOutlined,
-  ScheduleOutlined,
-  ReconciliationOutlined,
   HeatMapOutlined,
   BankOutlined,
   UsergroupAddOutlined,
@@ -37,13 +19,6 @@ import styles from "./siderNavbar.module.css";
 const { Sider } = Layout;
 
 const SideNavbar = () => {
-  const [isOverViewOpen, setIsOverViewOpen] = useState(false);
-  const [isReportOpen, setIsReportOpen] = useState(false);
-  const [isExpenseOpen, setIsExpenseOpen] = useState(false);
-  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [isActivityOpen, setIsActivityOpen] = useState(false);
-
-
 
 
   return (
