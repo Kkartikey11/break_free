@@ -48,28 +48,7 @@ const Dashboard = () => {
             // marginTop: "8em",
           }}
         >
-          <Card
-            style={{
-              width: "30%",
-              background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
-              cursor: "pointer",
-            }}
-            onClick={() => navigate("/dashboard/student")}
-          >
-            <h1>Student</h1>
-          </Card>
-          <Card
-            style={{
-              width: "30%",
-              cursor: "pointer",
-              background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
-            }}
-            onClick={() => navigate("/dashboard/batch")}
-          >
-            <h1>Batch</h1>
-          </Card>
+          {/* event view */}
           <Card
             style={{
               width: "30%",
@@ -81,6 +60,33 @@ const Dashboard = () => {
           >
             <h1>Event</h1>
           </Card>
+
+          {/* batch view */}
+          <Card
+            style={{
+              width: "30%",
+              cursor: "pointer",
+              background:
+                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+            }}
+            onClick={() => navigate("/dashboard/batch")}
+          >
+            <h1>Batch</h1>
+          </Card>
+
+          {/* student view */}
+          <Card
+            style={{
+              width: "30%",
+              background:
+                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+              cursor: "pointer",
+            }}
+            onClick={() => navigate("/dashboard/student")}
+          >
+            <h1>Student</h1>
+          </Card>
+
           <Card
             style={{
               width: "30%",
@@ -92,6 +98,7 @@ const Dashboard = () => {
           >
             <h1>Subject</h1>
           </Card>
+
           <Card
             style={{
               width: "30%",
@@ -110,9 +117,9 @@ const Dashboard = () => {
               background:
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
             }}
-            onClick={() => navigate("/dashboard/roles")}
+            onClick={() => navigate("/dashboard/users")}
           >
-            <h1>Roles</h1>
+            <h1>Users</h1>
           </Card>
         </div>
       </Content>

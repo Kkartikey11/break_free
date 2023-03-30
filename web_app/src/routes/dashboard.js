@@ -17,8 +17,10 @@ import SideNavbar from "../components/sidebar";
 import Batch from "../view/batch";
 import Grade from "../view/grade";
 import Subjects from "../view/subject";
-import Roles from "../view/roles";
+import Roles from "../view/users";
 import Event from "../view/event";
+import Users from "../view/users";
+import AddStudent from "../view/student/addStudent";
   const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -55,8 +57,9 @@ const DashboardRoutes = () => {
             <Route path="/batch" element={<Batch />} />
             <Route path="/grade" element={<Grade />} />
             <Route path="/subject" element={<Subjects />} />
-            <Route path="/roles" element={<Roles />} />
+            <Route path="/users" element={<Users />} />
             <Route path="/events" element={<Event />} />
+            <Route path="/students/add-student" element={<AddStudent />} />
           </Routes>
         </Content>
         <Footer

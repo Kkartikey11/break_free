@@ -1,83 +1,52 @@
-import React from "react";
-import { Space, Table, Tag, theme } from 'antd';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { useNavigate } from "react-router-dom";
+import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
+import { batchAction } from "../../redux/action/batch";
 
 const Batch = () => {
-    const columns = [
-        {
-          title: 'Name',
-          dataIndex: 'name',
-          key: 'name',
-          render: (text) => <a>{text}</a>,
-        },
-        {
-          title: 'Age',
-          dataIndex: 'age',
-          key: 'age',
-        },
-        {
-          title: 'Address',
-          dataIndex: 'address',
-          key: 'address',
-        },
-        {
-          title: 'Tags',
-          key: 'tags',
-          dataIndex: 'tags',
-          render: (_, { tags }) => (
-            <>
-              {tags.map((tag) => {
-                let color = tag.length > 5 ? 'geekblue' : 'green';
-                if (tag === 'loser') {
-                  color = 'volcano';
-                }
-                return (
-                  <Tag color={color} key={tag}>
-                    {tag.toUpperCase()}
-                  </Tag>
-                );
-              })}
-            </>
-          ),
-        },
-        {
-          title: 'Action',
-          key: 'action',
-          render: (_, record) => (
-            <Space size="middle">
-              <a>Invite {record.name}</a>
-              <a>Delete</a>
-            </Space>
-          ),
-        },
-      ];
-      const data = [
-        {
-          key: '1',
-          name: 'John Brown',
-          age: 32,
-          address: 'New York No. 1 Lake Park',
-          tags: ['nice', 'developer'],
-        },
-        {
-          key: '2',
-          name: 'Jim Green',
-          age: 42,
-          address: 'London No. 1 Lake Park',
-          tags: ['loser'],
-        },
-        {
-          key: '3',
-          name: 'Joe Black',
-          age: 32,
-          address: 'Sydney No. 1 Lake Park',
-          tags: ['cool', 'teacher'],
-        },
-      ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const state = useSelector((state) => state);
+  console.log(state);
+  const [batchList, setBatchList] = useState("");
 
-      const {
-        token: { colorBgContainer },
-      } = theme.useToken();
+  useEffect(() => {
+    dispatch(batchAction());
+  }, []);
+
+  useEffect(() => {
+    if (state.getBatches.data !== "") {
+      if (state.getBatches.data.data.code === 200) {
+        setBatchList(state.getBatches.data.data.data);
+      }
+    }
+  }, [state]);
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+    },
+    {
+      title: "Subject",
+      dataIndex: "subject",
+    },
+    {
+      title: "Created at",
+      dataIndex: "created_at",
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+    },
+  ];
+
+  const {
+    token: { colorBgContainer },
+  } = theme.useToken();
   return (
     <>
       <Content
@@ -88,10 +57,33 @@ const Batch = () => {
           background: colorBgContainer,
         }}
       >
-        <div style={{display:'flex', fontSize:'18px'}}>
-            <h1>Batch List</h1>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "20px",
+          }}
+        >
+          <div>
+            <h1 style={{ fontSize: "30px", margin: "0px" }}>Batch List</h1>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <Button
+              type="primary"
+              onClick={() => {
+                navigate("/batch/add-batch");
+              }}
+            >
+              Add Batch
+            </Button>
+          </div>
         </div>
-        <Table columns={columns} dataSource={data} />
+        <Table
+          columns={columns}
+          dataSource={batchList && batchList}
+          pagination={true}
+          scroll={{ x: "100%" }}
+        />
       </Content>
     </>
   );

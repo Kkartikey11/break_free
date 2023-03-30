@@ -42,32 +42,32 @@ const SideNavbar = () => {
             </h1>
         </div>
         <ul style={{marginTop:'50px'}}>
-          <NavLink to="/dashboard" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink to="/" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
           <BankOutlined className={styles.link_icon} /> Dashboard
           </NavLink>
 
-          <NavLink to="/dashboard/student" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink to="/student" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
             <UsergroupAddOutlined className={styles.link_icon} />Student
           </NavLink>
 
-          <NavLink to="/dashboard/batch" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink to="/batch" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
             <ContactsOutlined className={styles.link_icon} /> Batch
           </NavLink>
 
-          <NavLink to="/dashboard/events" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink to="/events" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
             <ProfileOutlined className={styles.link_icon} />Events
           </NavLink>
 
-          <NavLink to="/dashboard/subject" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink to="/subject" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
           <DiffOutlined className={styles.link_icon} /> Subjects
           </NavLink>
 
-          <NavLink to="/dashboard/grade" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink to="/grade" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
             <DashboardOutlined className={styles.link_icon} /> Grades
           </NavLink>
 
-          <NavLink to="/dashboard/roles" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
-          <HeatMapOutlined className={styles.link_icon} /> Roles
+          <NavLink to="/users" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <HeatMapOutlined className={styles.link_icon} /> Users
           </NavLink>
          
         

@@ -10,7 +10,7 @@ function App() {
       <BrowserRouter>
       <Provider store={store}>
         <Routes>
-          <Route path="/dashboard/*" element={<DashboardRoutes />} />
+          <Route path="/*" element={<DashboardRoutes />} />
         </Routes>
       </Provider>
       </BrowserRouter>
