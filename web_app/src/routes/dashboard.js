@@ -21,6 +21,7 @@ import Roles from "../view/users";
 import Event from "../view/event";
 import Users from "../view/users";
 import AddStudent from "../view/student/addStudent";
+import AddBatches from "../view/batch/addBatches";
   const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -60,6 +61,7 @@ const DashboardRoutes = () => {
             <Route path="/users" element={<Users />} />
             <Route path="/events" element={<Event />} />
             <Route path="/students/add-student" element={<AddStudent />} />
+            <Route path="/batch/add-batch" element={<AddBatches />} />
           </Routes>
         </Content>
         <Footer

@@ -10,136 +10,218 @@ import {
   UsergroupAddOutlined,
   ContactsOutlined,
   DiffOutlined,
-
-
-  
 } from "@ant-design/icons";
 import styles from "./siderNavbar.module.css";
 
 const { Sider } = Layout;
 
 const SideNavbar = () => {
-
+  const [dashboardClicked, setDashboardClicked] = useState(false);
+  const [studentClicked, setStudentClicked] = useState(false);
+  const [batchClicked, setBatchClicked] = useState(false);
+  const [gradeClicked, setGardeClicked] = useState(false);
+  const [userClicked, setuserClicked] = useState(false);
+  const [eventClicked, setEventClicked] = useState(false);
+  const [subjectClicked, setSubjectClicked] = useState(false);
 
   return (
     <div className={styles.sider_container}>
       <Sider
-       style={{
-        overflow: "auto",
-        height: "100vh",
-        position: "fixed",
-        left: 0,
-        top: 0,
-        bottom: 0,
-        // alignItems:'center'
-        textAlign: 'center',
-      }}
+        style={{
+          overflow: "auto",
+          height: "100vh",
+          position: "fixed",
+          left: 0,
+          top: 0,
+          bottom: 0,
+          textAlign: "center",
+        }}
       >
         <div>
-            <h1 style={{color:'#fff', fontSize:'20px'}}>
-
-            BFF
-            </h1>
+          <h1 style={{ color: "#fff", fontSize: "20px" }}>BFF</h1>
         </div>
-        <ul style={{marginTop:'50px'}}>
-          <NavLink to="/" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
-          <BankOutlined className={styles.link_icon} /> Dashboard
+        <ul style={{ marginTop: "50px" }}>
+          <NavLink
+            onClick={() => {
+              setDashboardClicked(true);
+              setStudentClicked(false);
+              setBatchClicked(false);
+              setEventClicked(false);
+              setSubjectClicked(false);
+              setGardeClicked(false);
+              setuserClicked(false);
+            }}
+            to="/"
+            className={dashboardClicked ? styles.onClick : styles.unClick}
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+          >
+            <BankOutlined className={styles.link_icon} /> Dashboard
           </NavLink>
 
-          <NavLink to="/student" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
-            <UsergroupAddOutlined className={styles.link_icon} />Student
+          <NavLink
+            to="/student"
+            onClick={() => {
+              setStudentClicked(true);
+              setDashboardClicked(false);
+              setBatchClicked(false);
+              setEventClicked(false);
+              setSubjectClicked(false);
+              setGardeClicked(false);
+              setuserClicked(false);
+            }}
+            className={
+              studentClicked ? styles.onClick : styles.unClick
+            }
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+          >
+            <UsergroupAddOutlined className={styles.link_icon} />
+            Student
           </NavLink>
 
-          <NavLink to="/batch" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink
+            to="/batch"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+            onClick={() => {
+              setBatchClicked(true);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+              setEventClicked(false);
+              setSubjectClicked(false);
+              setGardeClicked(false);
+              setuserClicked(false);
+            }}
+            className={
+              batchClicked === true ? styles.onClick : styles.unClick
+            }
+          >
             <ContactsOutlined className={styles.link_icon} /> Batch
           </NavLink>
 
-          <NavLink to="/events" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
-            <ProfileOutlined className={styles.link_icon} />Events
+          <NavLink
+            to="/events"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+            onClick={() => {
+              setEventClicked(true);
+              setBatchClicked(false);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+              setSubjectClicked(false);
+              setGardeClicked(false);
+              setuserClicked(false);
+            }}
+            className={
+              eventClicked === true ? styles.onClick : styles.unClick
+            }
+          >
+            <ProfileOutlined className={styles.link_icon} />
+            Events
           </NavLink>
 
-          <NavLink to="/subject" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
-          <DiffOutlined className={styles.link_icon} /> Subjects
+          <NavLink
+            to="/subject"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+            onClick={() => {
+              setSubjectClicked(true);
+              setEventClicked(false);
+              setBatchClicked(false);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+              setGardeClicked(false);
+              setuserClicked(false);
+            }}
+            className={
+              subjectClicked === true ? styles.onClick : styles.unClick
+            }
+          >
+            <DiffOutlined className={styles.link_icon} /> Subjects
           </NavLink>
 
-          <NavLink to="/grade" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
+          <NavLink
+            to="/grade"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+            onClick={() => {
+              setGardeClicked(true);
+              setSubjectClicked(false);
+              setEventClicked(false);
+              setBatchClicked(false);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+              setuserClicked(false);
+            }}
+            className={
+              gradeClicked === true ? styles.onClick : styles.unClick
+            }
+          >
             <DashboardOutlined className={styles.link_icon} /> Grades
           </NavLink>
 
-          <NavLink to="/users" style={{display:'flex', alignItems:'center', gap:'10px', color:'white'}}>
-          <HeatMapOutlined className={styles.link_icon} /> Users
-          </NavLink>
-         
-        
-
-          {/* <div
-            className={`${isSettingsOpen ? styles.active_link : styles.link}`}
+          <NavLink
+            to="/users"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px'
+            }}
+            onClick={() => {
+              setuserClicked(true);
+              setGardeClicked(false);
+              setSubjectClicked(false);
+              setEventClicked(false);
+              setBatchClicked(false);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+            }}
+            className={
+              userClicked === true ? styles.onClick : styles.unClick
+            }
           >
-            <NavLink
-              onClick={() => {
-                setIsSettingsOpen(!isSettingsOpen);
-                setIsOverViewOpen(false);
-                setIsReportOpen(false);
-              }}
-            >
-              <SettingOutlined className={styles.link_icon} />
-              <li>Settings</li>
-              <span style={{ paddingLeft: 15 , fontSize: 13 }}>
-                {isSettingsOpen ? <UpOutlined /> : <DownOutlined />}
-              </span>
-            </NavLink>
-            <ul
-              className={`${styles.sider_list_dropdown} ${
-                isSettingsOpen ? styles.active : ""
-              }`}
-            >
-              <NavLink to="/web/product-category">
-                <ApartmentOutlined
-                  className={styles.link_icon}
-                  style={{ position: "relative", marginLeft: -8 }}
-                />
-                <li className={styles.sub_icon} style={{ lineHeight: "15px" }}>
-                  Product Category
-                </li>
-              </NavLink>
-              <NavLink to="/web/customer-category">
-                <ClusterOutlined
-                  className={styles.link_icon}
-                  style={{ position: "relative", marginLeft: -8 }}
-                />
-                <li className={styles.sub_icon} style={{ lineHeight: "15px" }}>
-                  Customer Category
-                </li>
-              </NavLink>
-              <NavLink to="/web/lead-category">
-                <ClusterOutlined
-                  className={styles.link_icon}
-                  style={{ position: "relative", marginLeft: -8 }}
-                />
-                <li className={styles.sub_icon} style={{ lineHeight: "15px" }}>
-                  Lead Category
-                </li>
-              </NavLink>
-              <NavLink to="/web/product-unit">
-                <InboxOutlined
-                  className={styles.link_icon}
-                  style={{ position: "relative", marginLeft: -8 }}
-                />
-                <li className={styles.sub_icon} style={{ lineHeight: "15px" }}>
-                  Product Unit
-                </li>
-              </NavLink>
-              <NavLink to="/web/preferences">
-                <ClusterOutlined
-                  className={styles.link_icon}
-                  style={{ position: "relative", marginLeft: -8 }}
-                />
-                <li className={styles.sub_icon} style={{ lineHeight: "15px" }}>
-                  Preferences
-                </li>
-              </NavLink>
-            </ul>
-          </div> */}
+            <HeatMapOutlined className={styles.link_icon} /> Users
+          </NavLink>
         </ul>
       </Sider>
     </div>

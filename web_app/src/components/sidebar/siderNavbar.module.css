@@ -53,6 +53,23 @@
     transition-property: opacity;
     opacity: 1;
   }
+  .onClick{
+    display: "flex";
+    gap: "10px";
+    align-items: center;
+    background: white;
+    border-radius: 15px 0px 0px 15px;
+    color: black;
+    font-weight: 600;
+    padding-left: '25px';
+  }
+  .unClick{
+    display: "flex";
+    gap: "10px";
+    color: "white !important";
+    align-items: center;
+    padding-left: '25px';
+  }
   link {
     margin-bottom: 0;
     transition-delay: 0.5s;
