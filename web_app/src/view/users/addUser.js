@@ -5,29 +5,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
 import { addStudentAction } from "../../redux/action/student";
-import { addBatchesAction } from "../../redux/action/batch";
 
-const AddBatches = () => {
+const AddUser = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [apiData, setApiData] = useState({});
-  const [subjectList, setSubjectList] = useState("");
-  const [studentList, setStudentList] = useState("");
+  const [gradeList, setGradeList] = useState("");
 
-  //api call
   const onFinish = (values) => {
     const formData = {
       name: values.name,
-      description: values.description,
-      subject_id: values.subject_id,
-      students: values.students,
+      email: values.email,
+      grade_id: values.grade_id,
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addBatchesAction(formData));
-    navigate("/batch");
+    dispatch(addStudentAction(formData));
+    navigate("/student");
   };
 
 
@@ -36,23 +32,18 @@ const AddBatches = () => {
   };
 
   const onCancel = () => {
-    navigate("/batch");
+    navigate("/student");
   }
 
   useEffect(() => {
-    if (state.getSubject.data !== "") {
-      if (state.getSubject.data.data.code === 200) {
-        setSubjectList(state.getSubject.data.data.data);
+    if (state.getGrade.data !== "") {
+      if (state.getGrade.data.data.code === 200) {
+        setGradeList(state.getGrade.data.data.data);
       }
     }
-    if (state.getStudent.data !== "") {
-      if (state.getStudent.data.data.code === 200) {
-        setStudentList(state.getStudent.data.data.data);
-      }
-    }
-    if (state.addBatches.data !== "") {
-        if (state.addBatches.data.data.code === 200) {
-          navigate("/batch");
+    if (state.addStudent.data !== "") {
+        if (state.addStudent.data.data.code === 200) {
+          navigate("/student");
           window.location.reload();
         }
       }
@@ -95,8 +86,8 @@ const AddBatches = () => {
 
             <Form.Item
               style={{ fontWeight: "600" }}
-              label="Description"
-              name="description"
+              label="Email"
+              name="email"
               rules={[
                 { required: true, message: "Please input your email!" },
               ]}
@@ -105,8 +96,8 @@ const AddBatches = () => {
             </Form.Item>
 
             <Form.Item
-              name="subject_id"
-              label="Subject"
+              name="grade_id"
+              label="Grade"
               required
               rules={[
                 { required: true, message: "Please select grade !" },
@@ -114,41 +105,14 @@ const AddBatches = () => {
               
             >
               <Select 
-              placeholder="Please Select Subject" 
+              placeholder="Please Select Grade" 
               showSearch
-              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
+              style={{width:'400px', textAlign: 'center'}}
               >
-                {subjectList &&
-                  subjectList.map((data, index) => (
+                {gradeList &&
+                  gradeList.map((data, index) => (
                     <Option
-                      value={data.id}
-                      key={index}
-                      disabled={data.disabled}
-                    >
-                      {data && data.name}
-                    </Option>
-                  ))}
-              </Select>
-            </Form.Item>
-
-            <Form.Item
-              name="students"
-              label="Student"
-              required
-              rules={[
-                { required: true, message: "Please select grade !" },
-              ]}
-              
-            >
-              <Select 
-              placeholder="Please Select Subject" 
-              showSearch
-              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
-              >
-                {studentList &&
-                  studentList.map((data, index) => (
-                    <Option
-                      value={data.id}
+                      value={data.grade_id}
                       key={index}
                       disabled={data.disabled}
                     >
@@ -174,4 +138,4 @@ const AddBatches = () => {
   );
 };
 
-export default AddBatches;
+export default AddUser;

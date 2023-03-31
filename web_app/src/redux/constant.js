@@ -12,11 +12,13 @@ export const student = {
 // grades
 export const grades = {
   GET_GRADES: "GET_GRADES",
+  ADD_GRADE: "ADD_GRADE",
 };
 
 // events
 export const events = {
     GET_EVENTS: "GET_EVENTS",
+    ADD_EVENTS:"ADD_EVENTS"
   };
 
   // subject
@@ -27,4 +29,5 @@ export const subjects = {
     // batches
 export const batches = {
     GET_BATCHES: "GET_BATCHES",
+    ADD_BATCHES: "ADD_BATCHES",
   };

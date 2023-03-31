@@ -295,38 +295,31 @@ INSERT INTO `users` (`id`, `name`, `about`, `email`, `password`, `mobile`, `role
 -- Indexes for table `batches`
 --
 ALTER TABLE `batches`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `grade_id` (`grade_id`),
-  ADD KEY `subject_id` (`subject_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `batch_students_mapping`
 --
 ALTER TABLE `batch_students_mapping`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `batch_id` (`batch_id`),
-  ADD KEY `student_id` (`student_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `events`
 --
 ALTER TABLE `events`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `batch_id` (`batch_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `event_performance`
 --
 ALTER TABLE `event_performance`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `event_id` (`event_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `event_teachers_mapping`
 --
 ALTER TABLE `event_teachers_mapping`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `event_id` (`event_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `grades`
@@ -344,8 +337,7 @@ ALTER TABLE `roles`
 -- Indexes for table `students`
 --
 ALTER TABLE `students`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `grade_id` (`grade_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `subjects`
@@ -357,8 +349,7 @@ ALTER TABLE `subjects`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `role_id` (`role_id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -429,48 +420,8 @@ ALTER TABLE `users`
 --
 
 --
--- Constraints for table `batches`
---
-ALTER TABLE `batches`
-  ADD CONSTRAINT `batches_ibfk_1` FOREIGN KEY (`grade_id`) REFERENCES `grades` (`id`),
-  ADD CONSTRAINT `batches_ibfk_2` FOREIGN KEY (`subject_id`) REFERENCES `subjects` (`id`);
-
---
 -- Constraints for table `batch_students_mapping`
 --
-ALTER TABLE `batch_students_mapping`
-  ADD CONSTRAINT `batch_students_mapping_ibfk_1` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`),
-  ADD CONSTRAINT `batch_students_mapping_ibfk_2` FOREIGN KEY (`student_id`) REFERENCES `students` (`id`);
-
---
--- Constraints for table `events`
---
-ALTER TABLE `events`
-  ADD CONSTRAINT `events_ibfk_1` FOREIGN KEY (`batch_id`) REFERENCES `batches` (`id`);
-
---
--- Constraints for table `event_performance`
---
-ALTER TABLE `event_performance`
-  ADD CONSTRAINT `event_performance_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`);
-
---
--- Constraints for table `event_teachers_mapping`
---
-ALTER TABLE `event_teachers_mapping`
-  ADD CONSTRAINT `event_teachers_mapping_ibfk_1` FOREIGN KEY (`event_id`) REFERENCES `events` (`id`);
-
---
--- Constraints for table `students`
---
-ALTER TABLE `students`
-  ADD CONSTRAINT `students_ibfk_1` FOREIGN KEY (`grade_id`) REFERENCES `grades` (`id`);
-
---
--- Constraints for table `users`
---
-ALTER TABLE `users`
-  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

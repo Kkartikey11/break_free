@@ -15,3 +15,15 @@ export const batchReducer = (state = initialState, action) => {
             return state
     }
 }
+
+
+export const AddBatchesReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case batches.ADD_BATCHES:
+        // console.log(action.payload,action.type);
+        return { ...state, data: action.payload };
+  
+      default:
+        return { ...state };
+    }
+  };

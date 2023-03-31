@@ -64,7 +64,7 @@ const Event = () => {
           <Button
             type="primary"
             onClick={() => {
-              navigate("/batch/add-batch");
+              navigate("/events/add-event");
             }}
           >
             Add Event

@@ -5,29 +5,30 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
 import { addStudentAction } from "../../redux/action/student";
-import { addBatchesAction } from "../../redux/action/batch";
+import { addGradeAction } from "../../redux/action/grade";
+import { addEventAction } from "../../redux/action/event";
 
-const AddBatches = () => {
+const AddEvent = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [apiData, setApiData] = useState({});
-  const [subjectList, setSubjectList] = useState("");
-  const [studentList, setStudentList] = useState("");
+  const [batchList, setBatchList] = useState("");
+  const [monterList, setMentorList] = useState("");
 
-  //api call
   const onFinish = (values) => {
     const formData = {
       name: values.name,
       description: values.description,
-      subject_id: values.subject_id,
-      students: values.students,
+      batch_id: values.batch_id,
+      mentors: values.mentors,
+      event_datetime: values.event_datetime,
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addBatchesAction(formData));
-    navigate("/batch");
+    dispatch(addEventAction(formData));
+    navigate("/events");
   };
 
 
@@ -36,23 +37,23 @@ const AddBatches = () => {
   };
 
   const onCancel = () => {
-    navigate("/batch");
+    navigate("/events");
   }
 
   useEffect(() => {
-    if (state.getSubject.data !== "") {
-      if (state.getSubject.data.data.code === 200) {
-        setSubjectList(state.getSubject.data.data.data);
+    if (state.getBatches.data !== "") {
+      if (state.getBatches.data.data.code === 200) {
+        setBatchList(state.getBatches.data.data.data);
       }
     }
-    if (state.getStudent.data !== "") {
-      if (state.getStudent.data.data.code === 200) {
-        setStudentList(state.getStudent.data.data.data);
+    if (state.getUser.data !== "") {
+      if (state.getUser.data.data.code === 200) {
+        setMentorList(state.getUser.data.data.data);
       }
     }
-    if (state.addBatches.data !== "") {
-        if (state.addBatches.data.data.code === 200) {
-          navigate("/batch");
+    if (state.addGrade.data !== "") {
+        if (state.addGrade.data.data.code === 200) {
+          navigate("/events");
           window.location.reload();
         }
       }
@@ -72,7 +73,7 @@ const AddBatches = () => {
           background: colorBgContainer,
         }}
       >
-        <h1>Add Student</h1>
+        <h1>Add Event</h1>
         <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
           <Form
             name="basic"
@@ -94,19 +95,30 @@ const AddBatches = () => {
             </Form.Item>
 
             <Form.Item
+              label="Event Time"
+              style={{ fontWeight: "600" }}
+              name="event_datetime"
+              rules={[
+                { required: true, message: "Please input your name!" },
+              ]}
+            >
+              <Input type="date" style={{width:'400px'}} />
+            </Form.Item>
+
+            <Form.Item
               style={{ fontWeight: "600" }}
               label="Description"
               name="description"
               rules={[
-                { required: true, message: "Please input your email!" },
+                { required: true, message: "Please description!" },
               ]}
             >
               <Input />
             </Form.Item>
 
             <Form.Item
-              name="subject_id"
-              label="Subject"
+              name="batch_id"
+              label="Batch"
               required
               rules={[
                 { required: true, message: "Please select grade !" },
@@ -118,8 +130,8 @@ const AddBatches = () => {
               showSearch
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
               >
-                {subjectList &&
-                  subjectList.map((data, index) => (
+                {batchList &&
+                  batchList.map((data, index) => (
                     <Option
                       value={data.id}
                       key={index}
@@ -132,8 +144,8 @@ const AddBatches = () => {
             </Form.Item>
 
             <Form.Item
-              name="students"
-              label="Student"
+              name="mentors"
+              label="Mentors"
               required
               rules={[
                 { required: true, message: "Please select grade !" },
@@ -145,8 +157,8 @@ const AddBatches = () => {
               showSearch
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
               >
-                {studentList &&
-                  studentList.map((data, index) => (
+                {monterList &&
+                  monterList.map((data, index) => (
                     <Option
                       value={data.id}
                       key={index}
@@ -174,4 +186,4 @@ const AddBatches = () => {
   );
 };
 
-export default AddBatches;
+export default AddEvent;

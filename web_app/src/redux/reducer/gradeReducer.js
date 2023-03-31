@@ -15,3 +15,15 @@ export const gradeReducer = (state = initialState, action) => {
             return state
     }
 }
+
+
+export const AddGradeReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case grades.ADD_GRADE:
+        // console.log(action.payload,action.type);
+        return { ...state, data: action.payload };
+  
+      default:
+        return { ...state };
+    }
+  };
