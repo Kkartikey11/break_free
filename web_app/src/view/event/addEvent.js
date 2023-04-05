@@ -1,14 +1,19 @@
-import { Button, Form, Input, Select, theme } from "antd";
+import { Button, Drawer, Form, Input, Select, theme } from "antd";
 import { Option } from "antd/es/mentions";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import Context from "../../components/sidebar/context/Context";
 import { Content } from "antd/es/layout/layout";
 import { addStudentAction } from "../../redux/action/student";
 import { addGradeAction } from "../../redux/action/grade";
-import { addEventAction } from "../../redux/action/event";
+import { addEventAction, eventAction } from "../../redux/action/event";
+import { CloseOutlined } from "@ant-design/icons";
 
 const AddEvent = () => {
+  const context = useContext(Context);
+  const { addEventOpen,
+    setAddEventOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -25,9 +30,9 @@ const AddEvent = () => {
       mentors: values.mentors,
       event_datetime: values.event_datetime,
     };
-    console.log(formData);
     setApiData(formData);
     dispatch(addEventAction(formData));
+    dispatch(eventAction());
     navigate("/events");
   };
 
@@ -36,9 +41,9 @@ const AddEvent = () => {
     console.log("Failed:", errorInfo);
   };
 
-  const onCancel = () => {
-    navigate("/events");
-  }
+  const onClose = () => {
+    setAddEventOpen(false);
+  };
 
   useEffect(() => {
     if (state.getBatches.data !== "") {
@@ -65,15 +70,18 @@ const AddEvent = () => {
 
   return (
     <>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: "82vh",
-          background: colorBgContainer,
-        }}
-      >
-        <h1>Add Event</h1>
+      <Drawer
+        className="container"
+        title={
+          <>
+            <CloseOutlined onClick={onClose} /> <span>Add New Event</span>{" "}
+          </>
+        }
+        width={450}
+        closable={false}
+        onClose={onClose}
+        open={addEventOpen}
+        >
         <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
           <Form
             name="basic"
@@ -118,6 +126,7 @@ const AddEvent = () => {
 
             <Form.Item
               name="batch_id"
+              style={{ fontWeight: "600" }}
               label="Batch"
               required
               rules={[
@@ -146,6 +155,7 @@ const AddEvent = () => {
             <Form.Item
               name="mentors"
               label="Mentors"
+              style={{ fontWeight: "600" }}
               required
               rules={[
                 { required: true, message: "Please select grade !" },
@@ -171,7 +181,7 @@ const AddEvent = () => {
             </Form.Item>
 
             <Form.Item >
-              <Button htmlType="submit" onClick={onCancel} style={{marginRight:'20px'}}>
+              <Button htmlType="submit" onClick={onClose} style={{marginRight:'20px'}}>
                 Cancel
               </Button>
 
@@ -181,7 +191,7 @@ const AddEvent = () => {
             </Form.Item>
           </Form>
         </div>
-      </Content>
+        </Drawer>
     </>
   );
 };

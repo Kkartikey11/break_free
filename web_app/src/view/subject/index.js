@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { subjectAction } from "../../redux/action/subject";
+import AddSubject from "./addSubject";
 
 const Subjects = () => {
+  const context = useContext(Context);
+  const { setAddBatchOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -30,6 +33,10 @@ const Subjects = () => {
       title: "Name",
       dataIndex: "name",
     },
+    {
+      title: "Description",
+      dataIndex: "description",
+    },
     
   ];
 
@@ -46,21 +53,27 @@ const Subjects = () => {
           background: colorBgContainer,
         }}
       >
-        <div style={{display:'flex', fontSize:'18px'}}>
-            <h1>Subject List</h1>
-        </div>
-         <div
-          direction="vertical"
-          style={{ margin: "20px", display: "flex", justifyContent: "end" }}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            marginBottom: "20px",
+          }}
         >
+        <div >
+            <h1 style={{ fontSize: "30px", margin: "0px" }}>Subject List</h1>
+        </div>
+        <div style={{ marginTop: "10px" }}>
           <Button
             type="primary"
             onClick={() => {
-              navigate("/batch/add-batch");
+              setAddBatchOpen(true);
             }}
+            style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
           >
             Add Subject
           </Button>
+        </div>
         </div>
         <Table
           columns={columns}
@@ -68,6 +81,7 @@ const Subjects = () => {
           pagination={true}
           scroll={{ x: "100%" }}
         />
+        <AddSubject />
       </Content>
     </>
   );

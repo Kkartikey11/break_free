@@ -25,6 +25,7 @@ import AddBatches from "../view/batch/addBatches";
 import AddGrade from "../view/grade/addGrade";
 import AddUser from "../view/users/addUser";
 import AddEvent from "../view/event/addEvent";
+import AddSubject from "../view/subject/addSubject";
   const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -68,6 +69,7 @@ const DashboardRoutes = () => {
             <Route path="/grade/add-grade" element={<AddGrade />} />
             <Route path="/users/add-user" element={<AddUser />} />
             <Route path="/events/add-event" element={<AddEvent />} />
+            <Route path="/subject/add-subject" element={<AddSubject />} />
           </Routes>
         </Content>
         <Footer

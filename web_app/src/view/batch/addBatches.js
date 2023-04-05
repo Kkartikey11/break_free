@@ -1,13 +1,18 @@
-import { Button, Form, Input, Select, theme } from "antd";
+import { Button, Drawer, Form, Input, Select, theme } from "antd";
 import { Option } from "antd/es/mentions";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import { addStudentAction } from "../../redux/action/student";
-import { addBatchesAction } from "../../redux/action/batch";
+import Context from "../../components/sidebar/context/Context";
+import { addBatchesAction, batchAction } from "../../redux/action/batch";
+import { subjectAction } from "../../redux/action/subject";
+import { studentAction } from "../../redux/action/student";
+import { CloseOutlined } from "@ant-design/icons";
 
 const AddBatches = () => {
+  const context = useContext(Context);
+  const { addBatchOpen, setAddBatchOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -24,20 +29,19 @@ const AddBatches = () => {
       subject_id: values.subject_id,
       students: values.students,
     };
-    console.log(formData);
     setApiData(formData);
     dispatch(addBatchesAction(formData));
+    dispatch(batchAction());
     navigate("/batch");
   };
-
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const onCancel = () => {
-    navigate("/batch");
-  }
+  const onClose = () => {
+    setAddBatchOpen(false);
+  };
 
   useEffect(() => {
     if (state.getSubject.data !== "") {
@@ -51,12 +55,17 @@ const AddBatches = () => {
       }
     }
     if (state.addBatches.data !== "") {
-        if (state.addBatches.data.data.code === 200) {
-          navigate("/batch");
-          window.location.reload();
-        }
+      if (state.addBatches.data.data.code === 200) {
+        navigate("/batch");
+        window.location.reload();
       }
+    }
   }, [state]);
+
+  useEffect(() => {
+    dispatch(subjectAction());
+    dispatch(studentAction());
+  }, []);
 
   const {
     token: { colorBgContainer },
@@ -64,16 +73,26 @@ const AddBatches = () => {
 
   return (
     <>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: "82vh",
-          background: colorBgContainer,
-        }}
+      <Drawer
+        className="container"
+        title={
+          <>
+            <CloseOutlined onClick={onClose} /> <span>Add New Batch</span>{" "}
+          </>
+        }
+        width={450}
+        closable={false}
+        onClose={onClose}
+        open={addBatchOpen}
+        style={{ overflowY: "auto" }}
       >
-        <h1>Add Student</h1>
-        <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <Form
             name="basic"
             initialValues={{ remember: true }}
@@ -86,11 +105,9 @@ const AddBatches = () => {
               label="Name"
               style={{ fontWeight: "600" }}
               name="name"
-              rules={[
-                { required: true, message: "Please input your name!" },
-              ]}
+              rules={[{ required: true, message: "Please input your name!" }]}
             >
-              <Input style={{width:'400px'}} />
+              <Input style={{ width: "400px" }} />
             </Form.Item>
 
             <Form.Item
@@ -98,7 +115,7 @@ const AddBatches = () => {
               label="Description"
               name="description"
               rules={[
-                { required: true, message: "Please input your email!" },
+                { required: true, message: "Please input your description!" },
               ]}
             >
               <Input />
@@ -106,17 +123,19 @@ const AddBatches = () => {
 
             <Form.Item
               name="subject_id"
+              style={{ fontWeight: "600" }}
               label="Subject"
               required
-              rules={[
-                { required: true, message: "Please select grade !" },
-              ]}
-              
+              rules={[{ required: true, message: "Please select grade !" }]}
             >
-              <Select 
-              placeholder="Please Select Subject" 
-              showSearch
-              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
+              <Select
+                placeholder="Please Select Subject"
+                showSearch
+                style={{
+                  width: "400px",
+                  textAlign: "center",
+                  fontWeight: "600",
+                }}
               >
                 {subjectList &&
                   subjectList.map((data, index) => (
@@ -133,17 +152,19 @@ const AddBatches = () => {
 
             <Form.Item
               name="students"
+              style={{ fontWeight: "600" }}
               label="Student"
               required
-              rules={[
-                { required: true, message: "Please select grade !" },
-              ]}
-              
+              rules={[{ required: true, message: "Please select grade !" }]}
             >
-              <Select 
-              placeholder="Please Select Subject" 
-              showSearch
-              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
+              <Select
+                placeholder="Please Select Subject"
+                showSearch
+                style={{
+                  width: "400px",
+                  textAlign: "center",
+                  fontWeight: "600",
+                }}
               >
                 {studentList &&
                   studentList.map((data, index) => (
@@ -158,8 +179,12 @@ const AddBatches = () => {
               </Select>
             </Form.Item>
 
-            <Form.Item >
-              <Button htmlType="submit" onClick={onCancel} style={{marginRight:'20px'}}>
+            <Form.Item>
+              <Button
+                htmlType="submit"
+                onClick={onClose}
+                style={{ marginRight: "20px" }}
+              >
                 Cancel
               </Button>
 
@@ -169,7 +194,7 @@ const AddBatches = () => {
             </Form.Item>
           </Form>
         </div>
-      </Content>
+      </Drawer>
     </>
   );
 };

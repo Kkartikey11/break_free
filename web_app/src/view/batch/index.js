@@ -1,12 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { batchAction } from "../../redux/action/batch";
+import AddBatches from "./addBatches";
 
 const Batch = () => {
+  const context = useContext(Context);
+  const { setAddBatchOpen } =
+    context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -71,8 +76,9 @@ const Batch = () => {
             <Button
               type="primary"
               onClick={() => {
-                navigate("/batch/add-batch");
+                setAddBatchOpen(true);
               }}
+              style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
             >
               Add Batch
             </Button>
@@ -84,6 +90,7 @@ const Batch = () => {
           pagination={true}
           scroll={{ x: "100%" }}
         />
+        <AddBatches />
       </Content>
     </>
   );

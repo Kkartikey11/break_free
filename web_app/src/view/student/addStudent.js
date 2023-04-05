@@ -1,12 +1,19 @@
-import { Button, Form, Input, Select, theme } from "antd";
+import { Button, Drawer, Form, Input, Select, theme } from "antd";
 import { Option } from "antd/es/mentions";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import { addStudentAction } from "../../redux/action/student";
+import { addStudentAction, studentAction } from "../../redux/action/student";
+import { gradeAction } from "../../redux/action/grade";
+import PropTypes from 'prop-types';
+import Context from "../../components/sidebar/context/Context";
+import { CloseOutlined } from "@ant-design/icons";
 
-const AddStudent = () => {
+const AddStudent = ({isEditable}) => {
+  const context = useContext(Context);
+  const { studentData, setStudentData, addStudentOpen, setAddStudentOpen } =
+    context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -23,7 +30,8 @@ const AddStudent = () => {
     console.log(formData);
     setApiData(formData);
     dispatch(addStudentAction(formData));
-    navigate("/student");
+    dispatch(studentAction());
+    setAddStudentOpen(false);
   };
 
 
@@ -34,6 +42,10 @@ const AddStudent = () => {
   const onCancel = () => {
     navigate("/student");
   }
+
+  const onClose = () => {
+    setAddStudentOpen(false);
+  };
 
   useEffect(() => {
     if (state.getGrade.data !== "") {
@@ -49,21 +61,29 @@ const AddStudent = () => {
       }
   }, [state]);
 
+  useEffect(() => {
+    dispatch(gradeAction());
+  }, []);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
   return (
     <>
-      <Content
-        style={{
-          padding: 24,
-          margin: 0,
-          minHeight: "82vh",
-          background: colorBgContainer,
-        }}
+      <Drawer
+        className="container"
+        title={
+          <>
+            <CloseOutlined onClick={onClose} /> <span>Create New Student</span>{" "}
+          </>
+        }
+        width={450}
+        closable={false}
+        onClose={onClose}
+        open={addStudentOpen}
+        style={{ overflowY: "auto" }}
       >
-        <h1>Add Student</h1>
         <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
           <Form
             name="basic"
@@ -81,7 +101,7 @@ const AddStudent = () => {
                 { required: true, message: "Please input your name!" },
               ]}
             >
-              <Input style={{width:'400px'}} />
+              <Input style={{width:'300px'}} />
             </Form.Item>
 
             <Form.Item
@@ -107,7 +127,7 @@ const AddStudent = () => {
               <Select 
               placeholder="Please Select Grade" 
               showSearch
-              style={{width:'400px', textAlign: 'center'}}
+              style={{width:'300px', textAlign: 'center'}}
               >
                 {gradeList &&
                   gradeList.map((data, index) => (
@@ -123,7 +143,7 @@ const AddStudent = () => {
             </Form.Item>
 
             <Form.Item >
-              <Button htmlType="submit" onClick={onCancel} style={{marginRight:'20px'}}>
+              <Button htmlType="submit" onClick={onClose} style={{marginRight:'20px'}}>
                 Cancel
               </Button>
 
@@ -133,9 +153,13 @@ const AddStudent = () => {
             </Form.Item>
           </Form>
         </div>
-      </Content>
+      </Drawer>
     </>
   );
+};
+
+AddStudent.propTypes = {
+  isEditable: PropTypes.any
 };
 
 export default AddStudent;

@@ -59,7 +59,7 @@
     align-items: center;
     background: white;
     border-radius: 15px 0px 0px 15px;
-    color: black;
+    color: black !important;
     font-weight: 600;
     padding-left: '25px';
   }

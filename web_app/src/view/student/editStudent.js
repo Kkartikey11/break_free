@@ -1,17 +1,22 @@
 import { Button, Drawer, Form, Input, Select, theme } from "antd";
 import { Option } from "antd/es/mentions";
-import React, { useEffect, useState, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import {  addUserAction, userAction } from "../../redux/action/user";
+import { addStudentAction, studentAction } from "../../redux/action/student";
+import { gradeAction } from "../../redux/action/grade";
+import PropTypes from 'prop-types';
+import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
 
-const AddUser = () => {
+const EditStudent = ({isEditable}) => {
   const context = useContext(Context);
-  const { addUserOpen,
-    setAddUserOpen } = context;
+  const { studentData, setStudentData, editStudentOpen,
+    setEditStudentOpen, } =
+    context;
+  console.log(studentData);
+  console.log(isEditable);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -23,14 +28,13 @@ const AddUser = () => {
     const formData = {
       name: values.name,
       email: values.email,
-      about: values.about,
-      role_id: parseFloat(values.role_id),
-      password: values.password,
-
+      grade_id: values.grade_id,
     };
+    console.log(formData);
     setApiData(formData);
-    dispatch(addUserAction(formData));
-    navigate("/users");
+    dispatch(addStudentAction(formData));
+    dispatch(studentAction());
+    setEditStudentOpen(false);
   };
 
 
@@ -39,8 +43,13 @@ const AddUser = () => {
   };
 
   const onCancel = () => {
-    navigate("/users");
+    navigate("/student");
   }
+
+  const onClose = () => {
+    setEditStudentOpen(false);
+    setStudentData("");
+  };
 
   useEffect(() => {
     if (state.getGrade.data !== "") {
@@ -48,39 +57,39 @@ const AddUser = () => {
         setGradeList(state.getGrade.data.data.data);
       }
     }
-    if (state.addUser.data !== "") {
-        if (state.addUser.data.data.code === 200) {
-          navigate("/users");
+    if (state.addStudent.data !== "") {
+        if (state.addStudent.data.data.code === 200) {
+          navigate("/student");
           window.location.reload();
         }
       }
   }, [state]);
 
+  useEffect(() => {
+    dispatch(gradeAction());
+  }, []);
+
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const onClose = () => {
-    setAddUserOpen(false);
-  };
-
   return (
     <>
-      <Drawer
+      {studentData && <Drawer
         className="container"
         title={
           <>
-            <CloseOutlined onClick={onClose} /> <span>Add New User</span>{" "}
+            <CloseOutlined onClick={onClose} /> <span>edit Student</span>{" "}
           </>
         }
         width={450}
         closable={false}
         onClose={onClose}
-        open={addUserOpen}
+        open={editStudentOpen}
         style={{ overflowY: "auto" }}
       >
         <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
-          <Form
+         <Form
             name="basic"
             initialValues={{ remember: true }}
             onFinish={onFinish}
@@ -96,7 +105,7 @@ const AddUser = () => {
                 { required: true, message: "Please input your name!" },
               ]}
             >
-              <Input style={{width:'340px'}} />
+              <Input defaultValue={studentData.name} style={{width:'300px'}} />
             </Form.Item>
 
             <Form.Item
@@ -107,35 +116,12 @@ const AddUser = () => {
                 { required: true, message: "Please input your email!" },
               ]}
             >
-              <Input />
+              <Input  defaultValue={studentData.email} />
             </Form.Item>
 
             <Form.Item
-              label="Password"
-              style={{ fontWeight: "600" }}
-              name="password"
-              rules={[
-                { required: true, message: "Please input your name!" },
-              ]}
-            >
-              <Input style={{width:'317px'}} />
-            </Form.Item>
-
-            <Form.Item
-              label="About"
-              style={{ fontWeight: "600" }}
-              name="about"
-              rules={[
-                { required: true, message: "Please input about user!" },
-              ]}
-            >
-              <Input style={{width:'336px'}} />
-            </Form.Item>
-
-            <Form.Item
-              name="role_id"
-              label="User Type"
-              style={{ fontWeight: "600" }}
+              name="grade_id"
+              label="Grade"
               required
               rules={[
                 { required: true, message: "Please select grade !" },
@@ -143,37 +129,38 @@ const AddUser = () => {
               
             >
               <Select 
-              placeholder="Please Select User Type" 
+              placeholder="Please Select Grade" 
               showSearch
-              style={{width:'310px',fontWeight: "600", textAlign: 'center'}}
+              style={{width:'300px', textAlign: 'center'}}
+              defaultValue={studentData.garde}
               >
+                {gradeList &&
+                  gradeList.map((data, index) => (
                     <Option
-                      value="2"
+                      value={data.grade_id}
+                      key={index}
+                      disabled={data.disabled}
                     >
-                      Admin
+                      {data && data.name}
                     </Option>
-                    <Option
-                      value="3"
-                    >
-                      Mentor
-                    </Option>
+                  ))}
               </Select>
             </Form.Item>
 
             <Form.Item >
-              <Button htmlType="submit" onClose={onClose} style={{marginRight:'20px'}}>
+              <Button htmlType="submit" onClick={onClose} style={{marginRight:'20px'}}>
                 Cancel
               </Button>
 
               <Button type="primary" htmlType="submit">
-                Add
+                Update
               </Button>
             </Form.Item>
           </Form>
         </div>
-        </Drawer>
+      </Drawer>}
     </>
   );
 };
 
-export default AddUser;
+export default EditStudent;

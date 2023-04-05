@@ -32,9 +32,6 @@ export const addStudentAction = (formInput) => (dispatch) => {
         notification.success({
           message: `${response.data.message}`,
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       }
       dispatch({
         type: student.ADD_STUDENT,

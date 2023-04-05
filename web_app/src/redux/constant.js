@@ -1,6 +1,7 @@
 //user
 export const user = {
   GET_USERS: "GET_USERS",
+  ADD_USERS: "ADD_USERS",
 };
 
 // student
@@ -24,6 +25,7 @@ export const events = {
   // subject
 export const subjects = {
     GET_SUBJECTS: "GET_SUBJECTS",
+    ADD_SUBJECT: "ADD_SUBJECT",
   };
 
     // batches

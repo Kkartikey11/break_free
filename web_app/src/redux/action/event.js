@@ -32,9 +32,6 @@ export const addEventAction = (formInput) => (dispatch) => {
         notification.success({
           message: `${response.data.message}`,
         });
-        setTimeout(() => {
-          window.location.reload();
-        }, 500);
       }
       dispatch({
         type: events.ADD_EVENTS,

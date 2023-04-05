@@ -35,6 +35,7 @@ const SideNavbar = () => {
           top: 0,
           bottom: 0,
           textAlign: "center",
+          background: "#000",
         }}
       >
         <div>
@@ -59,7 +60,10 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
+
             }}
           >
             <BankOutlined className={styles.link_icon} /> Dashboard
@@ -85,7 +89,9 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
             }}
           >
             <UsergroupAddOutlined className={styles.link_icon} />
@@ -100,7 +106,9 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
             }}
             onClick={() => {
               setBatchClicked(true);
@@ -126,7 +134,9 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
             }}
             onClick={() => {
               setEventClicked(true);
@@ -153,7 +163,9 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
             }}
             onClick={() => {
               setSubjectClicked(true);
@@ -179,7 +191,9 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
             }}
             onClick={() => {
               setGardeClicked(true);
@@ -205,7 +219,9 @@ const SideNavbar = () => {
               gap: "10px",
               fontWeight:'600',
               margin:'0px 0px 10px 0px',
-              paddingLeft: '25px'
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
             }}
             onClick={() => {
               setuserClicked(true);

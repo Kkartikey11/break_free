@@ -3,23 +3,23 @@ import { Option } from "antd/es/mentions";
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
-import Context from "../../components/sidebar/context/Context";
 import { Content } from "antd/es/layout/layout";
-import { addStudentAction } from "../../redux/action/student";
-import { addGradeAction } from "../../redux/action/grade";
+import Context from "../../components/sidebar/context/Context";
+import { addBatchesAction } from "../../redux/action/batch";
+import { addSubjectAction, subjectAction } from "../../redux/action/subject";
 import { CloseOutlined } from "@ant-design/icons";
 
-const AddGrade = () => {
+const AddSubject = () => {
   const context = useContext(Context);
-  const { addGradeOpen, setAddGradeOpen } = context;
+  const { addSubjectOpen, setAddSubjectOpen } = context;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [apiData, setApiData] = useState({});
-  const [gradeList, setGradeList] = useState("");
 
+  //api call
   const onFinish = (values) => {
     const formData = {
       name: values.name,
@@ -27,27 +27,19 @@ const AddGrade = () => {
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addGradeAction(formData));
-    navigate("/grade");
+    dispatch(addSubjectAction(formData));
+    dispatch(subjectAction());
+    navigate("/subject");
   };
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
 
-  const onClose = () => {
-    setAddGradeOpen(false);
-  };
-
   useEffect(() => {
-    if (state.getGrade.data !== "") {
-      if (state.getGrade.data.data.code === 200) {
-        setGradeList(state.getGrade.data.data.data);
-      }
-    }
-    if (state.addGrade.data !== "") {
-      if (state.addGrade.data.data.code === 200) {
-        navigate("/grade");
+    if (state.addBatches.data !== "") {
+      if (state.addBatches.data.data.code === 200) {
+        navigate("/subject");
         window.location.reload();
       }
     }
@@ -57,19 +49,23 @@ const AddGrade = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const onClose = () => {
+    setAddSubjectOpen(false);
+  };
+
   return (
     <>
       <Drawer
         className="container"
         title={
           <>
-            <CloseOutlined onClick={onClose} /> <span>Add New Grade</span>{" "}
+            <CloseOutlined onClick={onClose} /> <span>Add New Subject</span>{" "}
           </>
         }
         width={450}
         closable={false}
         onClose={onClose}
-        open={addGradeOpen}
+        open={addSubjectOpen}
         style={{ overflowY: "auto" }}
       >
         <div
@@ -88,7 +84,7 @@ const AddGrade = () => {
             style={{ marginTop: "30px" }}
           >
             <Form.Item
-              label="Name"
+              label="Subject Name"
               style={{ fontWeight: "600" }}
               name="name"
               rules={[{ required: true, message: "Please input your name!" }]}
@@ -100,7 +96,9 @@ const AddGrade = () => {
               style={{ fontWeight: "600" }}
               label="Description"
               name="description"
-              rules={[{ required: true, message: "Please description!" }]}
+              rules={[
+                { required: true, message: "Please input your description!" },
+              ]}
             >
               <Input />
             </Form.Item>
@@ -120,9 +118,10 @@ const AddGrade = () => {
             </Form.Item>
           </Form>
         </div>
-        </Drawer>
+
+     </Drawer>
     </>
   );
 };
 
-export default AddGrade;
+export default AddSubject;

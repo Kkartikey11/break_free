@@ -56,7 +56,7 @@ const Dashboard = () => {
               background:
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
             }}
-            onClick={() => navigate("/dashboard/events")}
+            onClick={() => navigate("/events")}
           >
             <h1>Event</h1>
           </Card>
@@ -69,7 +69,7 @@ const Dashboard = () => {
               background:
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
             }}
-            onClick={() => navigate("/dashboard/batch")}
+            onClick={() => navigate("/batch")}
           >
             <h1>Batch</h1>
           </Card>
@@ -82,7 +82,7 @@ const Dashboard = () => {
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
               cursor: "pointer",
             }}
-            onClick={() => navigate("/dashboard/student")}
+            onClick={() => navigate("/student")}
           >
             <h1>Student</h1>
           </Card>
@@ -94,7 +94,7 @@ const Dashboard = () => {
               background:
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
             }}
-            onClick={() => navigate("/dashboard/subject")}
+            onClick={() => navigate("/subject")}
           >
             <h1>Subject</h1>
           </Card>
@@ -106,7 +106,7 @@ const Dashboard = () => {
               background:
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
             }}
-            onClick={() => navigate("/dashboard/grade")}
+            onClick={() => navigate("/grade")}
           >
             <h1>Grade</h1>
           </Card>
@@ -117,7 +117,7 @@ const Dashboard = () => {
               background:
                 "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
             }}
-            onClick={() => navigate("/dashboard/users")}
+            onClick={() => navigate("/users")}
           >
             <h1>Users</h1>
           </Card>

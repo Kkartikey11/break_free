@@ -3,8 +3,8 @@ import { AddBatchesReducer, batchReducer } from "./batchReducer";
 import { AddEventReducer, eventReducer } from "./eventReducer";
 import { AddGradeReducer, gradeReducer } from "./gradeReducer";
 import { AddStudentReducer, studentReducer } from "./studentReducer";
-import { subjectReducer } from "./subjectReducer";
-import { userReducer } from "./userReducer";
+import { AddSubjectReducer, subjectReducer } from "./subjectReducer";
+import { userReducer, AddUserReducer } from "./userReducer";
 
 const RootReducer = combineReducers({
     getUser: userReducer,
@@ -17,6 +17,8 @@ const RootReducer = combineReducers({
     addGrade: AddGradeReducer,
     addBatches: AddBatchesReducer,
     addEvent: AddEventReducer,
+    addSubject: AddSubjectReducer,
+    addUser: AddUserReducer,
 })
 
 export default RootReducer;
