@@ -10,18 +10,18 @@ import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
 
-const EditStudent = ({ isEditable }) => {
+const EditSubject = ({ isEditable }) => {
   const context = useContext(Context);
-  const { studentData, setStudentData, editStudentOpen, setEditStudentOpen } =
+  const { editSubjectOpen, setEditSubjectOpen, subjectData, setSubjectData } =
     context;
-  console.log(studentData);
-  console.log(isEditable);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [apiData, setApiData] = useState({});
   const [gradeList, setGradeList] = useState("");
+
+  console.log(subjectData);
 
   const onFinish = (values) => {
     const formData = {
@@ -33,7 +33,7 @@ const EditStudent = ({ isEditable }) => {
     setApiData(formData);
     dispatch(addStudentAction(formData));
     dispatch(studentAction());
-    setEditStudentOpen(false);
+    setEditSubjectOpen(false);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -45,8 +45,8 @@ const EditStudent = ({ isEditable }) => {
   };
 
   const onClose = () => {
-    setEditStudentOpen(false);
-    setStudentData("");
+    setEditSubjectOpen(false);
+    setSubjectData("");
   };
 
   useEffect(() => {
@@ -73,18 +73,18 @@ const EditStudent = ({ isEditable }) => {
 
   return (
     <>
-      {studentData && (
+      {subjectData && (
         <Drawer
           className="container"
           title={
             <>
-              <CloseOutlined onClick={onClose} /> <span>edit Student</span>{" "}
+              <CloseOutlined onClick={onClose} /> <span> Edit Subject</span>{" "}
             </>
           }
           width={450}
           closable={false}
           onClose={onClose}
-          open={editStudentOpen}
+          open={editSubjectOpen}
           style={{ overflowY: "auto" }}
         >
           <div
@@ -103,51 +103,26 @@ const EditStudent = ({ isEditable }) => {
               style={{ marginTop: "30px" }}
             >
               <Form.Item
-                label="Name"
+                label="Subject Name"
                 style={{ fontWeight: "600" }}
                 name="name"
                 rules={[{ required: true, message: "Please input your name!" }]}
               >
                 <Input
-                  defaultValue={studentData.name}
-                  style={{ width: "300px" }}
+                  defaultValue={subjectData.name}
+                  style={{ width: "400px" }}
                 />
               </Form.Item>
 
               <Form.Item
                 style={{ fontWeight: "600" }}
-                label="Email"
-                name="email"
+                label="Description"
+                name="description"
                 rules={[
-                  { required: true, message: "Please input your email!" },
+                  { required: true, message: "Please input your description!" },
                 ]}
               >
-                <Input defaultValue={studentData.email} />
-              </Form.Item>
-
-              <Form.Item
-                name="grade_id"
-                label="Grade"
-                required
-                rules={[{ required: true, message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Grade"
-                  showSearch
-                  style={{ width: "300px", textAlign: "center" }}
-                  defaultValue={studentData.garde}
-                >
-                  {gradeList &&
-                    gradeList.map((data, index) => (
-                      <Option
-                        value={data.grade_id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
+                <Input defaultValue={subjectData.description} />
               </Form.Item>
 
               <div
@@ -183,4 +158,4 @@ const EditStudent = ({ isEditable }) => {
   );
 };
 
-export default EditStudent;
+export default EditSubject;

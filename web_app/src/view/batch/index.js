@@ -7,10 +7,12 @@ import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { batchAction } from "../../redux/action/batch";
 import AddBatches from "./addBatches";
+import EditBatch from "./editBatch";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Batch = () => {
   const context = useContext(Context);
-  const { setAddBatchOpen } =
+  const { setAddBatchOpen, setEditBatchOpen,setBatchData  } =
     context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +48,51 @@ const Batch = () => {
     {
       title: "Description",
       dataIndex: "description",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        // <Space size="middle">
+        //   <a
+            // onClick={() => {
+            //   setBatchData(record);
+            //   setEditBatchOpen(true);
+            // }}
+        //   >
+        //     Edit
+        //   </a>
+        // </Space>
+
+        <Space
+          size="middle"
+          style={{
+            width: "100px",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <a
+            onClick={() => {
+              setBatchData(record);
+              setEditBatchOpen(true);
+            }}
+            style={{ color: "green" }}
+          >
+            <EditOutlined style={{ color: "green" }} /> Edit
+          </a>
+
+          <a
+            onClick={() => {
+              setBatchData(record);
+              alert(record.id);
+            }}
+            style={{ color: "green" }}
+          >
+            <DeleteOutlined style={{ color: "red" }} />
+          </a>
+        </Space>
+      ),
     },
   ];
 
@@ -91,6 +138,7 @@ const Batch = () => {
           scroll={{ x: "100%" }}
         />
         <AddBatches />
+        <EditBatch />
       </Content>
     </>
   );

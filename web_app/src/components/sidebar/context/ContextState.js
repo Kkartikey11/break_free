@@ -8,19 +8,23 @@ const ContextState = (props) => {
 
   const [addBatchOpen, setAddBatchOpen] = useState(false);
   const [editBatchOpen, setEditBatchOpen] = useState(false);
+  const [batchData, setBatchData] = useState("");
 
   const [addSubjectOpen, setAddSubjectOpen] = useState(false);
   const [editSubjectOpen, setEditSubjectOpen] = useState(false);
+  const [subjectData, setSubjectData] = useState("");
 
   const [addGradeOpen, setAddGradeOpen] = useState(false);
   const [editGradeOpen, setEditGradeOpen] = useState(false);
+  const [gradeData, setGradeData] = useState("");
 
   const [addUserOpen, setAddUserOpen] = useState(false);
   const [editUserOpen, setEditUserOpen] = useState(false);
+  const [userData, setUserData] = useState("");
 
   const [addEventOpen, setAddEventOpen] = useState(false);
   const [editEventOpen, setEditEventOpen] = useState(false);
-
+  const [eventData, setEventData] = useState("");
 
   return (
     <Context.Provider
@@ -31,27 +35,41 @@ const ContextState = (props) => {
         setAddStudentOpen,
         editStudentOpen,
         setEditStudentOpen,
-        addBatchOpen,
-        setAddBatchOpen,
-        editBatchOpen,
-        setEditBatchOpen,
-        addSubjectOpen,
-        setAddSubjectOpen,
-        editSubjectOpen,
-        setEditSubjectOpen,
-        addGradeOpen,
-        setAddGradeOpen,
-        editGradeOpen,
-        setEditGradeOpen,
-        addUserOpen,
-        setAddUserOpen,
-        editUserOpen,
-        setEditUserOpen,
+
         addEventOpen,
         setAddEventOpen,
         editEventOpen,
         setEditEventOpen,
-        
+        eventData,
+        setEventData,
+
+        addGradeOpen,
+        setAddGradeOpen,
+        editGradeOpen,
+        setEditGradeOpen,
+        gradeData,
+        setGradeData,
+
+        addUserOpen,
+        setAddUserOpen,
+        editUserOpen,
+        setEditUserOpen,
+        userData,
+        setUserData,
+
+        addSubjectOpen,
+        setAddSubjectOpen,
+        editSubjectOpen,
+        setEditSubjectOpen,
+        subjectData,
+        setSubjectData,
+
+        addBatchOpen,
+        setAddBatchOpen,
+        editBatchOpen,
+        setEditBatchOpen,
+        batchData,
+        setBatchData,
       }}
     >
       {props.children}

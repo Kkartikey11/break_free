@@ -10,12 +10,9 @@ import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
 
-const EditStudent = ({ isEditable }) => {
+const EditGrade = ({ isEditable }) => {
   const context = useContext(Context);
-  const { studentData, setStudentData, editStudentOpen, setEditStudentOpen } =
-    context;
-  console.log(studentData);
-  console.log(isEditable);
+  const { editGradeOpen, setEditGradeOpen, gradeData, setGradeData } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -33,7 +30,7 @@ const EditStudent = ({ isEditable }) => {
     setApiData(formData);
     dispatch(addStudentAction(formData));
     dispatch(studentAction());
-    setEditStudentOpen(false);
+    setEditGradeOpen(false);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -45,8 +42,8 @@ const EditStudent = ({ isEditable }) => {
   };
 
   const onClose = () => {
-    setEditStudentOpen(false);
-    setStudentData("");
+    setEditGradeOpen(false);
+    setGradeData("");
   };
 
   useEffect(() => {
@@ -73,18 +70,18 @@ const EditStudent = ({ isEditable }) => {
 
   return (
     <>
-      {studentData && (
+      {gradeData && (
         <Drawer
           className="container"
           title={
             <>
-              <CloseOutlined onClick={onClose} /> <span>edit Student</span>{" "}
+              <CloseOutlined onClick={onClose} /> <span> Edit Grade</span>{" "}
             </>
           }
           width={450}
           closable={false}
           onClose={onClose}
-          open={editStudentOpen}
+          open={editGradeOpen}
           style={{ overflowY: "auto" }}
         >
           <div
@@ -109,45 +106,18 @@ const EditStudent = ({ isEditable }) => {
                 rules={[{ required: true, message: "Please input your name!" }]}
               >
                 <Input
-                  defaultValue={studentData.name}
-                  style={{ width: "300px" }}
+                  defaultValue={gradeData.name}
+                  style={{ width: "400px" }}
                 />
               </Form.Item>
 
               <Form.Item
                 style={{ fontWeight: "600" }}
-                label="Email"
-                name="email"
-                rules={[
-                  { required: true, message: "Please input your email!" },
-                ]}
+                label="Description"
+                name="description"
+                rules={[{ required: true, message: "Please description!" }]}
               >
-                <Input defaultValue={studentData.email} />
-              </Form.Item>
-
-              <Form.Item
-                name="grade_id"
-                label="Grade"
-                required
-                rules={[{ required: true, message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Grade"
-                  showSearch
-                  style={{ width: "300px", textAlign: "center" }}
-                  defaultValue={studentData.garde}
-                >
-                  {gradeList &&
-                    gradeList.map((data, index) => (
-                      <Option
-                        value={data.grade_id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
+                <Input defaultValue={gradeData.description} />
               </Form.Item>
 
               <div
@@ -183,4 +153,4 @@ const EditStudent = ({ isEditable }) => {
   );
 };
 
-export default EditStudent;
+export default EditGrade;

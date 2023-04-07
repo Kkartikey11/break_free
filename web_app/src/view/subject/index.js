@@ -6,10 +6,12 @@ import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { subjectAction } from "../../redux/action/subject";
 import AddSubject from "./addSubject";
+import EditSubject from "./editSubject";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Subjects = () => {
   const context = useContext(Context);
-  const { setAddBatchOpen } = context;
+  const { setAddBatchOpen, setSubjectData, setEditSubjectOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -36,6 +38,40 @@ const Subjects = () => {
     {
       title: "Description",
       dataIndex: "description",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space
+          size="middle"
+          style={{
+            width: "100px",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <a
+            onClick={() => {
+              setSubjectData(record);
+              setEditSubjectOpen(true);
+            }}
+            style={{ color: "green" }}
+          >
+            <EditOutlined style={{ color: "green" }} /> Edit
+          </a>
+
+          <a
+            onClick={() => {
+              setSubjectData(record);
+              alert(record.id);
+            }}
+            style={{ color: "green" }}
+          >
+            <DeleteOutlined style={{ color: "red" }} />
+          </a>
+        </Space>
+      ),
     },
     
   ];
@@ -82,6 +118,7 @@ const Subjects = () => {
           scroll={{ x: "100%" }}
         />
         <AddSubject />
+        <EditSubject />
       </Content>
     </>
   );

@@ -9,19 +9,19 @@ import { gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
+import { subjectAction } from "../../redux/action/subject";
 
-const EditStudent = ({ isEditable }) => {
+const EditBatch = ({ isEditable }) => {
   const context = useContext(Context);
-  const { studentData, setStudentData, editStudentOpen, setEditStudentOpen } =
-    context;
-  console.log(studentData);
-  console.log(isEditable);
+  const { editBatchOpen, setEditBatchOpen, batchData, setBatchData } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [apiData, setApiData] = useState({});
   const [gradeList, setGradeList] = useState("");
+  const [subjectList, setSubjectList] = useState("");
+  const [studentList, setStudentList] = useState("");
 
   const onFinish = (values) => {
     const formData = {
@@ -33,7 +33,7 @@ const EditStudent = ({ isEditable }) => {
     setApiData(formData);
     dispatch(addStudentAction(formData));
     dispatch(studentAction());
-    setEditStudentOpen(false);
+    setEditBatchOpen(false);
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -45,26 +45,32 @@ const EditStudent = ({ isEditable }) => {
   };
 
   const onClose = () => {
-    setEditStudentOpen(false);
-    setStudentData("");
+    setEditBatchOpen(false);
+    setBatchData("");
   };
 
   useEffect(() => {
-    if (state.getGrade.data !== "") {
-      if (state.getGrade.data.data.code === 200) {
-        setGradeList(state.getGrade.data.data.data);
+    if (state.getSubject.data !== "") {
+      if (state.getSubject.data.data.code === 200) {
+        setSubjectList(state.getSubject.data.data.data);
       }
     }
-    if (state.addStudent.data !== "") {
-      if (state.addStudent.data.data.code === 200) {
-        navigate("/student");
+    if (state.getStudent.data !== "") {
+      if (state.getStudent.data.data.code === 200) {
+        setStudentList(state.getStudent.data.data.data);
+      }
+    }
+    if (state.addBatches.data !== "") {
+      if (state.addBatches.data.data.code === 200) {
+        navigate("/batch");
         window.location.reload();
       }
     }
   }, [state]);
 
   useEffect(() => {
-    dispatch(gradeAction());
+    dispatch(subjectAction());
+    dispatch(studentAction());
   }, []);
 
   const {
@@ -73,18 +79,18 @@ const EditStudent = ({ isEditable }) => {
 
   return (
     <>
-      {studentData && (
+      {batchData && (
         <Drawer
           className="container"
           title={
             <>
-              <CloseOutlined onClick={onClose} /> <span>edit Student</span>{" "}
+              <CloseOutlined onClick={onClose} /> <span>edit Batch</span>{" "}
             </>
           }
           width={450}
           closable={false}
           onClose={onClose}
-          open={editStudentOpen}
+          open={editBatchOpen}
           style={{ overflowY: "auto" }}
         >
           <div
@@ -109,38 +115,73 @@ const EditStudent = ({ isEditable }) => {
                 rules={[{ required: true, message: "Please input your name!" }]}
               >
                 <Input
-                  defaultValue={studentData.name}
-                  style={{ width: "300px" }}
+                  defaultValue={batchData.name}
+                  style={{ width: "400px" }}
                 />
               </Form.Item>
 
               <Form.Item
                 style={{ fontWeight: "600" }}
-                label="Email"
-                name="email"
+                label="Description"
+                name="description"
                 rules={[
-                  { required: true, message: "Please input your email!" },
+                  { required: true, message: "Please input your description!" },
                 ]}
               >
-                <Input defaultValue={studentData.email} />
+                <Input defaultValue={batchData.description} />
               </Form.Item>
 
               <Form.Item
-                name="grade_id"
-                label="Grade"
+                name="subject_id"
+                style={{ fontWeight: "600" }}
+                label="Subject"
                 required
                 rules={[{ required: true, message: "Please select grade !" }]}
               >
                 <Select
-                  placeholder="Please Select Grade"
+                  placeholder="Please Select Subject"
                   showSearch
-                  style={{ width: "300px", textAlign: "center" }}
-                  defaultValue={studentData.garde}
+                  defaultValue={batchData.subject_id}
+                  style={{
+                    width: "400px",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
                 >
-                  {gradeList &&
-                    gradeList.map((data, index) => (
+                  {subjectList &&
+                    subjectList.map((data, index) => (
                       <Option
-                        value={data.grade_id}
+                        value={data.id}
+                        key={index}
+                        disabled={data.disabled}
+                      >
+                        {data && data.name}
+                      </Option>
+                    ))}
+                </Select>
+              </Form.Item>
+
+              <Form.Item
+                name="students"
+                style={{ fontWeight: "600" }}
+                label="Student"
+                required
+                rules={[{ required: true, message: "Please select grade !" }]}
+              >
+                <Select
+                  placeholder="Please Select Subject"
+                  showSearch
+                  defaultValue={batchData.students}
+                  style={{
+                    width: "400px",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
+                >
+                  {studentList &&
+                    studentList.map((data, index) => (
+                      <Option
+                        value={data.id}
                         key={index}
                         disabled={data.disabled}
                       >
@@ -183,4 +224,4 @@ const EditStudent = ({ isEditable }) => {
   );
 };
 
-export default EditStudent;
+export default EditBatch;

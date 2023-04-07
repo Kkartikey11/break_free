@@ -6,10 +6,12 @@ import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { eventAction } from "../../redux/action/event";
 import AddEvent from "./addEvent";
+import EditEvent from "./editEvent";
+import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
 
 const Event = () => {
   const context = useContext(Context);
-  const { setAddEventOpen } =
+  const { setAddEventOpen, setEventData, setEditEventOpen } =
     context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,6 +43,33 @@ const Event = () => {
     {
       title: "Description",
       dataIndex: "description",
+    },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space size="middle" style={{width:'100px', display:'flex', justifyContent:'space-around'}}>
+          <a
+            onClick={() => {
+              setEventData(record);
+              setEditEventOpen(true);
+            }}
+            style={{color:'green'}}
+          >
+           <EditOutlined style={{color:'green'}} /> Edit
+          </a>
+
+          <a
+            onClick={() => {
+              setEventData(record);
+              alert(record.id);
+            }}
+            style={{color:'green'}}
+          >
+           <DeleteOutlined style={{color:'red'}}/>
+          </a>
+        </Space>
+      ),
     },
     
   ];
@@ -87,6 +116,7 @@ const Event = () => {
           scroll={{ x: "100%" }}
         />
         <AddEvent />
+        <EditEvent />
       </Content>
     </>
   );

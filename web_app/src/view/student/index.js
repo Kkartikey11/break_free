@@ -8,6 +8,7 @@ import { studentAction } from "../../redux/action/student";
 import AddStudent from "./addStudent";
 import { useContext } from "react";
 import EditStudent from "./editStudent";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Student = () => {
   const context = useContext(Context);
@@ -54,14 +55,32 @@ const Student = () => {
       title: "Action",
       key: "action",
       render: (_, record) => (
-        <Space size="middle">
+        <Space
+          size="middle"
+          style={{
+            width: "100px",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
           <a
             onClick={() => {
               setStudentData(record);
               setEditStudentOpen(true);
             }}
+            style={{ color: "green" }}
           >
-            Edit
+            <EditOutlined style={{ color: "green" }} /> Edit
+          </a>
+
+          <a
+            onClick={() => {
+              setStudentData(record);
+              alert(record.id);
+            }}
+            style={{ color: "green" }}
+          >
+            <DeleteOutlined style={{ color: "red" }} />
           </a>
         </Space>
       ),

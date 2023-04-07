@@ -6,11 +6,12 @@ import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import AddUser from "./addUser";
+import EditUser from "./editUser";
+import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Users = () => {
   const context = useContext(Context);
-  const { addUserOpen,
-    setAddUserOpen } = context;
+  const { addUserOpen, setAddUserOpen, setEditUserOpen, setUserData } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -43,6 +44,40 @@ const Users = () => {
       title: "Email",
       dataIndex: "email",
     },
+    {
+      title: "Action",
+      key: "action",
+      render: (_, record) => (
+        <Space
+          size="middle"
+          style={{
+            width: "100px",
+            display: "flex",
+            justifyContent: "space-around",
+          }}
+        >
+          <a
+            onClick={() => {
+              setUserData(record);
+              setEditUserOpen(true);
+            }}
+            style={{ color: "green" }}
+          >
+            <EditOutlined style={{ color: "green" }} /> Edit
+          </a>
+
+          <a
+            onClick={() => {
+              setUserData(record);
+              alert(record.id);
+            }}
+            style={{ color: "green" }}
+          >
+            <DeleteOutlined style={{ color: "red" }} />
+          </a>
+        </Space>
+      ),
+    },
   ];
 
   const {
@@ -66,20 +101,24 @@ const Users = () => {
             marginBottom: "20px",
           }}
         >
-        <div >
-          <h1 style={{ fontSize: "30px", margin: "0px" }}>Users List</h1>
-        </div>
-        <div style={{ marginTop: "10px" }}>
-          <Button
-            type="primary"
-            onClick={() => {
-              setAddUserOpen(true);
-            }}
-            style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
-          >
-            Add User
-          </Button>
-        </div>
+          <div>
+            <h1 style={{ fontSize: "30px", margin: "0px" }}>Users List</h1>
+          </div>
+          <div style={{ marginTop: "10px" }}>
+            <Button
+              type="primary"
+              onClick={() => {
+                setAddUserOpen(true);
+              }}
+              style={{
+                backgroundColor: "black",
+                color: "white",
+                fontWeight: "600",
+              }}
+            >
+              Add User
+            </Button>
+          </div>
         </div>
         <Table
           columns={column}
@@ -88,6 +127,7 @@ const Users = () => {
           scroll={{ x: "100%" }}
         />
         <AddUser />
+        <EditUser />
       </Content>
     </>
   );

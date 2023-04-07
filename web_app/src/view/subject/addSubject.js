@@ -103,23 +103,34 @@ const AddSubject = () => {
               <Input />
             </Form.Item>
 
-            <Form.Item>
-              <Button
-                htmlType="submit"
-                onClick={onClose}
-                style={{ marginRight: "20px" }}
-              >
-                Cancel
-              </Button>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginTop: "30px",
+              }}
+            >
+              <Form.Item>
+                <Button
+                  htmlType="submit"
+                  onClick={onClose}
+                  style={{ marginRight: "20px" }}
+                >
+                  Cancel
+                </Button>
 
-              <Button type="primary" htmlType="submit">
-                Add
-              </Button>
-            </Form.Item>
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ backgroundColor: "#000" }}
+                >
+                  Add
+                </Button>
+              </Form.Item>
+            </div>
           </Form>
         </div>
-
-     </Drawer>
+      </Drawer>
     </>
   );
 };

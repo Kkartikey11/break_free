@@ -54,7 +54,7 @@ const Dashboard = () => {
               width: "30%",
               cursor: "pointer",
               background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+                "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
             onClick={() => navigate("/events")}
           >
@@ -67,7 +67,7 @@ const Dashboard = () => {
               width: "30%",
               cursor: "pointer",
               background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+                "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
             onClick={() => navigate("/batch")}
           >
@@ -79,7 +79,7 @@ const Dashboard = () => {
             style={{
               width: "30%",
               background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+                "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
               cursor: "pointer",
             }}
             onClick={() => navigate("/student")}
@@ -92,7 +92,7 @@ const Dashboard = () => {
               width: "30%",
               cursor: "pointer",
               background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+                "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
             onClick={() => navigate("/subject")}
           >
@@ -104,7 +104,7 @@ const Dashboard = () => {
               width: "30%",
               cursor: "pointer",
               background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+                "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
             onClick={() => navigate("/grade")}
           >
@@ -115,7 +115,7 @@ const Dashboard = () => {
               width: "30%",
               cursor: "pointer",
               background:
-                "transparent linear-gradient(101deg, #f2faffb3 0%, #fdf1fd66 100%) 0% 0% no-repeat padding-box",
+                "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
             onClick={() => navigate("/users")}
           >

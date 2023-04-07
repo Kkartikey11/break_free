@@ -6,14 +6,13 @@ import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
 import { addStudentAction, studentAction } from "../../redux/action/student";
 import { gradeAction } from "../../redux/action/grade";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
 
-const AddStudent = ({isEditable}) => {
+const EditUser = ({ isEditable }) => {
   const context = useContext(Context);
-  const { studentData, setStudentData, addStudentOpen, setAddStudentOpen } =
-    context;
+  const { editUserOpen, setEditUserOpen, userData, setUserData } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -31,9 +30,8 @@ const AddStudent = ({isEditable}) => {
     setApiData(formData);
     dispatch(addStudentAction(formData));
     dispatch(studentAction());
-    setAddStudentOpen(false);
+    setEditUserOpen(false);
   };
-
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -41,10 +39,11 @@ const AddStudent = ({isEditable}) => {
 
   const onCancel = () => {
     navigate("/student");
-  }
+  };
 
   const onClose = () => {
-    setAddStudentOpen(false);
+    setEditUserOpen(false);
+    setUserData("");
   };
 
   useEffect(() => {
@@ -54,11 +53,11 @@ const AddStudent = ({isEditable}) => {
       }
     }
     if (state.addStudent.data !== "") {
-        if (state.addStudent.data.data.code === 200) {
-          navigate("/student");
-          window.location.reload();
-        }
+      if (state.addStudent.data.data.code === 200) {
+        navigate("/student");
+        window.location.reload();
       }
+    }
   }, [state]);
 
   useEffect(() => {
@@ -71,21 +70,28 @@ const AddStudent = ({isEditable}) => {
 
   return (
     <>
-      <Drawer
-        className="container"
-        title={
-          <>
-            <CloseOutlined onClick={onClose} /> <span>Create New Student</span>{" "}
-          </>
-        }
-        width={450}
-        closable={false}
-        onClose={onClose}
-        open={addStudentOpen}
-        style={{ overflowY: "auto" }}
-      >
-        <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
-          <Form
+      {userData && (
+        <Drawer
+          className="container"
+          title={
+            <>
+              <CloseOutlined onClick={onClose} /> <span> Edit User</span>{" "}
+            </>
+          }
+          width={450}
+          closable={false}
+          onClose={onClose}
+          open={editUserOpen}
+          style={{ overflowY: "auto" }}
+        >
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Form
             name="basic"
             initialValues={{ remember: true }}
             onFinish={onFinish}
@@ -101,7 +107,7 @@ const AddStudent = ({isEditable}) => {
                 { required: true, message: "Please input your name!" },
               ]}
             >
-              <Input style={{width:'300px'}} />
+              <Input defaultValue={userData.name} style={{width:'340px'}} />
             </Form.Item>
 
             <Form.Item
@@ -112,12 +118,35 @@ const AddStudent = ({isEditable}) => {
                 { required: true, message: "Please input your email!" },
               ]}
             >
-              <Input />
+              <Input defaultValue={userData.email} />
             </Form.Item>
 
             <Form.Item
-              name="grade_id"
-              label="Grade"
+              label="Password"
+              style={{ fontWeight: "600" }}
+              name="password"
+              rules={[
+                { required: true, message: "Please input your name!" },
+              ]}
+            >
+              <Input defaultValue={userData.password} style={{width:'317px'}} />
+            </Form.Item>
+
+            <Form.Item
+              label="About"
+              style={{ fontWeight: "600" }}
+              name="about"
+              rules={[
+                { required: true, message: "Please input about user!" },
+              ]}
+            >
+              <Input defaultValue={userData.about} style={{width:'336px'}} />
+            </Form.Item>
+
+            <Form.Item
+              name="role_id"
+              label="User Type"
+              style={{ fontWeight: "600" }}
               required
               rules={[
                 { required: true, message: "Please select grade !" },
@@ -125,30 +154,25 @@ const AddStudent = ({isEditable}) => {
               
             >
               <Select 
-              placeholder="Please Select Grade" 
+              placeholder="Please Select User Type" 
               showSearch
-              style={{width:'300px', textAlign: 'center'}}
+              defaultValue={userData.role_id}
+              style={{width:'310px',fontWeight: "600", textAlign: 'center'}}
               >
-                {gradeList &&
-                  gradeList.map((data, index) => (
                     <Option
-                      value={data.grade_id}
-                      key={index}
-                      disabled={data.disabled}
+                      value="2"
                     >
-                      {data && data.name}
+                      Admin
                     </Option>
-                  ))}
+                    <Option
+                      value="3"
+                    >
+                      Mentor
+                    </Option>
               </Select>
             </Form.Item>
 
-            <div
-              style={{
-                display: "flex",
-                justifyContent: "end",
-                marginTop: "30px",
-              }}
-            >
+            <div style={{display:'flex', justifyContent:'end', marginTop:'30px'}}>
               <Form.Item>
                 <Button
                   htmlType="submit"
@@ -158,24 +182,17 @@ const AddStudent = ({isEditable}) => {
                   Cancel
                 </Button>
 
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ backgroundColor: "#000" }}
-                >
-                  Add
+                <Button type="primary" htmlType="submit" style={{backgroundColor:'#000'}}>
+                  Update
                 </Button>
               </Form.Item>
             </div>
           </Form>
-        </div>
-      </Drawer>
+          </div>
+        </Drawer>
+      )}
     </>
   );
 };
 
-AddStudent.propTypes = {
-  isEditable: PropTypes.any
-};
-
-export default AddStudent;
+export default EditUser;
