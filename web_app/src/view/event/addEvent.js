@@ -40,6 +40,7 @@ const AddEvent = () => {
   };
 
 
+
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
@@ -163,7 +164,7 @@ const AddEvent = () => {
               <Select 
               placeholder="Please Select Batch" 
               showSearch
-              onChange={(e)=> setBatch(e.target.value)}
+              onChange={(e)=> setBatch(e)}
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
               >
                 {batchList &&
@@ -195,7 +196,7 @@ const AddEvent = () => {
               <Select 
               placeholder="Please Select monter" 
               showSearch
-              onChange={(e)=> setMentors(e.target.value)}
+              onChange={(e)=> setMentors(e)}
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
               >
                 {monterList &&

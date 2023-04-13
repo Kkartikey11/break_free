@@ -87,22 +87,50 @@ const AddGrade = () => {
             autoComplete="off"
             style={{ marginTop: "30px" }}
           >
-            <Form.Item
+            {/* <Form.Item
               label="Name"
               style={{ fontWeight: "600" }}
               name="name"
-              rules={[{ required: true, message: "Please input your name!" }]}
             >
               <Input style={{ width: "400px" }} />
-            </Form.Item>
+            </Form.Item> */}
 
             <Form.Item
+              style={{ fontWeight: "600" }}
+              name="name"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Name :
+                  </label>
+              <Input style={{width:'400px'}} />
+              </div>
+            </Form.Item>
+
+            {/* <Form.Item
               style={{ fontWeight: "600" }}
               label="Description"
               name="description"
               rules={[{ required: true, message: "Please description!" }]}
             >
-              <Input />
+              <Input style={{width:'400px'}} />
+            </Form.Item> */}
+            <Form.Item
+              style={{ fontWeight: "600" }}
+              name="description"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Description :
+                  </label>
+              <Input style={{width:'400px'}} />
+              </div>
             </Form.Item>
 
             <div
