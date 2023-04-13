@@ -24,7 +24,8 @@ const EditUser = ({ isEditable }) => {
     const formData = {
       name: values.name,
       email: values.email,
-      grade_id: values.grade_id,
+      about: values.about,
+      role_id: values.role_id
     };
     console.log(formData);
     setApiData(formData);
@@ -93,7 +94,7 @@ const EditUser = ({ isEditable }) => {
           >
             <Form
             name="basic"
-            initialValues={{ remember: true }}
+            initialValues={{ remember: false }}
             onFinish={onFinish}
             onFinishFailed={onFinishFailed}
             autoComplete="off"
@@ -104,7 +105,7 @@ const EditUser = ({ isEditable }) => {
               style={{ fontWeight: "600" }}
               name="name"
               rules={[
-                { required: true, message: "Please input your name!" },
+                { required: false, message: "Please input your name!" },
               ]}
             >
               <Input defaultValue={userData.name} style={{width:'340px'}} />
@@ -115,29 +116,20 @@ const EditUser = ({ isEditable }) => {
               label="Email"
               name="email"
               rules={[
-                { required: true, message: "Please input your email!" },
+                { required: false, message: "Please input your email!" },
               ]}
             >
               <Input defaultValue={userData.email} />
             </Form.Item>
 
-            <Form.Item
-              label="Password"
-              style={{ fontWeight: "600" }}
-              name="password"
-              rules={[
-                { required: true, message: "Please input your name!" },
-              ]}
-            >
-              <Input defaultValue={userData.password} style={{width:'317px'}} />
-            </Form.Item>
+            
 
             <Form.Item
               label="About"
               style={{ fontWeight: "600" }}
               name="about"
               rules={[
-                { required: true, message: "Please input about user!" },
+                { required: false, message: "Please input about user!" },
               ]}
             >
               <Input defaultValue={userData.about} style={{width:'336px'}} />
@@ -145,18 +137,17 @@ const EditUser = ({ isEditable }) => {
 
             <Form.Item
               name="role_id"
-              label="User Type"
+              label="User Role"
               style={{ fontWeight: "600" }}
-              required
               rules={[
-                { required: true, message: "Please select grade !" },
+                { required: false, message: "Please select user role !" },
               ]}
               
             >
               <Select 
-              placeholder="Please Select User Type" 
+              placeholder="Please Select User Role" 
               showSearch
-              defaultValue={userData.role_id}
+                  defaultValue={userData.role}
               style={{width:'310px',fontWeight: "600", textAlign: 'center'}}
               >
                     <Option
