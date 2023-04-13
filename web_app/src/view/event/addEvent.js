@@ -1,4 +1,13 @@
-import { Button, DatePicker, Drawer, Form, Input, Select, theme, Space  } from "antd";
+import {
+  Button,
+  DatePicker,
+  Drawer,
+  Form,
+  Input,
+  Select,
+  theme,
+  Space,
+} from "antd";
 import { Option } from "antd/es/mentions";
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,8 +21,7 @@ import { CloseOutlined } from "@ant-design/icons";
 
 const AddEvent = () => {
   const context = useContext(Context);
-  const { addEventOpen,
-    setAddEventOpen } = context;
+  const { addEventOpen, setAddEventOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -29,7 +37,7 @@ const AddEvent = () => {
     const formData = {
       name: values.name,
       description: values.description,
-      batch_id: batch ? batch : '',
+      batch_id: batch ? batch : "",
       mentors: mantors ? mantors : [],
       event_datetime: date,
     };
@@ -38,8 +46,6 @@ const AddEvent = () => {
     dispatch(eventAction());
     navigate("/events");
   };
-
-
 
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
@@ -61,18 +67,18 @@ const AddEvent = () => {
       }
     }
     if (state.addGrade.data !== "") {
-        if (state.addGrade.data.data.code === 200) {
-          navigate("/events");
-          window.location.reload();
-        }
+      if (state.addGrade.data.data.code === 200) {
+        navigate("/events");
+        window.location.reload();
       }
+    }
   }, [state]);
 
   const {
     token: { colorBgContainer },
   } = theme.useToken();
 
-  const onChange = (date, ) => {
+  const onChange = (date) => {
     console.log(date);
     setDate(date);
   };
@@ -90,8 +96,14 @@ const AddEvent = () => {
         closable={false}
         onClose={onClose}
         open={addEventOpen}
+      >
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
         >
-        <div style={{ display: "flex", justifyContent: "center", alignItems:'center' }}>
           <Form
             name="basic"
             initialValues={{ remember: true }}
@@ -100,116 +112,99 @@ const AddEvent = () => {
             autoComplete="off"
             style={{ marginTop: "30px" }}
           >
-            <Form.Item
-              style={{ fontWeight: "600" }}
-              name="name"
-            >
+            <Form.Item style={{ fontWeight: "600" }} name="name">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label
-                    style={{ fontWeight: "600", marginBottom: "10px" }}
-                  >
-                    {" "}
-                    Name :
-                  </label>
-              <Input style={{width:'400px'}} />
+                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                  {" "}
+                  Name :
+                </label>
+                <Input style={{ width: "400px" }} />
               </div>
             </Form.Item>
 
-            <Form.Item
-              style={{ fontWeight: "600" }}
-              name="event_datetime"
-            >
+            <Form.Item style={{ fontWeight: "600" }} name="event_datetime">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label
-                    style={{ fontWeight: "600", marginBottom: "10px" }}
-                  >
-                    {" "}
-                    Event Time :
-                  </label>
-              {/* <Input  style={{width:'400px'}} /> */}
-              <Space direction="vertical">
-    <DatePicker onChange={onChange} />
-    </Space>
+                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                  {" "}
+                  Event Time :
+                </label>
+                {/* <Input  style={{width:'400px'}} /> */}
+                <Space direction="vertical">
+                  <DatePicker showTime format="YYYY-MM-DD HH:mm" onChange={onChange} />
+                </Space>
               </div>
             </Form.Item>
 
-            <Form.Item
-              style={{ fontWeight: "600" }}
-              name="description"
-            >
+            <Form.Item style={{ fontWeight: "600" }} name="description">
               <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label
-                    style={{ fontWeight: "600", marginBottom: "10px" }}
-                  >
-                    {" "}
-                    Description :
-                  </label>
-              <Input style={{ width: "400px" }} />
+                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                  {" "}
+                  Description :
+                </label>
+                <Input style={{ width: "400px" }} />
               </div>
             </Form.Item>
 
-            <Form.Item
-              name="batch_id"
-              style={{ fontWeight: "600" }}
-              
-            >
+            <Form.Item name="batch_id" style={{ fontWeight: "600" }}>
               <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label
-                    for="subject_id"
-                    style={{ fontWeight: "600", marginBottom: "10px" }}
-                  >
-                    {" "}
-                    Batch :
-                  </label>
-              <Select 
-              placeholder="Please Select Batch" 
-              showSearch
-              onChange={(e)=> setBatch(e)}
-              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
-              >
-                {batchList &&
-                  batchList.map((data, index) => (
-                    <Option
-                      value={data.id}
-                      key={index}
-                      disabled={data.disabled}
-                    >
-                      {data && data.name}
-                    </Option>
-                  ))}
-              </Select>
+                <label
+                  for="subject_id"
+                  style={{ fontWeight: "600", marginBottom: "10px" }}
+                >
+                  {" "}
+                  Batch :
+                </label>
+                <Select
+                  placeholder="Please Select Batch"
+                  showSearch
+                  onChange={(e) => setBatch(e)}
+                  style={{
+                    width: "400px",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
+                >
+                  {batchList &&
+                    batchList.map((data, index) => (
+                      <Option
+                        value={data.id}
+                        key={index}
+                        disabled={data.disabled}
+                      >
+                        {data && data.name}
+                      </Option>
+                    ))}
+                </Select>
               </div>
             </Form.Item>
 
-            <Form.Item
-              name="mentors"
-              style={{ fontWeight: "600" }}
-              
-            >
+            <Form.Item name="mentors" style={{ fontWeight: "600" }}>
               <div style={{ display: "flex", flexDirection: "column" }}>
-                  <label
-                    style={{ fontWeight: "600", marginBottom: "10px" }}
-                  >
-                    {" "}
-                    Mentors :
-                  </label>
-              <Select 
-              placeholder="Please Select monter" 
-              showSearch
-              onChange={(e)=> setMentors(e)}
-              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
-              >
-                {monterList &&
-                  monterList.map((data, index) => (
-                    <Option
-                      value={data.id}
-                      key={index}
-                      disabled={data.disabled}
-                    >
-                      {data && data.name}
-                    </Option>
-                  ))}
-              </Select>
+                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                  {" "}
+                  Mentors :
+                </label>
+                <Select
+                  placeholder="Please Select monter"
+                  showSearch
+                  onChange={(e) => setMentors(e)}
+                  style={{
+                    width: "400px",
+                    textAlign: "center",
+                    fontWeight: "600",
+                  }}
+                >
+                  {monterList &&
+                    monterList.map((data, index) => (
+                      <Option
+                        value={data.id}
+                        key={index}
+                        disabled={data.disabled}
+                      >
+                        {data && data.name}
+                      </Option>
+                    ))}
+                </Select>
               </div>
             </Form.Item>
 
@@ -240,7 +235,7 @@ const AddEvent = () => {
             </div>
           </Form>
         </div>
-        </Drawer>
+      </Drawer>
     </>
   );
 };
