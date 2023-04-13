@@ -11,7 +11,7 @@ import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
 
 const Subjects = () => {
   const context = useContext(Context);
-  const { setAddBatchOpen, setSubjectData, setEditSubjectOpen } = context;
+  const { setAddBatchOpen, setSubjectData, setEditSubjectOpen, addNewSubjectOpen, setAddNewSubjectOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -103,7 +103,7 @@ const Subjects = () => {
           <Button
             type="primary"
             onClick={() => {
-              setAddBatchOpen(true);
+              setAddNewSubjectOpen(true);
             }}
             style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
           >

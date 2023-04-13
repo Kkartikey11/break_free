@@ -38,6 +38,9 @@ export const addSubjectAction = (formInput) => (dispatch) => {
         notification.success({
           message: `${response.data.message}`,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }
       dispatch({
         type: subjects.ADD_SUBJECT,

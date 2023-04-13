@@ -11,7 +11,7 @@ import { CloseOutlined } from "@ant-design/icons";
 
 const AddSubject = () => {
   const context = useContext(Context);
-  const { addSubjectOpen, setAddSubjectOpen } = context;
+  const { addSubjectOpen, setAddSubjectOpen, addNewSubjectOpen, setAddNewSubjectOpen } = context;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -50,7 +50,7 @@ const AddSubject = () => {
   } = theme.useToken();
 
   const onClose = () => {
-    setAddSubjectOpen(false);
+    setAddNewSubjectOpen(false);
   };
 
   return (
@@ -65,7 +65,7 @@ const AddSubject = () => {
         width={450}
         closable={false}
         onClose={onClose}
-        open={addSubjectOpen}
+        open={addNewSubjectOpen}
         style={{ overflowY: "auto" }}
       >
         <div

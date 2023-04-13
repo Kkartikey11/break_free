@@ -11,6 +11,7 @@ const ContextState = (props) => {
   const [batchData, setBatchData] = useState("");
 
   const [addSubjectOpen, setAddSubjectOpen] = useState(false);
+  const [addNewSubjectOpen, setAddNewSubjectOpen] = useState(false);
   const [editSubjectOpen, setEditSubjectOpen] = useState(false);
   const [subjectData, setSubjectData] = useState("");
 
@@ -63,6 +64,8 @@ const ContextState = (props) => {
         setEditSubjectOpen,
         subjectData,
         setSubjectData,
+        addNewSubjectOpen,
+        setAddNewSubjectOpen,
 
         addBatchOpen,
         setAddBatchOpen,
