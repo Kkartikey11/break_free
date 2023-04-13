@@ -19,6 +19,49 @@ exports.getUser = async (req, res, next) => {
     }
 };
 
+// update user by id
+exports.postUpdateUser = async (req, res, next) => {
+    try {
+        let userId = req.params.userId;
+        var query = req.body;
+        let name = query.name;
+        let email = query.email;
+        let about = query.about;
+        let role_id = query.role_id;
+
+        let saveuser = await updateUser(userId, name, email, about, role_id);
+
+        if (saveuser) {
+            return res.send({ code: 200, message: "User updated successfuly." });
+        } else {
+            return await Error.error_400(res, 'Failed to update user.');
+        }
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
+// delete user by id
+exports.postDeleteUser = async (req, res, next) => {
+    try {
+        let userId = req.params.userId;
+
+        let isDelete = await deleteUser(userId);
+
+        if (isDelete) {
+            return res.send({ code: 200, message: "User deleted successfuly." });
+        } else {
+            return await Error.error_400(res, 'Failed to delete user.');
+        }
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
 // return users list
 exports.getUsers = async (req, res, next) => {
     try {
@@ -43,4 +86,18 @@ const getUsers = async () => {
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result
+};
+
+const updateUser = async (user_id, name, email, about, role_id) => {
+    let query = `update users set name='${name}', email='${email}', about='${about}', role_id='${role_id}' where id=${user_id} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
+};
+
+const deleteUser = async (user_id) => {
+    let query = `update users set is_deleted='1' where id=${user_id} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
 };
