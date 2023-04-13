@@ -15,6 +15,44 @@ exports.getGrades = async (req, res, next) => {
     }
 };
 
+// update a grade
+exports.postUpdateGrade = async (req, res, next) => {
+    try {
+        let gradeId = req.params.gradeId;
+        let name = req.body.name;
+        let description = req.body.description;
+
+        let isUpdated = await updateGrade(gradeId, name, description);
+        if (isUpdated) {
+            return res.status(200).send({ code: 200, message: "Grade updated successfully." })
+        }
+
+        return res.status(200).send({ code: 400, message: "Grade failed to update." })
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
+// delete a grade
+exports.postDeleteGrade = async (req, res, next) => {
+    try {
+        let gradeId = req.params.gradeId;
+
+        let isdelete = await deleteGrade(gradeId);
+        if (isdelete) {
+            return res.status(200).send({ code: 200, message: "Grade deleted successfully." })
+        }
+
+        return res.status(200).send({ code: 400, message: "Grade failed to delete." })
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
 // create grade
 exports.postCreateGrade = async (req, res, next) => {
 
@@ -52,4 +90,18 @@ const createGrade = async (name, description) => {
     let result = await con.query(query);
     console.log(Object.keys(result));
     return result.insertId ? result.insertId : 0;
+};
+
+const updateGrade = async (gradeId, name, description) => {
+    let query = `update grades set name='${name}', description='${description}' where id=${gradeId} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
+};
+
+const deleteGrade = async (gradeId) => {
+    let query = `update grades set is_deleted=1 where id=${gradeId} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
 };
