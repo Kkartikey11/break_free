@@ -5,8 +5,10 @@ import { AddGradeReducer, gradeReducer } from "./gradeReducer";
 import { AddStudentReducer, studentReducer } from "./studentReducer";
 import { AddSubjectReducer, subjectReducer } from "./subjectReducer";
 import { userReducer, AddUserReducer } from "./userReducer";
+import { AuthReducer } from "./authReducer";
 
 const RootReducer = combineReducers({
+    auth: AuthReducer,
     getUser: userReducer,
     getStudent: studentReducer,
     addStudent: AddStudentReducer,

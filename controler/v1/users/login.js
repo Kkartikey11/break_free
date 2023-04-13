@@ -28,7 +28,7 @@ exports.postLogin = async (req, res, next) => {
             let response = {
                 code: 200,
                 auth: true,
-                "auth-token": generateToken,
+                "auth_token": generateToken,
                 "playload": userData
             };
             return res.send(response)

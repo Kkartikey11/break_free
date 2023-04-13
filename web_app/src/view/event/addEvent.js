@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, Select, theme } from "antd";
+import { Button, DatePicker, Drawer, Form, Input, Select, theme, Space  } from "antd";
 import { Option } from "antd/es/mentions";
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,14 +21,17 @@ const AddEvent = () => {
   const [apiData, setApiData] = useState({});
   const [batchList, setBatchList] = useState("");
   const [monterList, setMentorList] = useState("");
+  const [date, setDate] = useState("");
+  const [mantors, setMentors] = useState("");
+  const [batch, setBatch] = useState("");
 
   const onFinish = (values) => {
     const formData = {
       name: values.name,
       description: values.description,
-      batch_id: values.batch_id,
-      mentors: values.mentors,
-      event_datetime: values.event_datetime,
+      batch_id: batch ? batch : '',
+      mentors: mantors ? mantors : [],
+      event_datetime: date,
     };
     setApiData(formData);
     dispatch(addEventAction(formData));
@@ -68,6 +71,11 @@ const AddEvent = () => {
     token: { colorBgContainer },
   } = theme.useToken();
 
+  const onChange = (date, ) => {
+    console.log(date);
+    setDate(date);
+  };
+
   return (
     <>
       <Drawer
@@ -77,7 +85,7 @@ const AddEvent = () => {
             <CloseOutlined onClick={onClose} /> <span>Add New Event</span>{" "}
           </>
         }
-        width={450}
+        width={500}
         closable={false}
         onClose={onClose}
         open={addEventOpen}
@@ -92,51 +100,70 @@ const AddEvent = () => {
             style={{ marginTop: "30px" }}
           >
             <Form.Item
-              label="Name"
               style={{ fontWeight: "600" }}
               name="name"
-              rules={[
-                { required: true, message: "Please input your name!" },
-              ]}
             >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Name :
+                  </label>
               <Input style={{width:'400px'}} />
+              </div>
             </Form.Item>
 
             <Form.Item
-              label="Event Time"
               style={{ fontWeight: "600" }}
               name="event_datetime"
-              rules={[
-                { required: true, message: "Please input your name!" },
-              ]}
             >
-              <Input type="date" style={{width:'400px'}} />
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Event Time :
+                  </label>
+              {/* <Input  style={{width:'400px'}} /> */}
+              <Space direction="vertical">
+    <DatePicker onChange={onChange} />
+    </Space>
+              </div>
             </Form.Item>
 
             <Form.Item
               style={{ fontWeight: "600" }}
-              label="Description"
               name="description"
-              rules={[
-                { required: true, message: "Please description!" },
-              ]}
             >
-              <Input />
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Description :
+                  </label>
+              <Input style={{ width: "400px" }} />
+              </div>
             </Form.Item>
 
             <Form.Item
               name="batch_id"
               style={{ fontWeight: "600" }}
-              label="Batch"
-              required
-              rules={[
-                { required: true, message: "Please select grade !" },
-              ]}
               
             >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    for="subject_id"
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Batch :
+                  </label>
               <Select 
-              placeholder="Please Select Subject" 
+              placeholder="Please Select Batch" 
               showSearch
+              onChange={(e)=> setBatch(e.target.value)}
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
               >
                 {batchList &&
@@ -150,21 +177,25 @@ const AddEvent = () => {
                     </Option>
                   ))}
               </Select>
+              </div>
             </Form.Item>
 
             <Form.Item
               name="mentors"
-              label="Mentors"
               style={{ fontWeight: "600" }}
-              required
-              rules={[
-                { required: true, message: "Please select grade !" },
-              ]}
               
             >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Mentors :
+                  </label>
               <Select 
-              placeholder="Please Select Subject" 
+              placeholder="Please Select monter" 
               showSearch
+              onChange={(e)=> setMentors(e.target.value)}
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
               >
                 {monterList &&
@@ -178,6 +209,7 @@ const AddEvent = () => {
                     </Option>
                   ))}
               </Select>
+              </div>
             </Form.Item>
 
             <div

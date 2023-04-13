@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
+import moment from "moment";
 import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
@@ -44,6 +44,7 @@ const Batch = () => {
     {
       title: "Created at",
       dataIndex: "created_at",
+      render: (text) => <div>{moment(text).format("DD MMM YYYY")}</div>,
     },
     {
       title: "Description",

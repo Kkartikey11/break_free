@@ -8,6 +8,7 @@ import { eventAction } from "../../redux/action/event";
 import AddEvent from "./addEvent";
 import EditEvent from "./editEvent";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
+import moment from "moment";
 
 const Event = () => {
   const context = useContext(Context);
@@ -39,6 +40,7 @@ const Event = () => {
     {
       title: "Event Date",
       dataIndex: "event_datetime",
+      render: (text) => <div>{moment(text).format("DD MMM YYYY")}</div>,
     },
     {
       title: "Description",

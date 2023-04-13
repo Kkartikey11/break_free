@@ -1,3 +1,8 @@
+//authorized
+export const auth = {
+  AUTH_LOGIN: "AUTH_LOGIN",
+};
+
 //user
 export const user = {
   GET_USERS: "GET_USERS",

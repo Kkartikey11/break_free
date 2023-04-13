@@ -5,13 +5,14 @@ import {
     AppstoreOutlined,
     BarChartOutlined,
     CloudOutlined,
+    LoginOutlined,
     ShopOutlined,
     TeamOutlined,
     UploadOutlined,
     UserOutlined,
     VideoCameraOutlined,
   } from '@ant-design/icons';
-  import { Layout, Menu, theme } from 'antd';
+  import { Button, Layout, Menu, theme } from 'antd';
   import React from 'react';
 import SideNavbar from "../components/sidebar";
 import Batch from "../view/batch";
@@ -26,10 +27,19 @@ import AddGrade from "../view/grade/addGrade";
 import AddUser from "../view/users/addUser";
 import AddEvent from "../view/event/addEvent";
 import AddSubject from "../view/subject/addSubject";
+import Login from "../view/auth";
+import Cookies from "universal-cookie";
   const { Header, Content, Footer, Sider } = Layout;
 
 
 const DashboardRoutes = () => {
+
+  const onLogoutHandle = () => {
+const cookie = new Cookies();
+    cookie.remove('auth_token');
+
+
+  }
 
     const {
         token: { colorBgContainer },
@@ -44,12 +54,22 @@ const DashboardRoutes = () => {
           marginLeft: 200,
         }}
       >
-        <Header
+        <header
           style={{
             padding: 0,
+            height: 60,
             background: colorBgContainer,
           }}
-        />
+          
+        >
+          <div>
+            <div style={{display:'flex', justifyContent:'end'}}>
+            <Button onClick={onLogoutHandle} style={{backgroundColor:'#000', color:'white', fontWeight:'600', marginTop:'10px'}} shape="round" icon={<LoginOutlined />} >
+            LogOut
+          </Button>
+            </div>
+          </div>
+          </header>
         <Content
           style={{
             margin: "24px 16px 0",
@@ -58,6 +78,7 @@ const DashboardRoutes = () => {
         >
           <Routes>
             <Route path="/" element={<Dashboard />} />
+            {/* <Route path="/login" element={<Login />} /> */}
             <Route path="/student" element={<Student />} />
             <Route path="/batch" element={<Batch />} />
             <Route path="/grade" element={<Grade />} />

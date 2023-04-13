@@ -1,11 +1,14 @@
 import { notification } from "antd";
 import { user } from "../constant";
 import axios from "axios";
+import { BASE_URL } from "../../config";
+import Cookies from "universal-cookie";
 
 export const userAction = (formInput) => (dispatch) => {
-  const url = "http://localhost:1000/users";
+  const cookies = new Cookies();
+  const url =  `${BASE_URL}/users`;
   const headers = {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9`,
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
   };
   axios.get(url, { headers})
     .then((response) => {
@@ -22,9 +25,12 @@ export const userAction = (formInput) => (dispatch) => {
 
 
 export const addUserAction = (formInput) => (dispatch) => {
-  const url = 'http://localhost:1000/users/register';
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/users/register`;
   const data = formInput;
-  const headers = { Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9` };
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
   axios
     .post(url, data, { headers })
     .then((response) => {

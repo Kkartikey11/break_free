@@ -1,11 +1,14 @@
 import { notification } from "antd";
 import { subjects } from "../constant";
 import axios from "axios";
+import { BASE_URL } from "../../config";
+import Cookies from "universal-cookie";
 
 export const subjectAction = (formInput) => (dispatch) => {
-  const url = "http://localhost:1000/subject";
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/subject`;
   const headers = {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9`,
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
   };
   axios.get(url, { headers})
     .then((response) => {
@@ -22,9 +25,12 @@ export const subjectAction = (formInput) => (dispatch) => {
 
 
 export const addSubjectAction = (formInput) => (dispatch) => {
-  const url = 'http://localhost:1000/subject';
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/subject`;
   const data = formInput;
-  const headers = { Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9` };
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
   axios
     .post(url, data, { headers })
     .then((response) => {

@@ -116,110 +116,6 @@ const EditEvent = ({ isEditable }) => {
                 rules={[{ required: true, message: "Please input your name!" }]}
               >
                 <Input
-                  defaultValue={batchData.name}
-                  style={{ width: "400px" }}
-                />
-              </Form.Item>
-
-              <Form.Item
-                style={{ fontWeight: "600" }}
-                label="Description"
-                name="description"
-                rules={[
-                  { required: true, message: "Please input your description!" },
-                ]}
-              >
-                <Input defaultValue={batchData.description} />
-              </Form.Item>
-
-              <Form.Item
-                name="subject_id"
-                style={{ fontWeight: "600" }}
-                label="Subject"
-                required
-                rules={[{ required: true, message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Subject"
-                  showSearch
-                  defaultValue={batchData.subject_id}
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {subjectList &&
-                    subjectList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                name="students"
-                style={{ fontWeight: "600" }}
-                label="Student"
-                required
-                rules={[{ required: true, message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Subject"
-                  showSearch
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {studentList &&
-                    studentList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-
-              <Form.Item>
-                <Button
-                  htmlType="submit"
-                  onClick={onClose}
-                  style={{ marginRight: "20px" }}
-                >
-                  Cancel
-                </Button>
-
-                <Button type="primary" htmlType="submit">
-                  Add
-                </Button>
-              </Form.Item>
-            </Form> */}
-            <Form
-              name="basic"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
-              style={{ marginTop: "30px" }}
-            >
-              <Form.Item
-                label="Name"
-                style={{ fontWeight: "600" }}
-                name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
-              >
-                <Input
                   defaultValue={eventData.name}
                   style={{ width: "400px" }}
                 />
@@ -332,7 +228,152 @@ const EditEvent = ({ isEditable }) => {
                   </Button>
                 </Form.Item>
               </div>
-            </Form>
+            </Form> */}
+
+            <Form
+            name="basic"
+            initialValues={{ remember: true }}
+            onFinish={onFinish}
+            onFinishFailed={onFinishFailed}
+            autoComplete="off"
+            style={{ marginTop: "30px" }}
+          >
+            <Form.Item
+              style={{ fontWeight: "600" }}
+              name="name"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Name :
+                  </label>
+              <Input  defaultValue={eventData.name} style={{width:'400px'}} />
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              style={{ fontWeight: "600" }}
+              name="event_datetime"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Event Time :
+                  </label>
+              <Input defaultValue={eventData.event_datetime}  style={{width:'400px'}} />
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              style={{ fontWeight: "600" }}
+              name="description"
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Description :
+                  </label>
+              <Input defaultValue={eventData.description} style={{ width: "400px" }} />
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              name="batch_id"
+              style={{ fontWeight: "600" }}
+              
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    for="subject_id"
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Batch :
+                  </label>
+              <Select 
+              placeholder="Please Select Batch" 
+              showSearch
+              defaultValue={eventData.batch_id}
+              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
+              >
+                {batchList &&
+                  batchList.map((data, index) => (
+                    <Option
+                      value={data.id}
+                      key={index}
+                      disabled={data.disabled}
+                    >
+                      {data && data.name}
+                    </Option>
+                  ))}
+              </Select>
+              </div>
+            </Form.Item>
+
+            <Form.Item
+              name="mentors"
+              style={{ fontWeight: "600" }}
+              
+            >
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label
+                    style={{ fontWeight: "600", marginBottom: "10px" }}
+                  >
+                    {" "}
+                    Mentors :
+                  </label>
+              <Select 
+              placeholder="Please Select monter" 
+              showSearch
+               defaultValue={eventData.mentors}
+              style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
+              >
+                {monterList &&
+                  monterList.map((data, index) => (
+                    <Option
+                      value={data.id}
+                      key={index}
+                      disabled={data.disabled}
+                    >
+                      {data && data.name}
+                    </Option>
+                  ))}
+              </Select>
+              </div>
+            </Form.Item>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "end",
+                marginTop: "30px",
+              }}
+            >
+              <Form.Item>
+                <Button
+                  htmlType="submit"
+                  onClick={onClose}
+                  style={{ marginRight: "20px" }}
+                >
+                  Cancel
+                </Button>
+
+                <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ backgroundColor: "#000" }}
+                >
+                  Update
+                </Button>
+              </Form.Item>
+            </div>
+          </Form>
           </div>
         </Drawer>
       )}

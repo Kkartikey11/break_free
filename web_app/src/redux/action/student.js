@@ -1,11 +1,14 @@
 import { student } from "../constant";
 import axios from "axios";
 import { notification } from "antd";
+import { BASE_URL } from "../../config";
+import Cookies from "universal-cookie";
 
 export const studentAction = (formInput) => (dispatch) => {
-  const url = "http://localhost:1000/student";
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/student`;
   const headers = {
-    Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9`,
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
   };
   axios.get(url, { headers})
     .then((response) => {
@@ -22,9 +25,12 @@ export const studentAction = (formInput) => (dispatch) => {
 
 
 export const addStudentAction = (formInput) => (dispatch) => {
-  const url = 'http://localhost:1000/student';
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/student`;
   const data = formInput;
-  const headers = { Authorization:`Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9` };
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
   axios
     .post(url, data, { headers })
     .then((response) => {
