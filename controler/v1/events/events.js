@@ -25,6 +25,12 @@ exports.getEvent = async (req, res, next) => {
 exports.getEvents = async (req, res, next) => { 
     try {
         let events = await getEvents();
+        for (let index = 0; index < events.length; index++) {
+            let event = await getEvent(events[index].id);
+            events[index] = event;
+            events[index].students = await getStudents(event.batch_id);
+            events[index].mentors = await getMentors(event.id);
+        }
         return res.status(200).send({ code: 200, data: events });
 
     } catch (error) {
