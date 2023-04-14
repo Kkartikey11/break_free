@@ -50,3 +50,12 @@
 -[] BFF Start of the Month APIs
     - [] Post Save Start of the month
     - [] Get Star of the month
+
+is_present: 0-Absent, 1-Present
+participation: 1-None, 2-Poor, 3-Good
+video_presence: 1-None, 2-Poor, 3-Good
+concentration: 1-None, 2-Poor, 3-Good
+grasping: 1-None, 2-Poor, 3-Good
+application_of_concepts: 1-None, 2-Poor, 3-Good
+retention: 1-None, 2-Poor, 3-Good
+confidence: 1-None, 2-Poor, 3-Good
