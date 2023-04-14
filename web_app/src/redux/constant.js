@@ -8,6 +8,7 @@ export const user = {
   GET_USERS: "GET_USERS",
   ADD_USERS: "ADD_USERS",
   EDIT_USERS: "EDIT_USERS",
+  DELETE_USERS: "DELETE_USERS",
 };
 
 // student
@@ -20,6 +21,8 @@ export const student = {
 export const grades = {
   GET_GRADES: "GET_GRADES",
   ADD_GRADE: "ADD_GRADE",
+  EDIT_GRADE: "EDIT_GRADE",
+  DELETE_GRADE: "DELETE_GRADE"
 };
 
 // events

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userAction } from "../../redux/action/user";
+import { deleteUserAction, userAction } from "../../redux/action/user";
 import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
@@ -68,8 +68,9 @@ const Users = () => {
 
           <a
             onClick={() => {
-              setUserData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete ${record.name}`);
+              dispatch(deleteUserAction(record));
+              dispatch(userAction());
             }}
             style={{ color: "green" }}
           >

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
 import { addStudentAction, studentAction } from "../../redux/action/student";
-import { gradeAction } from "../../redux/action/grade";
+import { editGradeAction, gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
@@ -22,14 +22,14 @@ const EditGrade = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      grade_id: values.grade_id,
+      id: gradeData.id,
+      name: values.name ? values.name : gradeData.name,
+      description: values.description ? values.description : gradeData.description,
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
-    dispatch(studentAction());
+    dispatch(editGradeAction(formData) );
+    dispatch(gradeAction());
     setEditGradeOpen(false);
   };
 
@@ -103,7 +103,7 @@ const EditGrade = ({ isEditable }) => {
                 label="Name"
                 style={{ fontWeight: "600" }}
                 name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <Input
                   defaultValue={gradeData.name}
@@ -115,7 +115,7 @@ const EditGrade = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 label="Description"
                 name="description"
-                rules={[{ required: true, message: "Please description!" }]}
+                rules={[{ message: "Please description!" }]}
               >
                 <Input defaultValue={gradeData.description} />
               </Form.Item>

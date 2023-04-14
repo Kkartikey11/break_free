@@ -20,10 +20,11 @@ exports.postCreateSubject = async (req, res, next) => {
     try {
         let query = req.body;
         let name = query.name;
+        let description = query.description;
 
         if (!name || name == '') return res.send({ code: 400, message: "Please provide required details." });
 
-        let subjectId = await createSubject(name);
+        let subjectId = await createSubject(name, description);
         if (subjectId == 0) return res.send({ code: 400, message: "Failed to save subject." });
 
         return res.status(200).send({ code: 201, message: "Subject saved successfully." })
@@ -77,8 +78,8 @@ const getSubjects = async () => {
     return result
 };
 
-const createSubject = async (name) => {
-    let query = `insert into subjects (name) values ('${name}')`;
+const createSubject = async (name, description) => {
+    let query = `insert into subjects (name, description) values ('${name}', '${description}')`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result.insertId ? result.insertId : 0;
