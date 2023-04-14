@@ -26,4 +26,16 @@ export const AddUserReducer = (state = initialState, action) => {
       default:
         return { ...state };
     }
-  };
+};
+  
+
+export const EditUserReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case user.EDIT_USERS:
+      // console.log(action.payload,action.type);
+      return { ...state, data: action.payload };
+
+    default:
+      return { ...state };
+  }
+};

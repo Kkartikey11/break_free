@@ -38,8 +38,9 @@ exports.postUpdateSubject = async (req, res, next) => {
     try {
         let subjectId = req.params.subjectId;
         let name = req.body.name;
+        let description = req.body.description;
 
-        let isUpdate = await updateSubject(subjectId, name);
+        let isUpdate = await updateSubject(subjectId, name, description);
         if (isUpdate) {
             return res.status(200).send({ code: 200, message: "Subject updated successfully." })
         }
@@ -70,7 +71,7 @@ exports.postDeleteSubject = async (req, res, next) => {
 };
 
 const getSubjects = async () => {
-    let query = `select id, name from subjects where is_deleted=0`;
+    let query = `select id, name, description from subjects where is_deleted=0`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result
@@ -83,8 +84,8 @@ const createSubject = async (name) => {
     return result.insertId ? result.insertId : 0;
 };
 
-const updateSubject = async (subjectId, name) => {
-    let query = `update subjects set name='${name}' where id=${subjectId} and is_deleted=0`;
+const updateSubject = async (subjectId, name, description) => {
+    let query = `update subjects set name='${name}', description='${description}' where id=${subjectId} and is_deleted=0`;
     con.query = util.promisify(con.query);
     let result = await con.query(query);
     return result.affectedRows;

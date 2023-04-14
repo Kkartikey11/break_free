@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import { addStudentAction, studentAction } from "../../redux/action/student";
+import { editSubjectAction, subjectAction } from "../../redux/action/subject";
 import { gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
@@ -25,14 +25,14 @@ const EditSubject = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      grade_id: values.grade_id,
+      id: subjectData.id,
+      name: values.name ? values.name : subjectData.name ? subjectData.name : "",
+      description: values.description ? values.description : subjectData.description ? subjectData.description : ""
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
-    dispatch(studentAction());
+    dispatch(editSubjectAction(formData));
+    dispatch(editSubjectAction());
     setEditSubjectOpen(false);
   };
 

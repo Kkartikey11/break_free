@@ -7,6 +7,7 @@ export const auth = {
 export const user = {
   GET_USERS: "GET_USERS",
   ADD_USERS: "ADD_USERS",
+  EDIT_USERS: "EDIT_USERS",
 };
 
 // student
@@ -31,6 +32,7 @@ export const events = {
 export const subjects = {
     GET_SUBJECTS: "GET_SUBJECTS",
     ADD_SUBJECT: "ADD_SUBJECT",
+    EDIT_SUBJECT: "EDIT_SUBJECT",
   };
 
     // batches

@@ -9,6 +9,8 @@ import { gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
+import { EditUserReducer } from "../../redux/reducer/userReducer";
+import { editUserAction, userAction } from "../../redux/action/user";
 
 const EditUser = ({ isEditable }) => {
   const context = useContext(Context);
@@ -22,15 +24,16 @@ const EditUser = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      about: values.about,
-      role_id: values.role_id
+      id: userData.id,
+      name: values.name ? values.name : userData.name,
+      email: values.email ? values.email : userData.email,
+      about: values.about ? values.about : userData.about,
+      role_id: values.role_id ? values.role_id : userData.role_id
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
-    dispatch(studentAction());
+    dispatch(editUserAction(formData));
+    dispatch(userAction());
     setEditUserOpen(false);
   };
 

@@ -57,6 +57,28 @@ exports.postCreateEvent = async (req, res, next) => {
         return res.status(200).send({ code: 400, message: error.message });
     }
 };
+// update event
+exports.updateEvent = async (req, res, next) => { 
+    try {
+        let eventId = req.params.eventId;
+        let isEvent = await isEventExist(eventId);
+        if (!isEvent) return res.send({ code: 400, message: "Please provide valid event id." });
+
+        let body = req.body;
+        let name = body.name;
+        let description = body.description;
+        let batch_id = body.batch_id;
+        let event_timestamp = body.event_datetime
+        let added_mentors = body.added_mentors;
+        let deleted_mentors = body.deleted_mentors;
+        if ((!name || name == '') & (!description || description == '') & (!batch_id || batch_id == '')(!event_timestamp || event_timestamp == '') & (!added_mentors || added_mentors.length == 0) & (!deleted_mentors || deleted_mentors.length == 0)) return res, send({ code: 400, message: "Please provide required details." });
+
+        let isUpdated = await updateEvent(eventId, name, description, batch_id, event_timestamp, added_mentors, deleted_mentors);
+        if(!isUpdated) return res.send({code: 400, message: "Failed to update event"})
+    } catch (error) {
+        return res.send({ code: 400, message: error.message });
+    }
+};
 
 // return eevent students performance
 exports.getEventStudentsPerformance = async (req, res, next) => { 
@@ -153,4 +175,18 @@ const savePerformace = async (eventId, performance_data) => {
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result.insertId ? result.insertId : 0; 
+};
+
+const updateEvent = async (eventId, name, description, batch_id, event_timestamp, added_mentors, deleted_mentors) => { 
+    let set = [];
+
+    if (name) set.push(`name='${name}'`);
+    if (description) set.push(`description='${description}'`);
+    if (batch_id) set.push(`batch_id='${batch_id}'`);
+    if (event_timestamp) set.push(`event_timestamp='${event_timestamp}'`);
+
+    let query = `update events set ${set.join()} where id=${eventId} and is_deleted=0`;
+    con.query = await util.promisify(con.query);
+    let result = await con.query(query);
+
 };
