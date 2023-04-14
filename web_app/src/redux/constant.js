@@ -8,6 +8,7 @@ export const user = {
   GET_USERS: "GET_USERS",
   ADD_USERS: "ADD_USERS",
   EDIT_USERS: "EDIT_USERS",
+  DELETE_USERS: "DELETE_USERS",
 };
 
 // student

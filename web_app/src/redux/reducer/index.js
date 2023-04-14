@@ -4,7 +4,7 @@ import { AddEventReducer, eventReducer } from "./eventReducer";
 import { AddGradeReducer, EditGradeReducer, gradeReducer } from "./gradeReducer";
 import { AddStudentReducer, studentReducer } from "./studentReducer";
 import { AddSubjectReducer, DeleteSubjectReducer, EditSubjectReducer, subjectReducer } from "./subjectReducer";
-import { userReducer, AddUserReducer, EditUserReducer } from "./userReducer";
+import { userReducer, AddUserReducer, EditUserReducer, DeleteUserReducer } from "./userReducer";
 import { AuthReducer } from "./authReducer";
 
 const RootReducer = combineReducers({
@@ -26,6 +26,7 @@ const RootReducer = combineReducers({
     deleteSubject: DeleteSubjectReducer,
     editGrade: EditGradeReducer,
     deleteGrade: DeleteSubjectReducer,
+    deleteUser: DeleteUserReducer
 
 })
 

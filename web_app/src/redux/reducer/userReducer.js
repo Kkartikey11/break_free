@@ -39,3 +39,14 @@ export const EditUserReducer = (state = initialState, action) => {
       return { ...state };
   }
 };
+
+export const DeleteUserReducer = (state = initialState, action) => {
+  switch (action.type) {
+    case user.DELETE_USERS:
+      // console.log(action.payload,action.type);
+      return { ...state, data: action.payload };
+
+    default:
+      return { ...state };
+  }
+};
