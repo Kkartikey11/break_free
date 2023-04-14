@@ -23,11 +23,72 @@ export const gradeAction = (formInput) => (dispatch) => {
     });
 };
 
-
-
+// add grade
 export const addGradeAction = (formInput) => (dispatch) => {
   const cookies = new Cookies();
   const url =  `${BASE_URL}/grade`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+      dispatch({
+        type: grades.ADD_GRADE,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};
+
+// edit grade
+export const editGradeAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/grade/${formInput.id}`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+      dispatch({
+        type: grades.ADD_GRADE,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};
+
+// edit grade
+export const DeleteGradeAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/grade/${formInput.id}/delete`;
   const data = formInput;
   const headers = {
     Authorization: `Bearer ${cookies.get('auth_token')}`,

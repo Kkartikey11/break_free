@@ -20,6 +20,8 @@ export const student = {
 export const grades = {
   GET_GRADES: "GET_GRADES",
   ADD_GRADE: "ADD_GRADE",
+  EDIT_GRADE: "EDIT_GRADE",
+  DELETE_GRADE: "DELETE_GRADE"
 };
 
 // events

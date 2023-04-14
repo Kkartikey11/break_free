@@ -4,7 +4,7 @@ import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Table, theme, Space } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { gradeAction } from "../../redux/action/grade";
+import { DeleteGradeAction, gradeAction } from "../../redux/action/grade";
 import AddGrade from "./addGrade";
 import EditGrade from "./editGrade";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -64,8 +64,9 @@ const Grade = () => {
 
           <a
             onClick={() => {
-              setGradeData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete grade ${record.name}?`);
+              dispatch(DeleteGradeAction(record));
+              dispatch(gradeAction());
             }}
             style={{ color: "green" }}
           >
