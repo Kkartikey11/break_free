@@ -34,6 +34,41 @@ exports.postCreateSubject = async (req, res, next) => {
     }
 };
 
+exports.postUpdateSubject = async (req, res, next) => {
+    try {
+        let subjectId = req.params.subjectId;
+        let name = req.body.name;
+
+        let isUpdate = await updateSubject(subjectId, name);
+        if (isUpdate) {
+            return res.status(200).send({ code: 200, message: "Subject updated successfully." })
+        }
+
+        return res.status(200).send({ code: 400, message: "Subject failed to update." })
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
+exports.postDeleteSubject = async (req, res, next) => {
+    try {
+        let subjectId = req.params.subjectId;
+
+        let isdelete = await deleteSubject(subjectId);
+        if (isdelete) {
+            return res.status(200).send({ code: 200, message: "Subject deleted successfully." })
+        }
+
+        return res.status(200).send({ code: 400, message: "Subject failed to delete." })
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
 const getSubjects = async () => {
     let query = `select id, name from subjects where is_deleted=0`;
     con.query = await util.promisify(con.query);
@@ -46,4 +81,18 @@ const createSubject = async (name) => {
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result.insertId ? result.insertId : 0;
+};
+
+const updateSubject = async (subjectId, name) => {
+    let query = `update subjects set name='${name}' where id=${subjectId} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
+};
+
+const deleteSubject = async (subjectId) => {
+    let query = `update subjects set is_deleted=1 where id=${subjectId} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
 };
