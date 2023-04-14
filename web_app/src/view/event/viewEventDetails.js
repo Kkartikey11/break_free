@@ -19,6 +19,7 @@ import { addGradeAction } from "../../redux/action/grade";
 import { addEventAction, eventAction } from "../../redux/action/event";
 import { CloseOutlined } from "@ant-design/icons";
 import moment from "moment";
+import styles from "../batch/batch.moduler.css";
 
 const ViewEvent = () => {
   const context = useContext(Context);
@@ -31,7 +32,7 @@ const ViewEvent = () => {
   const [batchList, setBatchList] = useState("");
   const [monterList, setMentorList] = useState("");
   const [date, setDate] = useState("");
-  const [mantors, setMentors] = useState("");
+  const [student, setStudent] = useState([]);
   const [batch, setBatch] = useState("");
 
   console.log("row data---->", eventData);
@@ -71,7 +72,7 @@ const ViewEvent = () => {
 
   return (
     <>
-      <Drawer
+     {eventData && <Drawer
         className="container"
         title={
           <>
@@ -101,17 +102,139 @@ const ViewEvent = () => {
 
             <div style={{display:'flex', marginBottom:'20px'}}>
               <div>
-              <label>Batch Name : </label>
+              <label>Status : </label>
               </div>
-              <div style={{fontWeight:'600'}}>&nbsp; {eventData.batch}</div>
+              <div style={{fontWeight:'600'}}>&nbsp; {moment(eventData.event_datetime) <  moment() ? "Expired" : "Active" }</div>
             </div>
+
+
+            {/* <div style={{display:'flex',flexDirection:'column',gap:'20px', marginBottom:'20px'}}>
+              <div>
+              <label>Mentors : </label>
+              </div> */}
+              <div>
+              <div
+                style={{
+                  display: "flex",
+                  fontWeight: "600",
+                  marginBottom: "10px",
+                }}
+              >
+                <label>Mentors :</label>
+              </div>
+              <div style={style.category}>
+              <div
+                    className={styles.selectGroup}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                      gap: "15px",
+                      height: "100px",
+                      overflowX: "hidden",
+                      overflowY: "scroll",
+                      marginBottom: "20px",
+                      marginTop: "20px",
+                    }}
+                  >
+              {eventData.mentors && eventData.mentors.map((item,index) => {
+                // console.log("item",item);
+                return <div style={{display:'flex',fontWeight:'600'}}>&nbsp; {item.name} </div>
+              }
+                )}
+                </div>
+                </div>
+            </div>
+
+
+            <div>
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  fontWeight: "600",
+                  marginBottom: "10px",
+                  marginTop: "20px",
+                }}
+              >
+                <label>Students :</label>
+                <div>
+                  {eventData.has_report === 0 ? 
+                  <div>
+                    {/* <a href={"/events/add-report"} target="blank"> */}
+                    <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ backgroundColor: "#000" }}
+                  onClick={() =>
+                  {
+                    navigate("/events/add-report")                  }
+                  }
+                >
+                  Add Report
+                </Button>
+                {/* </a> */}
+                </div> : 
+                <div>
+                    <Button
+                  type="primary"
+                  htmlType="submit"
+                  style={{ backgroundColor: "#000" }}
+                >
+                  View Report
+                </Button>
+                </div>}
+                </div>
+              </div>
+              <div style={style.category}>
+                
+              <div
+                    className={styles.selectGroup}
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                      gap: "15px",
+                      height: "100px",
+                      overflowX: "hidden",
+                      overflowY: "scroll",
+                      marginBottom: "20px",
+                      marginTop: "20px",
+                    }}
+                  >
+              {eventData.students && eventData.students.map((item,index) => {
+                return <diV style={{display:'flex',justifyContent:'space-between'}}>
+                  <div style={{display:'flex',fontWeight:'600'}}>&nbsp; {item.name} </div>
+                  </diV>
+              }
+                )}
+                </div>
+                </div>
+            </div>
+            
 
             
           </div>
         </div>
-      </Drawer>
+      </Drawer>}
     </>
   );
 };
 
 export default ViewEvent;
+
+const style = {
+  date: {
+    display: "flex",
+    gap: "40px",
+  },
+  dateInput: {
+    height: "40px",
+  },
+  category: {
+    border: "1px solid #D9D9D9",
+    borderRadius: "8px",
+  },
+};

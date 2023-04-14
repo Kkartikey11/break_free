@@ -29,7 +29,8 @@ import AddEvent from "../view/event/addEvent";
 import AddSubject from "../view/subject/addSubject";
 import Login from "../view/auth";
 import Cookies from "universal-cookie";
-import ViewEvent from "../view/event/viewEvent";
+import ViewEvent from "../view/event/addReport";
+import AddReport from "../view/event/addReport";
   const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -91,7 +92,7 @@ const cookie = new Cookies();
             <Route path="/grade/add-grade" element={<AddGrade />} />
             <Route path="/users/add-user" element={<AddUser />} />
             <Route path="/events/add-event" element={<AddEvent />} />
-            <Route path="/events/view-event" element={<ViewEvent />} />
+            <Route path="/events/add-report" element={<AddReport />} />
             <Route path="/subject/add-subject" element={<AddSubject />} />
 
           </Routes>
@@ -101,7 +102,7 @@ const cookie = new Cookies();
             textAlign: "center",
           }}
         >
-          BFF ©2023 Created by Rishabh
+          BFF ©2023 | made with <span style={{color: "#e25555"}}>&hearts;</span> 
         </Footer>
       </Layout>
     </Layout>

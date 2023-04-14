@@ -7,6 +7,7 @@ import {
   Select,
   theme,
   Space,
+  Checkbox,
 } from "antd";
 import { Option } from "antd/es/mentions";
 import React, { useEffect, useState, useContext } from "react";
@@ -18,6 +19,7 @@ import { addStudentAction } from "../../redux/action/student";
 import { addGradeAction } from "../../redux/action/grade";
 import { addEventAction, eventAction } from "../../redux/action/event";
 import { CloseOutlined } from "@ant-design/icons";
+import styles from "../batch/batch.moduler.css";
 
 const AddEvent = () => {
   const context = useContext(Context);
@@ -30,7 +32,7 @@ const AddEvent = () => {
   const [batchList, setBatchList] = useState("");
   const [monterList, setMentorList] = useState("");
   const [date, setDate] = useState("");
-  const [mantors, setMentors] = useState("");
+  const [mantors, setMentors] = useState([]);
   const [batch, setBatch] = useState("");
 
   const onFinish = (values) => {
@@ -83,6 +85,10 @@ const AddEvent = () => {
     setDate(date);
   };
 
+  const onSelectMentorChange = (checkedValues) => {
+    setMentors(checkedValues);
+  };
+
   return (
     <>
       <Drawer
@@ -130,7 +136,11 @@ const AddEvent = () => {
                 </label>
                 {/* <Input  style={{width:'400px'}} /> */}
                 <Space direction="vertical">
-                  <DatePicker showTime format="YYYY-MM-DD HH:mm" onChange={onChange} />
+                  <DatePicker
+                    showTime
+                    format="YYYY-MM-DD HH:mm"
+                    onChange={onChange}
+                  />
                 </Space>
               </div>
             </Form.Item>
@@ -178,35 +188,46 @@ const AddEvent = () => {
               </div>
             </Form.Item>
 
-            <Form.Item name="mentors" style={{ fontWeight: "600" }}>
-              <div style={{ display: "flex", flexDirection: "column" }}>
-                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
-                  {" "}
-                  Mentors :
-                </label>
-                <Select
-                  placeholder="Please Select monter"
-                  showSearch
-                  onChange={(e) => setMentors(e)}
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {monterList &&
-                    monterList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
+            <div style={{ marginLeft: "10px" }}>
+              <div
+                style={{
+                  display: "flex",
+                  fontWeight: "600",
+                  marginBottom: "10px",
+                }}
+              >
+                <label>Select Mentors :</label>
               </div>
-            </Form.Item>
+              <div style={style.category}>
+                <Checkbox.Group onChange={onSelectMentorChange}>
+                  <div
+                    className={styles.selectGroup}
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
+                      flexWrap: "wrap",
+                      justifyContent: "space-between",
+                      gap: "15px",
+                      height: "100px",
+                      overflowX: "hidden",
+                      overflowY: "scroll",
+                      marginBottom: "20px",
+                      marginTop: "20px",
+                    }}
+                  >
+                    {monterList &&
+                      monterList.map((item, index) => (
+                        <Checkbox
+                          value={item.id}
+                          style={{ width: "160px", marginLeft: "8px" }}
+                        >
+                          {item.name}
+                        </Checkbox>
+                      ))}
+                  </div>
+                </Checkbox.Group>
+              </div>
+            </div>
 
             <div
               style={{
@@ -241,3 +262,17 @@ const AddEvent = () => {
 };
 
 export default AddEvent;
+
+const style = {
+  date: {
+    display: "flex",
+    gap: "40px",
+  },
+  dateInput: {
+    height: "40px",
+  },
+  category: {
+    border: "1px solid #D9D9D9",
+    borderRadius: "8px",
+  },
+};

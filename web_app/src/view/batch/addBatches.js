@@ -83,7 +83,6 @@ const AddBatches = () => {
     setSelectStudentList(checkedValues);
   };
 
-  console.log(subjectList);
 
   return (
     <>
