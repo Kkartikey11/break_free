@@ -37,3 +37,15 @@ export const EditSubjectReducer = (state = initialState, action) => {
         return { ...state };
     }
   };
+
+
+  export const DeleteSubjectReducer = (state = initialState, action) => {
+    switch (action.type) {
+      case subjects.DELETE_SUBJECT:
+        // console.log(action.payload,action.type);
+        return { ...state, data: action.payload };
+  
+      default:
+        return { ...state };
+    }
+  };

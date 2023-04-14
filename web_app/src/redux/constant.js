@@ -33,6 +33,7 @@ export const subjects = {
     GET_SUBJECTS: "GET_SUBJECTS",
     ADD_SUBJECT: "ADD_SUBJECT",
     EDIT_SUBJECT: "EDIT_SUBJECT",
+    DELETE_SUBJECT: "DELETE_SUBJECT",
   };
 
     // batches

@@ -29,6 +29,7 @@ import AddEvent from "../view/event/addEvent";
 import AddSubject from "../view/subject/addSubject";
 import Login from "../view/auth";
 import Cookies from "universal-cookie";
+import ViewEvent from "../view/event/viewEvent";
   const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -90,7 +91,9 @@ const cookie = new Cookies();
             <Route path="/grade/add-grade" element={<AddGrade />} />
             <Route path="/users/add-user" element={<AddUser />} />
             <Route path="/events/add-event" element={<AddEvent />} />
+            <Route path="/events/view-event" element={<ViewEvent />} />
             <Route path="/subject/add-subject" element={<AddSubject />} />
+
           </Routes>
         </Content>
         <Footer

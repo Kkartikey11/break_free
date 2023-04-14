@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Context from "../../components/sidebar/context/Context";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
 import { eventAction } from "../../redux/action/event";
@@ -9,21 +9,18 @@ import AddEvent from "./addEvent";
 import EditEvent from "./editEvent";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
 import moment from "moment";
-import ViewEvent from "./viewEventDetails";
 
-const Event = () => {
+const ViewEvent = () => {
   const context = useContext(Context);
-  const { setAddEventOpen, setEventData, setEditEventOpen,
-    setViewEventOpen, } =
+  const { setAddEventOpen,eventData, setEventData, setEditEventOpen } =
     context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [eventList, setEventList] = useState("");
-  const [eventId, setEventId] = useState("")
 
-  console.log(eventId);
+    console.log("row data---->", eventData);
 
   useEffect(() => {
     dispatch(eventAction());
@@ -41,18 +38,11 @@ const Event = () => {
     {
       title: "Name",
       dataIndex: "name",
-      render: (text, record) => <Link 
-      to="" 
-      style={{fontWeight:'600'}} 
-      onClick={() => {
-        setEventData(record);
-        setViewEventOpen(true);
-      }}>{text}</Link>,
     },
     {
       title: "Event Date",
       dataIndex: "event_datetime",
-      render: (text) => <div>{moment(text).format("DD MMM YYYY, hh:mm a")}</div>,
+      render: (text) => <div>{moment(text).format("DD MMM YYYY")}</div>,
     },
     {
       title: "Description",
@@ -101,40 +91,14 @@ const Event = () => {
           background: colorBgContainer,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            marginBottom: "20px",
-          }}
-        >
-        <div >
-            <h1 style={{ fontSize: "30px", margin: "0px" }}>Event List</h1>
+        <div>
+            <div><h2>Event Name - {eventData.name}</h2></div>
         </div>
-        <div style={{ marginTop: "10px" }}>
-          <Button
-            type="primary"
-            onClick={() => {
-              setAddEventOpen(true);
-            }}
-            style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
-          >
-            Add Event
-          </Button>
-        </div>
-        </div>
-        <Table
-          columns={columns}
-          dataSource={eventList && eventList}
-          pagination={true}
-          scroll={{ x: "100%" }}
-        />
-        <AddEvent />
-        <EditEvent />
-        <ViewEvent />
+        
+  
       </Content>
     </>
   );
 };
 
-export default Event;
+export default ViewEvent;

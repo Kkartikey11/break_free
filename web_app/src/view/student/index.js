@@ -20,7 +20,6 @@ const Student = () => {
   console.log(state);
   const [studentList, setStudentList] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onClose = () => {
     setAddStudentOpen(false);
@@ -77,6 +76,7 @@ const Student = () => {
             onClick={() => {
               setStudentData(record);
               alert(record.id);
+              dispatch(studentAction(record.id))
             }}
             style={{ color: "green" }}
           >

@@ -26,6 +26,7 @@ const ContextState = (props) => {
   const [addEventOpen, setAddEventOpen] = useState(false);
   const [editEventOpen, setEditEventOpen] = useState(false);
   const [eventData, setEventData] = useState("");
+  const [viewEventOpen, setViewEventOpen] = useState(false);
 
   return (
     <Context.Provider
@@ -43,6 +44,8 @@ const ContextState = (props) => {
         setEditEventOpen,
         eventData,
         setEventData,
+        viewEventOpen,
+        setViewEventOpen,
 
         addGradeOpen,
         setAddGradeOpen,

@@ -3,7 +3,7 @@ import { AddBatchesReducer, batchReducer } from "./batchReducer";
 import { AddEventReducer, eventReducer } from "./eventReducer";
 import { AddGradeReducer, gradeReducer } from "./gradeReducer";
 import { AddStudentReducer, studentReducer } from "./studentReducer";
-import { AddSubjectReducer, EditSubjectReducer, subjectReducer } from "./subjectReducer";
+import { AddSubjectReducer, DeleteSubjectReducer, EditSubjectReducer, subjectReducer } from "./subjectReducer";
 import { userReducer, AddUserReducer, EditUserReducer } from "./userReducer";
 import { AuthReducer } from "./authReducer";
 
@@ -23,6 +23,7 @@ const RootReducer = combineReducers({
     addUser: AddUserReducer,
     editSubject: EditSubjectReducer,
     editUser: EditUserReducer,
+    deleteSubject: DeleteSubjectReducer,
 })
 
 export default RootReducer;

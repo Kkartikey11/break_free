@@ -4,7 +4,7 @@ import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { subjectAction } from "../../redux/action/subject";
+import { deleteSubjectAction, subjectAction } from "../../redux/action/subject";
 import AddSubject from "./addSubject";
 import EditSubject from "./editSubject";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -64,7 +64,10 @@ const Subjects = () => {
           <a
             onClick={() => {
               setSubjectData(record);
-              alert(record.id);
+              // alert(record.id);
+              dispatch(deleteSubjectAction(record));
+              dispatch(subjectAction());
+              
             }}
             style={{ color: "green" }}
           >
