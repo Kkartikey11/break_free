@@ -42,6 +42,12 @@ exports.postDeleteBatch = async (req, res, next) => {
 exports.getBatches = async (req, res, next) => { 
     try {
         let batches = await getBatches();
+        for (let index = 0; index < batches.length; index++) {
+            let batch = await getBatch(batches[index].id);
+            batches[index] = batch;
+            batches[index].students = await getStudents(batch.id);
+            
+        }
         return res.status(200).send({ code: 200, data: batches });
 
     } catch (error) {
