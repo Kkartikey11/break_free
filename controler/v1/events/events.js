@@ -116,6 +116,7 @@ exports.postEventStudentsPerformance = async (req, res, next) => {
 
         let performance = await savePerformace(eventId, JSON.stringify(performance_data));
         if (!performance) return res.send({ code: 400, message: "Failed to save performance." }); 
+        let isUpdate = await updateEventReportStatus(eventId);
         return res.status(200).send({ code: 201, message: "Performance saved successfully." });
 
     } catch (error) {
@@ -125,7 +126,7 @@ exports.postEventStudentsPerformance = async (req, res, next) => {
 };
 
 const getEvent = async (eventId) => {
-    let query = `select e.id, e.name, e.description, e.event_datetime, batch_id, b.name as batch from events as e left join batches as b on e.batch_id=b.id where e.is_deleted=0 and e.id=${eventId}`;
+    let query = `select e.id, e.name, e.description, e.event_datetime, has_report, batch_id, b.name as batch from events as e left join batches as b on e.batch_id=b.id where e.is_deleted=0 and e.id=${eventId}`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result.length > 0 ? result[0] : {};
@@ -196,3 +197,9 @@ const updateEvent = async (eventId, name, description, batch_id, event_timestamp
     let result = await con.query(query);
 
 };
+
+updateEventReportStatus = async (eventId) => {
+    let query = `update events set has_report=1 where id=${eventId} and is_deleted=0`;
+    con.query = await util.promisify(con.query);
+    let result = await con.query(query);
+ };
