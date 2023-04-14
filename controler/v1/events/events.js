@@ -133,7 +133,7 @@ const getEvent = async (eventId) => {
 };
 
 const getEvents = async () => { 
-    let query = `select id, name, description, event_datetime from events`;
+    let query = `select id, name, description, event_datetime from events where is_deleted=0 order by created_at desc`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result;
