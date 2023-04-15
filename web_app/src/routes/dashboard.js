@@ -37,10 +37,19 @@ import AddReport from "../view/event/addReport";
 const DashboardRoutes = () => {
 
   const onLogoutHandle = () => {
-const cookie = new Cookies();
-    cookie.remove('auth_token');
 
+    const cookies = new Cookies();
+    let cookiesList = cookies.getAll();
+    let arrayList = Object.keys(cookiesList);
 
+    for (let i = 0; i < arrayList.length; i++) {
+      console.log(arrayList[i]);
+      cookies.set(arrayList[i], "", { path: "/" });
+    }
+    localStorage.clear();
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   }
 
     const {
