@@ -179,7 +179,7 @@ const ViewEvent = () => {
                     </div> : 
                     
                     <div>
-                      <CsvDownloadButton data={eventData.students} filename={`${eventData.name}.csv`} style={{
+                      <CsvDownloadButton data={eventData.report} filename={`${eventData.name}.csv`} style={{
                         backgroundColor: "#000", borderRadius: "6px",
                         border: "1px solid #a511c0",
                         display: "inline-block",
