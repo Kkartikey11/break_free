@@ -33,6 +33,7 @@ export const events = {
   ADD_EVENTS: "ADD_EVENTS",
   EDIT_EVENT: "EDIT_EVENT",
   DELETE_EVENT: "DELETE_EVENT",
+  ADD_REPORT: "ADD_REPORT",
   };
 
   // subject

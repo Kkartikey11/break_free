@@ -113,3 +113,35 @@ export const deleteEventAction = (formInput) => (dispatch) => {
       });
     });
 };
+
+
+//add student performance
+export const addReportAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url =  `${BASE_URL}/event/${formInput.id}/performance`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+      dispatch({
+        type: events.ADD_REPORT,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};

@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import { AddBatchesReducer, DeleteBatchesReducer, EditBatchesReducer, batchReducer } from "./batchReducer";
-import { AddEventReducer, DeleteEventReducer, EditEventReducer, eventReducer } from "./eventReducer";
+import { AddEventReducer, AddReportReducer, DeleteEventReducer, EditEventReducer, eventReducer } from "./eventReducer";
 import { AddGradeReducer, EditGradeReducer, gradeReducer } from "./gradeReducer";
 import { AddStudentReducer, DeleteStudentReducer, EditStudentReducer, studentReducer } from "./studentReducer";
 import { AddSubjectReducer, DeleteSubjectReducer, EditSubjectReducer, subjectReducer } from "./subjectReducer";
@@ -32,7 +32,8 @@ const RootReducer = combineReducers({
     editBatch: EditBatchesReducer,
     deleteBatch: DeleteBatchesReducer,
     editEvent: EditEventReducer,
-    deleteEvent: DeleteEventReducer
+    deleteEvent: DeleteEventReducer,
+    addReport: AddReportReducer,
 
 })
 

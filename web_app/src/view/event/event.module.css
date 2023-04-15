@@ -1,0 +1,21 @@
+.event_css table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+    border-radius: 10px 5px 5px 5px;
+  }
+  
+  .event_css td,.event_css th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .event_css th {
+    background-color: #F5F5F5;
+    
+  }
+
+ .event_css tr {
+    border-radius: 10px 5px 5px 5px;
+  }
