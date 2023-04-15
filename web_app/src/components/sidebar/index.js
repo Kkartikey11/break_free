@@ -52,7 +52,7 @@ const SideNavbar = () => {
               setGardeClicked(false);
               setuserClicked(false);
             }}
-            to="/"
+            to="/web"
             className={dashboardClicked ? styles.onClick : styles.unClick}
             style={{
               display: "flex",
@@ -70,7 +70,7 @@ const SideNavbar = () => {
           </NavLink>
 
           <NavLink
-            to="/student"
+            to="/web/student"
             onClick={() => {
               setStudentClicked(true);
               setDashboardClicked(false);
@@ -99,7 +99,7 @@ const SideNavbar = () => {
           </NavLink>
 
           <NavLink
-            to="/batch"
+            to="/web/batch"
             style={{
               display: "flex",
               alignItems: "center",
@@ -127,7 +127,7 @@ const SideNavbar = () => {
           </NavLink>
 
           <NavLink
-            to="/events"
+            to="/web/events"
             style={{
               display: "flex",
               alignItems: "center",
@@ -156,7 +156,7 @@ const SideNavbar = () => {
           </NavLink>
 
           <NavLink
-            to="/subject"
+            to="/web/subject"
             style={{
               display: "flex",
               alignItems: "center",
@@ -184,7 +184,7 @@ const SideNavbar = () => {
           </NavLink>
 
           <NavLink
-            to="/grade"
+            to="/web/grade"
             style={{
               display: "flex",
               alignItems: "center",
@@ -212,7 +212,7 @@ const SideNavbar = () => {
           </NavLink>
 
           <NavLink
-            to="/users"
+            to="/web/users"
             style={{
               display: "flex",
               alignItems: "center",

@@ -11,6 +11,6 @@ export const PrivateRouter = ({children}) => {
         return children;
     }
 
-    return <Navigate to={cookies.get("error") ? "/page-not-found" : "/login"} />;
+    return <Navigate to={cookies.get("error") ? "/page-not-found" : "/"} />;
 
 }

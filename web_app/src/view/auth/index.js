@@ -30,11 +30,26 @@ const Login = () => {
       };
       setApiData(formData);
       dispatch(authAction(formData));
-      navigate("/users");
+     
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  console.log(state.auth.data.status
+    );
+
+  useEffect(() => {
+    if (state.auth.data !== "") {
+      if (state.auth.data.status === 200) {
+        setTimeout(() => {
+          navigate("/web");
+          window.location.reload();
+        }, 500);
+        
+      }
+    }
+  }, [state]);
 
   return (
     <>
