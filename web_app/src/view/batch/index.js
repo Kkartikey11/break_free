@@ -5,7 +5,7 @@ import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { batchAction } from "../../redux/action/batch";
+import { batchAction, deleteBatchesAction } from "../../redux/action/batch";
 import AddBatches from "./addBatches";
 import EditBatch from "./editBatch";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
@@ -86,7 +86,9 @@ const Batch = () => {
           <a
             onClick={() => {
               setBatchData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete batch ${record.name}?`);
+              dispatch(deleteBatchesAction(record));
+              dispatch(batchAction());
             }}
             style={{ color: "green" }}
           >

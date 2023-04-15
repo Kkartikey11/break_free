@@ -40,7 +40,7 @@ const AddStudent = ({isEditable}) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/student");
   }
 
   const onClose = () => {

@@ -56,7 +56,7 @@ const Dashboard = () => {
               background:
                 "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
-            onClick={() => navigate("/events")}
+            onClick={() => navigate("/web/events")}
           >
             <h1>Event</h1>
           </Card>
@@ -69,7 +69,7 @@ const Dashboard = () => {
               background:
                 "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
-            onClick={() => navigate("/batch")}
+            onClick={() => navigate("/web/batch")}
           >
             <h1>Batch</h1>
           </Card>
@@ -82,7 +82,7 @@ const Dashboard = () => {
                 "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
               cursor: "pointer",
             }}
-            onClick={() => navigate("/student")}
+            onClick={() => navigate("/web/student")}
           >
             <h1>Student</h1>
           </Card>
@@ -94,7 +94,7 @@ const Dashboard = () => {
               background:
                 "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
-            onClick={() => navigate("/subject")}
+            onClick={() => navigate("/web/subject")}
           >
             <h1>Subject</h1>
           </Card>
@@ -106,7 +106,7 @@ const Dashboard = () => {
               background:
                 "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
-            onClick={() => navigate("/grade")}
+            onClick={() => navigate("/web/grade")}
           >
             <h1>Grade</h1>
           </Card>
@@ -117,7 +117,7 @@ const Dashboard = () => {
               background:
                 "linear-gradient(101deg, rgb(192 224 245 / 70%) 0%, rgb(255 155 255 / 40%) 100%) 0% 0% no-repeat padding-box padding-box #fffdfd",
             }}
-            onClick={() => navigate("/users")}
+            onClick={() => navigate("/web/users")}
           >
             <h1>Users</h1>
           </Card>

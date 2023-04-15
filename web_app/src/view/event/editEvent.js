@@ -8,7 +8,7 @@ import { addStudentAction, studentAction } from "../../redux/action/student";
 import { gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
-import { addEventAction, eventAction } from "../../redux/action/event";
+import { addEventAction, editEventAction, eventAction } from "../../redux/action/event";
 import { CloseOutlined } from "@ant-design/icons";
 import { subjectAction } from "../../redux/action/subject";
 import { userAction } from "../../redux/action/user";
@@ -29,6 +29,7 @@ const EditEvent = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
+      id: eventData.id,
       name: values.name,
       description: values.description,
       batch_id: values.batch_id,
@@ -36,9 +37,9 @@ const EditEvent = ({ isEditable }) => {
       event_datetime: values.event_datetime,
     };
     setApiData(formData);
-    dispatch(addEventAction(formData));
+    dispatch(editEventAction(formData));
     dispatch(eventAction());
-    navigate("/events");
+    navigate("/web/events");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -113,7 +114,7 @@ const EditEvent = ({ isEditable }) => {
                 label="Name"
                 style={{ fontWeight: "600" }}
                 name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <Input
                   defaultValue={eventData.name}
@@ -125,7 +126,7 @@ const EditEvent = ({ isEditable }) => {
                 label="Event Time"
                 style={{ fontWeight: "600" }}
                 name="event_datetime"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <Input
                   defaultValue={eventData.event_datetime}
@@ -138,7 +139,7 @@ const EditEvent = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 label="Description"
                 name="description"
-                rules={[{ required: true, message: "Please description!" }]}
+                rules={[{ message: "Please description!" }]}
               >
                 <Input defaultValue={eventData.description} />
               </Form.Item>
@@ -148,12 +149,12 @@ const EditEvent = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 label="Batch"
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <Select
                   placeholder="Please Select Subject"
                   showSearch
-                  defaultValue={eventData.batch_id}
+                  defaultValue={eventDate.batch}
                   style={{
                     width: "400px",
                     textAlign: "center",
@@ -178,7 +179,7 @@ const EditEvent = ({ isEditable }) => {
                 label="Mentors"
                 style={{ fontWeight: "600" }}
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <Select
                   placeholder="Please Select Subject"

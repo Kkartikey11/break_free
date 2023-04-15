@@ -20,6 +20,7 @@ import { addEventAction, eventAction } from "../../redux/action/event";
 import { CloseOutlined } from "@ant-design/icons";
 import moment from "moment";
 import styles from "../batch/batch.moduler.css";
+import CsvDownloadButton from 'react-json-to-csv'
 
 const ViewEvent = () => {
   const context = useContext(Context);
@@ -55,7 +56,7 @@ const ViewEvent = () => {
     }
     if (state.addGrade.data !== "") {
       if (state.addGrade.data.data.code === 200) {
-        navigate("/events");
+        navigate("/web/events");
         window.location.reload();
       }
     }
@@ -169,22 +170,28 @@ const ViewEvent = () => {
                   style={{ backgroundColor: "#000" }}
                   onClick={() =>
                   {
-                    navigate("/events/add-report")                  }
+                    navigate("/web/events/add-report")                  }
                   }
                 >
                   Add Report
                 </Button>
                 {/* </a> */}
-                </div> : 
-                <div>
-                    <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ backgroundColor: "#000" }}
-                >
-                  View Report
-                </Button>
-                </div>}
+                    </div> : 
+                    
+                    <div>
+                      <CsvDownloadButton data={eventData.students} filename={`${eventData.name}.csv`} style={{
+                        backgroundColor: "#000", borderRadius: "6px",
+                        border: "1px solid #a511c0",
+                        display: "inline-block",
+                        cursor: "pointer", "color": "#ffffff",
+                        fontSize: "15px",
+                        fontWeight: "bold",
+                        padding: "6px 24px",
+                        textDecoration: "none",
+                        textShadow: "0px 1px 0px #9b14b3"}} type="primary"
+                        htmlType="submit"> Download Report </CsvDownloadButton>
+                
+                  </div>}
                 </div>
               </div>
               <div style={style.category}>

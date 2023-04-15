@@ -1,27 +1,25 @@
 - [x] Roles APIs
     - [x] Get Roles
     - [x] Post Role
-    - [] Update Role
-    - [] Delete Role
 
 - [x] Users APIs
     - [x] Post User Register
     - [x] Post User Login
     - [x] Get User Details
-    - [] Update User
-    - [] Delete User
+    - [x] Update User
+    - [x] Delete User
 
 - [x] Grades APIs
     - [x] Post Grade
     - [x] Get Grades
-    - [] Update Grade
-    - [] Delete Grade
+    - [x] Update Grade
+    - [x] Delete Grade
 
 - [x] Subjects APIs
     - [x] Post Subject
     - [x] Get Subjects
-    - [] Update Subjects
-    - [] Delete Subjects
+    - [x] Update Subjects
+    - [x] Delete Subjects
 
 - [x] Students APIs
     - [x] Post Student

@@ -28,7 +28,7 @@ const AddGrade = () => {
     console.log(formData);
     setApiData(formData);
     dispatch(addGradeAction(formData));
-    navigate("/grade");
+    navigate("/web/grade");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -47,7 +47,7 @@ const AddGrade = () => {
     }
     if (state.addGrade.data !== "") {
       if (state.addGrade.data.data.code === 200) {
-        navigate("/grade");
+        navigate("/web/grade");
         window.location.reload();
       }
     }

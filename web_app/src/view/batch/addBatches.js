@@ -38,7 +38,7 @@ const AddBatches = () => {
     setApiData(formData);
     dispatch(addBatchesAction(formData));
     dispatch(batchAction());
-    navigate("/batch");
+    navigate("/web/batch");
   };
 
   console.log(selectSubject);

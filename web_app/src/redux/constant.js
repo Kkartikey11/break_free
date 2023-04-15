@@ -15,6 +15,8 @@ export const user = {
 export const student = {
   GET_STUDENTS: "GET_STUDENTS",
   ADD_STUDENT: "ADD_STUDENT",
+  EDIT_STUDENT: "EDIT_STUDENT",
+  DELETE_STUDENT: "DELETE_STUDENT"
 };
 
 // grades
@@ -27,8 +29,10 @@ export const grades = {
 
 // events
 export const events = {
-    GET_EVENTS: "GET_EVENTS",
-    ADD_EVENTS:"ADD_EVENTS"
+  GET_EVENTS: "GET_EVENTS",
+  ADD_EVENTS: "ADD_EVENTS",
+  EDIT_EVENT: "EDIT_EVENT",
+  DELETE_EVENT: "DELETE_EVENT",
   };
 
   // subject
@@ -43,4 +47,6 @@ export const subjects = {
 export const batches = {
     GET_BATCHES: "GET_BATCHES",
     ADD_BATCHES: "ADD_BATCHES",
+    EDIT_BATCH: "EDIT_BATCH",
+    DELETE_BATCH: "DELETE_BATCH",
   };

@@ -46,7 +46,7 @@ const AddEvent = () => {
     setApiData(formData);
     dispatch(addEventAction(formData));
     dispatch(eventAction());
-    navigate("/events");
+    navigate("/web/events");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -70,7 +70,7 @@ const AddEvent = () => {
     }
     if (state.addGrade.data !== "") {
       if (state.addGrade.data.data.code === 200) {
-        navigate("/events");
+        navigate("/web/events");
         window.location.reload();
       }
     }

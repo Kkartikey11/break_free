@@ -335,7 +335,7 @@ const AddReport = ({ student }) => {
   } = theme.useToken();
 
   const onClose = () => {
-    navigate("/events")
+    navigate("/web/events")
   };
 
 
@@ -361,6 +361,7 @@ const AddReport = ({ student }) => {
           scroll={{ x: "100%" }}
         />
         <div>
+          
 
         {/* <div >
                 <table  >

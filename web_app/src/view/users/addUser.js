@@ -28,7 +28,7 @@ const AddUser = () => {
     };
     setApiData(formData);
     dispatch(addUserAction(formData));
-    navigate("/users");
+    navigate("/web/users");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -36,7 +36,7 @@ const AddUser = () => {
   };
 
   const onCancel = () => {
-    navigate("/users");
+    navigate("/web/users");
   };
 
   useEffect(() => {
@@ -47,7 +47,7 @@ const AddUser = () => {
     }
     if (state.addUser.data !== "") {
       if (state.addUser.data.data.code === 200) {
-        navigate("/users");
+        navigate("/web/users");
         window.location.reload();
       }
     }

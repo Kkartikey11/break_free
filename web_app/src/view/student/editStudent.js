@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import { addStudentAction, studentAction } from "../../redux/action/student";
+import { addStudentAction, editStudentAction, studentAction } from "../../redux/action/student";
 import { gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
@@ -25,13 +25,14 @@ const EditStudent = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      grade_id: values.grade_id,
+      id: studentData.id,
+      name: values.name ? values.name : studentData.name,
+      email: values.email ? values.email : studentData.email,
+      grade_id: values.grade_id ? values.grade_id : studentData.grade_id,
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
+    dispatch(editStudentAction(formData));
     dispatch(studentAction());
     setEditStudentOpen(false);
   };
@@ -41,7 +42,7 @@ const EditStudent = ({ isEditable }) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/student");
   };
 
   const onClose = () => {
@@ -57,7 +58,7 @@ const EditStudent = ({ isEditable }) => {
     }
     if (state.addStudent.data !== "") {
       if (state.addStudent.data.data.code === 200) {
-        navigate("/student");
+        navigate("/web/student");
         window.location.reload();
       }
     }
@@ -106,7 +107,7 @@ const EditStudent = ({ isEditable }) => {
                 label="Name"
                 style={{ fontWeight: "600" }}
                 name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <Input
                   defaultValue={studentData.name}
@@ -119,7 +120,7 @@ const EditStudent = ({ isEditable }) => {
                 label="Email"
                 name="email"
                 rules={[
-                  { required: true, message: "Please input your email!" },
+                  { message: "Please input your email!" },
                 ]}
               >
                 <Input defaultValue={studentData.email} />
@@ -129,13 +130,13 @@ const EditStudent = ({ isEditable }) => {
                 name="grade_id"
                 label="Grade"
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <Select
                   placeholder="Please Select Grade"
                   showSearch
                   style={{ width: "300px", textAlign: "center" }}
-                  defaultValue={studentData.garde}
+                  defaultValue={studentData.grade}
                 >
                   {gradeList &&
                     gradeList.map((data, index) => (

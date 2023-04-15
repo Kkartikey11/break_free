@@ -46,7 +46,7 @@ exports.postCreateEvent = async (req, res, next) => {
         let name = query.name;
         let description = query.description ? query.description : "";
         let batch_id = query.batch_id;
-        let event_datetime = query.event_datetime;
+        let event_datetime = query.event_datetime.replace("T", " ").replace("Z", "");
         let mentors = query.mentors;
 
         if (!name || name == '' || !batch_id || batch_id == '' || !event_datetime || event_datetime.length == '' || !mentors || mentors.length == 0) return res.send({ code: 400, message: "Please provide required details." });
@@ -118,6 +118,24 @@ exports.postEventStudentsPerformance = async (req, res, next) => {
         if (!performance) return res.send({ code: 400, message: "Failed to save performance." }); 
         let isUpdate = await updateEventReportStatus(eventId);
         return res.status(200).send({ code: 201, message: "Performance saved successfully." });
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
+
+exports.postDeleteEvent = async (req, res, next) => {
+    try {
+        let eventId = req.params.eventId;
+
+        let isdelete = await deleteEvent(eventId);
+        if (isdelete) {
+            return res.status(200).send({ code: 200, message: "Event deleted successfully." })
+        }
+
+        return res.status(200).send({ code: 400, message: "Event failed to delete." })
 
     } catch (error) {
         console.log("Error: ", error.message);
@@ -202,4 +220,11 @@ updateEventReportStatus = async (eventId) => {
     let query = `update events set has_report=1 where id=${eventId} and is_deleted=0`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
- };
+};
+ 
+deleteEvent = async (eventId) => {
+    let query = `update events set is_deleted=1 where id=${eventId} and is_deleted=0`;
+    con.query = await util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
+};

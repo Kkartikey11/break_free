@@ -4,7 +4,7 @@ import Context from "../../components/sidebar/context/Context";
 import { Link, useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { eventAction } from "../../redux/action/event";
+import { deleteEventAction, eventAction } from "../../redux/action/event";
 import AddEvent from "./addEvent";
 import EditEvent from "./editEvent";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
@@ -76,7 +76,9 @@ const Event = () => {
           <a
             onClick={() => {
               setEventData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete event ${record.name}?`);
+              dispatch(deleteEventAction(record));
+              dispatch(eventAction());
             }}
             style={{color:'green'}}
           >

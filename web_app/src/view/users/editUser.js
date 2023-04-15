@@ -42,7 +42,7 @@ const EditUser = ({ isEditable }) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/users");
   };
 
   const onClose = () => {
@@ -58,7 +58,7 @@ const EditUser = ({ isEditable }) => {
     }
     if (state.addStudent.data !== "") {
       if (state.addStudent.data.data.code === 200) {
-        navigate("/student");
+        navigate("/web/users");
         window.location.reload();
       }
     }

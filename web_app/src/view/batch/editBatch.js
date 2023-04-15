@@ -11,6 +11,8 @@ import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
 import { subjectAction } from "../../redux/action/subject";
 import styles from "./batch.moduler.css";
+import { EditBatchesReducer } from "../../redux/reducer/batchReducer";
+import { batchAction, editBatchesAction } from "../../redux/action/batch";
 
 const EditBatch = ({ isEditable }) => {
   const context = useContext(Context);
@@ -28,14 +30,15 @@ const EditBatch = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      grade_id: values.grade_id,
+      id: batchData.id,
+      name: values.name ? values.name : batchData.name,
+      students: values.students && values.students.length > 0 ? values.students : batchData.students,
+      subject_id: values.subject_id ? values.subject_id : batchData.subject_id,
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
-    dispatch(studentAction());
+    dispatch(editBatchesAction(formData));
+    dispatch(batchAction());
     setEditBatchOpen(false);
   };
 
@@ -44,7 +47,7 @@ const EditBatch = ({ isEditable }) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/batch");
   };
 
   const onClose = () => {
@@ -65,7 +68,7 @@ const EditBatch = ({ isEditable }) => {
     }
     if (state.addBatches.data !== "") {
       if (state.addBatches.data.data.code === 200) {
-        navigate("/batch");
+        navigate("/web/batch");
         window.location.reload();
       }
     }
@@ -119,7 +122,7 @@ const EditBatch = ({ isEditable }) => {
                 label="Name"
                 style={{ fontWeight: "600" }}
                 name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <Input
                   defaultValue={batchData.name}
@@ -132,7 +135,7 @@ const EditBatch = ({ isEditable }) => {
                 label="Description"
                 name="description"
                 rules={[
-                  { required: true, message: "Please input your description!" },
+                  { message: "Please input your description!" },
                 ]}
               >
                 <Input defaultValue={batchData.description} />
@@ -143,7 +146,7 @@ const EditBatch = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 label="Subject"
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <Select
                   placeholder="Please Select Subject"
@@ -173,7 +176,7 @@ const EditBatch = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 label="Student"
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <Select
                   placeholder="Please Select Subject"
@@ -236,7 +239,7 @@ const EditBatch = ({ isEditable }) => {
               <Form.Item
                 style={{ fontWeight: "600" }}
                 name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <label
@@ -254,7 +257,7 @@ const EditBatch = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 name="description"
                 rules={[
-                  { required: true, message: "Please input your description!" },
+                  { message: "Please input your description!" },
                 ]}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
@@ -274,7 +277,7 @@ const EditBatch = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 // label="Subject"
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <label
@@ -286,7 +289,7 @@ const EditBatch = ({ isEditable }) => {
                   </label>
                   <Select
                     placeholder="Please Select Subject"
-                    defaultValue={batchData.subject_id}
+                    defaultValue={batchData.subject}
                     showSearch
                     style={{
                       width: "437px",

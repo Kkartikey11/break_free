@@ -29,7 +29,7 @@ const AddSubject = () => {
     setApiData(formData);
     dispatch(addSubjectAction(formData));
     dispatch(subjectAction());
-    navigate("/subject");
+    navigate("/web/subject");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -39,7 +39,7 @@ const AddSubject = () => {
   useEffect(() => {
     if (state.addBatches.data !== "") {
       if (state.addBatches.data.data.code === 200) {
-        navigate("/subject");
+        navigate("/web/subject");
         window.location.reload();
       }
     }

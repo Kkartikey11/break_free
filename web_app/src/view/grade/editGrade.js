@@ -38,7 +38,7 @@ const EditGrade = ({ isEditable }) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/grade");
   };
 
   const onClose = () => {
