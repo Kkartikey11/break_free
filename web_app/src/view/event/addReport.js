@@ -740,7 +740,7 @@ const AddReport = ({ student }) => {
                           <Select
                             name="is_present"
                             onChange={()=>{handlePresentChange();
-                              setName(item.id)
+                              setName(item.name)
                             }}
                             style={{
                               width: "100px",
@@ -748,8 +748,8 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="0">Absent</Option>
-                            <Option value="1">Present</Option>
+                            <Option value="Absent">Absent</Option>
+                            <Option value="Present">Present</Option>
                           </Select>
                         </div>
                       </td>
@@ -764,9 +764,9 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -781,9 +781,9 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -798,9 +798,9 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -815,9 +815,9 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -832,9 +832,9 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -849,9 +849,9 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -868,9 +868,9 @@ const AddReport = ({ student }) => {
                             }}
                             name="confidence"
                           >
-                            <Option value="1">None</Option>
-                            <Option value="2">Poor</Option>
-                            <Option value="3">Good</Option>
+                            <Option value="None">None</Option>
+                            <Option value="Poor">Poor</Option>
+                            <Option value="Good">Good</Option>
                           </Select>
                         </div>
                       </td>
@@ -879,7 +879,7 @@ const AddReport = ({ student }) => {
                           {/* <Button type="primary" onClick={addRow}>
                           +
                         </Button> */}
-                          <Button style={{color:'white', backgroundColor:'black'}} type="submit" >+</Button>
+                          <button style={{color:'white', backgroundColor:'black'}} type="submit" >+</button>
                         </div>
                       </td>
                     </>

@@ -31,7 +31,8 @@ exports.getEvents = async (req, res, next) => {
             events[index].students = await getStudents(event.batch_id);
             events[index].mentors = await getMentors(event.id);
             if (event.has_report === 1) {
-                events[index].report = await getStudentsPerformace(events[index].id);
+                let report = await getStudentsPerformace(events[index].id);
+                events[index].report = JSON.parse(report);
             }
         }
         return res.status(200).send({ code: 200, data: events });
