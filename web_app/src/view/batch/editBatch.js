@@ -32,7 +32,7 @@ const EditBatch = ({ isEditable }) => {
     const formData = {
       id: batchData.id,
       name: values.name ? values.name : batchData.name,
-      students: values.students && values.students.length > 0 ? values.students : batchData.students,
+      students: selectStudentList  ? selectStudentList : batchData.students ? batchData.students.map((data)=> data.id) : [],
       subject_id: values.subject_id ? values.subject_id : batchData.subject_id,
     };
     console.log(formData);
@@ -110,124 +110,7 @@ const EditBatch = ({ isEditable }) => {
               alignItems: "center",
             }}
           >
-            {/* <Form
-              name="basic"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
-              style={{ marginTop: "30px" }}
-            >
-              <Form.Item
-                label="Name"
-                style={{ fontWeight: "600" }}
-                name="name"
-                rules={[{ message: "Please input your name!" }]}
-              >
-                <Input
-                  defaultValue={batchData.name}
-                  style={{ width: "400px" }}
-                />
-              </Form.Item>
-
-              <Form.Item
-                style={{ fontWeight: "600" }}
-                label="Description"
-                name="description"
-                rules={[
-                  { message: "Please input your description!" },
-                ]}
-              >
-                <Input defaultValue={batchData.description} />
-              </Form.Item>
-
-              <Form.Item
-                name="subject_id"
-                style={{ fontWeight: "600" }}
-                label="Subject"
-                required
-                rules={[{ message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Subject"
-                  showSearch
-                  defaultValue={batchData.subject_id}
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {subjectList &&
-                    subjectList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                name="students"
-                style={{ fontWeight: "600" }}
-                label="Student"
-                required
-                rules={[{ message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Subject"
-                  showSearch
-                  defaultValue={batchData.students}
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {studentList &&
-                    studentList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "end",
-                  marginTop: "30px",
-                }}
-              >
-                <Form.Item>
-                  <Button
-                    htmlType="submit"
-                    onClick={onClose}
-                    style={{ marginRight: "20px" }}
-                  >
-                    Cancel
-                  </Button>
-
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    style={{ backgroundColor: "#000" }}
-                  >
-                    Update
-                  </Button>
-                </Form.Item>
-              </div>
-            </Form> */}
-
+            
             <Form
               name="basic"
               initialValues={{ remember: true }}
@@ -322,7 +205,7 @@ const EditBatch = ({ isEditable }) => {
                   <label>Select Student :</label>
                 </div>
                 <div style={style.category}>
-                  <Checkbox.Group onChange={onSelectCategoryChange}>
+                  <Checkbox.Group onChange={onSelectCategoryChange} defaultValue={batchData.students.map((data)=> data.id)}>
                     <div
                       className={styles.selectGroup}
                       style={{
@@ -336,6 +219,7 @@ const EditBatch = ({ isEditable }) => {
                         overflowY: "scroll",
                         marginBottom: "20px",
                         marginTop: "20px",
+                        width:'423px',
                       }}
                     >
                       {studentList &&

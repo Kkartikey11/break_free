@@ -26,8 +26,16 @@ const EditSubject = ({ isEditable }) => {
   const onFinish = (values) => {
     const formData = {
       id: subjectData.id,
-      name: values.name ? values.name : subjectData.name ? subjectData.name : "",
-      description: values.description ? values.description : subjectData.description ? subjectData.description : ""
+      name: values.name
+        ? values.name
+        : subjectData.name
+        ? subjectData.name
+        : "",
+      description: values.description
+        ? values.description
+        : subjectData.description
+        ? subjectData.description
+        : "",
     };
     console.log(formData);
     setApiData(formData);
@@ -102,7 +110,7 @@ const EditSubject = ({ isEditable }) => {
               autoComplete="off"
               style={{ marginTop: "30px" }}
             >
-              <Form.Item
+              {/* <Form.Item
                 label="Subject Name"
                 style={{ fontWeight: "600" }}
                 name="name"
@@ -123,6 +131,26 @@ const EditSubject = ({ isEditable }) => {
                 ]}
               >
                 <Input defaultValue={subjectData.description} />
+              </Form.Item> */}
+
+              <Form.Item style={{ fontWeight: "600" }} name="name" required>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                    {" "}
+                    Name :
+                  </label>
+                  <Input style={{ width: "400px" }} defaultValue={subjectData.name} required />
+                </div>
+              </Form.Item>
+
+              <Form.Item style={{ fontWeight: "600" }} name="description">
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                    {" "}
+                    Description :
+                  </label>
+                  <Input defaultValue={subjectData.description} style={{ width: "400px" }} />
+                </div>
               </Form.Item>
 
               <div

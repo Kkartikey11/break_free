@@ -208,6 +208,7 @@ const AddBatches = () => {
                       overflowY: "scroll",
                       marginBottom: "20px",
                       marginTop: "20px",
+                      width:'423px',
                     }}
                   >
                     {studentList &&
