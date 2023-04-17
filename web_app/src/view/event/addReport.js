@@ -879,7 +879,7 @@ const AddReport = ({ student }) => {
                           {/* <Button type="primary" onClick={addRow}>
                           +
                         </Button> */}
-                          <button style={{color:'white', backgroundColor:'black'}} type="submit" >+</button>
+                          <button style={{color:'white', backgroundColor:'black'}}  type="submit" >+</button>
                         </div>
                       </td>
                     </>

@@ -63,9 +63,10 @@ const Login = () => {
         <div style={{ display: "flex", justifyContent: "start" }}>
           <img style={{ width: "76%" }} src={image1} alt={loginName} />
         </div>
-        <div style={{ marginTop: "100px" }}>
+        <div style={{ marginTop: "50px" }}>
+        <h1 style={{color:'white', fontSize:'45px', fontFamily:'sans-serif'}}>Break Free Foundation</h1>
           <img src={loginName} alt={loginName} />
-          <div style={{ marginTop: "100px" }}>
+          <div style={{ marginTop: "50px" }}>
             <Form
               name="basic"
               labelCol={{
@@ -115,7 +116,7 @@ const Login = () => {
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Form.Item>
                   <Button
-                    style={{ width: "286px", marginTop: "25px" }}
+                    style={{ width: "410px", marginTop: "25px" }}
                     type="primary"
                     htmlType="submit"
                     onClick={onFinish}
