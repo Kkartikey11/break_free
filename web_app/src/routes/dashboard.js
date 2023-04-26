@@ -111,7 +111,7 @@ const DashboardRoutes = () => {
             textAlign: "center",
           }}
         >
-          BFF ©2023 | made with <span style={{color: "#e25555"}}>&hearts;</span> 
+          ©2023 Break Free Foundation | made with <span style={{ color: "red"}}>&hearts;</span> 
         </Footer>
       </Layout>
     </Layout>
