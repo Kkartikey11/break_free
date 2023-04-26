@@ -64,12 +64,15 @@ const AddReport = ({ student }) => {
   const [application_of_concepts, setApplication] = useState("");
   const [retention, setRetention] = useState("");
   const [confidence, setConfidencet] = useState("");
+  const [getIndex, setGetIndex] = useState("")
 
   // Handler for the name input field
   // const handleNameChange = (event) => {
   //   console.log(event);
   //   setName(event);
   // };
+
+  console.log(getIndex);
 
   console.log("student_id", student_id, is_present);
 
@@ -183,8 +186,8 @@ const AddReport = ({ student }) => {
                   <th>Confidence</th>
                   <th>Action</th>
                 </tr>
-                {eventData.students.map((item) => (
-                  <tr>
+                {eventData.students.map((item,index) => (
+                  <tr key={index}>
                     <td> <input name="name" type="text" defaultValue={item.name} disabled style={{height:30, borderRadius:'5px', border:'1px solid #E8E8E8', padding:'8px' }} /></td>
                     <>
                       <td>
@@ -199,6 +202,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="Absent">Absent</Option>
                             <Option value="Present">Present</Option>
@@ -215,6 +219,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -232,6 +237,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -249,6 +255,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -266,6 +273,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -283,6 +291,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -300,6 +309,7 @@ const AddReport = ({ student }) => {
                               textAlign: "center",
                               fontWeight: "600",
                             }}
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -319,6 +329,7 @@ const AddReport = ({ student }) => {
                               fontWeight: "600",
                             }}
                             name="confidence"
+                            disabled={isClicked && getIndex === index ? true : false}
                           >
                             <Option value="None">None</Option>
                             <Option value="Poor">Poor</Option>
@@ -327,13 +338,15 @@ const AddReport = ({ student }) => {
                         </div>
                       </td>
                       <td>
-                        <div>
-                          <Button type="primary"  style={{color:'white', backgroundColor: 'black'}}  onClick={()=>{
-                            handleSubmit();
-                            setIsClicked(true)
-                            }}>
-                          +
-                        </Button>
+                    <div>
+                      {isClicked && getIndex === index ? <></> :<Button type="primary"  style={{color:'white', backgroundColor: 'black'}}   onClick={()=>{
+                        handleSubmit();
+                        setIsClicked(true);
+                        setGetIndex(index)
+                        
+                        }}>
+                      +
+                    </Button>}
                           {/* <button style={{color:'white', backgroundColor: isClicked == true ?  'green' : 'black', cursor:'pointer'}} onChange={()=> setIsClicked(true)}  type="submit" >+</button> */}
                         </div>
                       </td>
