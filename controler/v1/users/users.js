@@ -62,6 +62,23 @@ exports.postDeleteUser = async (req, res, next) => {
     }
 };
 
+// update user by id
+exports.postUploadUserProfilePicture =  async (req, res, next) => {
+    try {
+        // upload.single('image')
+        let userId = req.params.userId;
+        const file = req.file;
+        console.log(file); // Output information about the uploaded file
+        const publicUrl = `${req.protocol}://${req.get('host')}/images/${file.filename}`;
+        // res.send(`File uploaded successfully! Public URL: ${publicUrl}`);
+        return res.status(200).send({ code: 200, url: `${publicUrl}`, message: `File uploaded successfully!` });
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
 // return users list
 exports.getUsers = async (req, res, next) => {
     try {
