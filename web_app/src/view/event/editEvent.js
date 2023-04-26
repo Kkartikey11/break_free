@@ -25,21 +25,22 @@ const EditEvent = ({ isEditable }) => {
   console.log(state);
   const [apiData, setApiData] = useState({});
   const [batchList, setBatchList] = useState("");
+  const [batchId, setBatchId] = useState("")
   const [monterList, setMentorList] = useState("");
   const [mantors, setMentors] = useState([]);
   const [date, setDate] = useState("");
 
-  console.log(eventData);
 
   const onFinish = (values) => {
     const formData = {
       id: eventData.id,
       name: values.name ? values.name : eventData.name,
       description: values.description ? values.description : eventData.description,
-      batch_id: values.batch_id ? values.batch_id : eventData.batch_id,
+      batch_id: batchId ? batchId : eventData.batch_id,
       mentors: mantors ? mantors : eventData.mentors,
       event_datetime: values.event_datetime ? values.event_datetime : eventData.event_datetime,
     };
+    console.log(apiData);
     setApiData(formData);
     dispatch(editEventAction(formData));
     dispatch(eventAction());
@@ -202,6 +203,7 @@ const EditEvent = ({ isEditable }) => {
               showSearch
               defaultValue={eventData.batch_id}
               style={{width:'400px', textAlign: 'center', fontWeight:'600'}}
+              onChange={(e) => setBatchId(e)}
               >
                 {batchList &&
                   batchList.map((data, index) => (
