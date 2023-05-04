@@ -31,6 +31,7 @@ import Login from "../view/auth";
 import Cookies from "universal-cookie";
 import ViewEvent from "../view/event/addReport";
 import AddReport from "../view/event/addReport";
+import BFFStar from "../view/bffStar";
   const { Header, Content, Footer, Sider } = Layout;
 
 
@@ -96,6 +97,7 @@ const DashboardRoutes = () => {
             <Route path="/subject" element={<Subjects />} />
             <Route path="/users" element={<Users />} />
             <Route path="/events" element={<Event />} />
+            <Route path="/bff-star" element={<BFFStar />} />
             <Route path="/students/add-student" element={<AddStudent />} />
             <Route path="/batch/add-batch" element={<AddBatches />} />
             <Route path="/grade/add-grade" element={<AddGrade />} />

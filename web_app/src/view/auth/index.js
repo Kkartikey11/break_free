@@ -20,13 +20,11 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
-  console.log(state);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [apiData, setApiData] = useState({});
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     const formData = {
       email: email,
       password: password,
@@ -37,8 +35,6 @@ const Login = () => {
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
-
-  console.log(state.auth.data.status);
 
   useEffect(() => {
     if (state.auth.data !== "") {
@@ -60,7 +56,7 @@ const Login = () => {
           backgroundColor: "#000",
         }}
       >
-        <div style={{ width: "45%" }}>
+        <div style={{ width: "50%" }}>
           <img style={{ width: "100%" }} src={logo3} alt={loginName} />
         </div>
         <div

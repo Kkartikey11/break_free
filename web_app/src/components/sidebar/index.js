@@ -27,6 +27,7 @@ const SideNavbar = () => {
   const [userClicked, setuserClicked] = useState(false);
   const [eventClicked, setEventClicked] = useState(false);
   const [subjectClicked, setSubjectClicked] = useState(false);
+  const [bffStar, setBffStar] = useState(false)
 
   return (
     <div className={styles.sider_container}>
@@ -57,6 +58,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             to="/web"
             className={dashboardClicked ? styles.onClick : styles.unClick}
@@ -85,6 +87,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               studentClicked ? styles.onClick : styles.unClick
@@ -124,6 +127,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               batchClicked === true ? styles.onClick : styles.unClick
@@ -152,6 +156,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               eventClicked === true ? styles.onClick : styles.unClick
@@ -181,6 +186,7 @@ const SideNavbar = () => {
               setStudentClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               subjectClicked === true ? styles.onClick : styles.unClick
@@ -209,6 +215,7 @@ const SideNavbar = () => {
               setDashboardClicked(false);
               setStudentClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               gradeClicked === true ? styles.onClick : styles.unClick
@@ -237,12 +244,42 @@ const SideNavbar = () => {
               setBatchClicked(false);
               setDashboardClicked(false);
               setStudentClicked(false);
+              setBffStar(false);
             }}
             className={
               userClicked === true ? styles.onClick : styles.unClick
             }
           >
             <HeatMapOutlined className={styles.link_icon} /> Users
+          </NavLink>
+
+          <NavLink
+            to="/web/bff-star"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
+            }}
+            onClick={() => {
+              setuserClicked(false);
+              setGardeClicked(false);
+              setSubjectClicked(false);
+              setEventClicked(false);
+              setBatchClicked(false);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+              setBffStar(true)
+            }}
+            className={
+              bffStar === true ? styles.onClick : styles.unClick
+            }
+          >
+            <HeatMapOutlined className={styles.link_icon} /> BFF Star's
           </NavLink>
         </ul>)
         :
@@ -257,6 +294,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             to="/web"
             className={dashboardClicked ? styles.onClick : styles.unClick}
@@ -285,6 +323,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               studentClicked ? styles.onClick : styles.unClick
@@ -324,6 +363,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               batchClicked === true ? styles.onClick : styles.unClick
@@ -352,6 +392,7 @@ const SideNavbar = () => {
               setSubjectClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               eventClicked === true ? styles.onClick : styles.unClick
@@ -381,6 +422,7 @@ const SideNavbar = () => {
               setStudentClicked(false);
               setGardeClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               subjectClicked === true ? styles.onClick : styles.unClick
@@ -409,6 +451,7 @@ const SideNavbar = () => {
               setDashboardClicked(false);
               setStudentClicked(false);
               setuserClicked(false);
+              setBffStar(false);
             }}
             className={
               gradeClicked === true ? styles.onClick : styles.unClick
@@ -437,6 +480,7 @@ const SideNavbar = () => {
               setBatchClicked(false);
               setDashboardClicked(false);
               setStudentClicked(false);
+              setBffStar(false);
             }}
             className={
               userClicked === true ? styles.onClick : styles.unClick
@@ -444,6 +488,36 @@ const SideNavbar = () => {
           >
             <HeatMapOutlined className={styles.link_icon} /> Users
           </NavLink>
+
+          <NavLink
+            to="/web/bff-star"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: "10px",
+              fontWeight:'600',
+              margin:'0px 0px 10px 0px',
+              paddingLeft: '25px',
+              textDecoration:'none',
+              color: 'White'
+            }}
+            onClick={() => {
+              setuserClicked(false);
+              setGardeClicked(false);
+              setSubjectClicked(false);
+              setEventClicked(false);
+              setBatchClicked(false);
+              setDashboardClicked(false);
+              setStudentClicked(false);
+              setBffStar(true)
+            }}
+            className={
+              bffStar === true ? styles.onClick : styles.unClick
+            }
+          >
+            <HeatMapOutlined className={styles.link_icon} /> BFF Star's
+          </NavLink>
+
         </ul>)
         :
         (<ul style={{ marginTop: "50px" }}>

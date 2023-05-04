@@ -28,6 +28,8 @@ const ContextState = (props) => {
   const [eventData, setEventData] = useState("");
   const [viewEventOpen, setViewEventOpen] = useState(false);
 
+  const [addBffStarOpen, setAddBffStarOpen] = useState(false);
+
   return (
     <Context.Provider
       value={{
@@ -76,6 +78,9 @@ const ContextState = (props) => {
         setEditBatchOpen,
         batchData,
         setBatchData,
+
+        addBffStarOpen,
+        setAddBffStarOpen,
       }}
     >
       {props.children}
