@@ -8,8 +8,11 @@ import { Content } from "antd/es/layout/layout";
 import AddUser from "./addUser";
 import EditUser from "./editUser";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import Cookies from "universal-cookie";
 
 const Users = () => {
+  const cookies = new Cookies();
+  const roleType = cookies.get('role_type')
   const context = useContext(Context);
   const { addUserOpen, setAddUserOpen, setEditUserOpen, setUserData } = context;
   const dispatch = useDispatch();
@@ -56,6 +59,8 @@ const Users = () => {
             justifyContent: "space-around",
           }}
         >
+          {record.role !== "Super Admin" ?
+          <>
           <a
             onClick={() => {
               setUserData(record);
@@ -76,6 +81,10 @@ const Users = () => {
           >
             <DeleteOutlined style={{ color: "red" }} />
           </a>
+          </>
+          :
+          <></>}
+          
         </Space>
       ),
     },

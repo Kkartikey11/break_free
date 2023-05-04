@@ -8,6 +8,7 @@ import { deleteSubjectAction, subjectAction } from "../../redux/action/subject";
 import AddSubject from "./addSubject";
 import EditSubject from "./editSubject";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import Cookies from "universal-cookie";
 
 const Subjects = () => {
   const context = useContext(Context);
