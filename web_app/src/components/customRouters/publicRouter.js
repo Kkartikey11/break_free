@@ -11,6 +11,6 @@ export const PublicRouter = ({children}) => {
         return children;
     }
 
-    return <Navigate to="/" />;
+    return <Navigate to="/web" />;
 
 }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { userAction } from "../../redux/action/user";
+import { deleteUserAction, userAction } from "../../redux/action/user";
 import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
@@ -8,8 +8,11 @@ import { Content } from "antd/es/layout/layout";
 import AddUser from "./addUser";
 import EditUser from "./editUser";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import Cookies from "universal-cookie";
 
 const Users = () => {
+  const cookies = new Cookies();
+  const roleType = cookies.get('role_type')
   const context = useContext(Context);
   const { addUserOpen, setAddUserOpen, setEditUserOpen, setUserData } = context;
   const dispatch = useDispatch();
@@ -56,6 +59,8 @@ const Users = () => {
             justifyContent: "space-around",
           }}
         >
+          {record.role !== "Super Admin" ?
+          <>
           <a
             onClick={() => {
               setUserData(record);
@@ -68,13 +73,18 @@ const Users = () => {
 
           <a
             onClick={() => {
-              setUserData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete ${record.name}`);
+              dispatch(deleteUserAction(record));
+              dispatch(userAction());
             }}
             style={{ color: "green" }}
           >
             <DeleteOutlined style={{ color: "red" }} />
           </a>
+          </>
+          :
+          <></>}
+          
         </Space>
       ),
     },

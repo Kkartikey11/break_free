@@ -11,6 +11,8 @@ import Context from "../../components/sidebar/context/Context";
 import { CloseOutlined } from "@ant-design/icons";
 import { subjectAction } from "../../redux/action/subject";
 import styles from "./batch.moduler.css";
+import { EditBatchesReducer } from "../../redux/reducer/batchReducer";
+import { batchAction, editBatchesAction } from "../../redux/action/batch";
 
 const EditBatch = ({ isEditable }) => {
   const context = useContext(Context);
@@ -28,14 +30,15 @@ const EditBatch = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      grade_id: values.grade_id,
+      id: batchData.id,
+      name: values.name ? values.name : batchData.name,
+      students: selectStudentList  ? selectStudentList : batchData.students ? batchData.students.map((data)=> data.id) : [],
+      subject_id: values.subject_id ? values.subject_id : batchData.subject_id,
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
-    dispatch(studentAction());
+    dispatch(editBatchesAction(formData));
+    dispatch(batchAction());
     setEditBatchOpen(false);
   };
 
@@ -44,7 +47,7 @@ const EditBatch = ({ isEditable }) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/batch");
   };
 
   const onClose = () => {
@@ -65,7 +68,7 @@ const EditBatch = ({ isEditable }) => {
     }
     if (state.addBatches.data !== "") {
       if (state.addBatches.data.data.code === 200) {
-        navigate("/batch");
+        navigate("/web/batch");
         window.location.reload();
       }
     }
@@ -107,124 +110,7 @@ const EditBatch = ({ isEditable }) => {
               alignItems: "center",
             }}
           >
-            {/* <Form
-              name="basic"
-              initialValues={{ remember: true }}
-              onFinish={onFinish}
-              onFinishFailed={onFinishFailed}
-              autoComplete="off"
-              style={{ marginTop: "30px" }}
-            >
-              <Form.Item
-                label="Name"
-                style={{ fontWeight: "600" }}
-                name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
-              >
-                <Input
-                  defaultValue={batchData.name}
-                  style={{ width: "400px" }}
-                />
-              </Form.Item>
-
-              <Form.Item
-                style={{ fontWeight: "600" }}
-                label="Description"
-                name="description"
-                rules={[
-                  { required: true, message: "Please input your description!" },
-                ]}
-              >
-                <Input defaultValue={batchData.description} />
-              </Form.Item>
-
-              <Form.Item
-                name="subject_id"
-                style={{ fontWeight: "600" }}
-                label="Subject"
-                required
-                rules={[{ required: true, message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Subject"
-                  showSearch
-                  defaultValue={batchData.subject_id}
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {subjectList &&
-                    subjectList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-
-              <Form.Item
-                name="students"
-                style={{ fontWeight: "600" }}
-                label="Student"
-                required
-                rules={[{ required: true, message: "Please select grade !" }]}
-              >
-                <Select
-                  placeholder="Please Select Subject"
-                  showSearch
-                  defaultValue={batchData.students}
-                  style={{
-                    width: "400px",
-                    textAlign: "center",
-                    fontWeight: "600",
-                  }}
-                >
-                  {studentList &&
-                    studentList.map((data, index) => (
-                      <Option
-                        value={data.id}
-                        key={index}
-                        disabled={data.disabled}
-                      >
-                        {data && data.name}
-                      </Option>
-                    ))}
-                </Select>
-              </Form.Item>
-
-              <div
-                style={{
-                  display: "flex",
-                  justifyContent: "end",
-                  marginTop: "30px",
-                }}
-              >
-                <Form.Item>
-                  <Button
-                    htmlType="submit"
-                    onClick={onClose}
-                    style={{ marginRight: "20px" }}
-                  >
-                    Cancel
-                  </Button>
-
-                  <Button
-                    type="primary"
-                    htmlType="submit"
-                    style={{ backgroundColor: "#000" }}
-                  >
-                    Update
-                  </Button>
-                </Form.Item>
-              </div>
-            </Form> */}
-
+            
             <Form
               name="basic"
               initialValues={{ remember: true }}
@@ -236,7 +122,7 @@ const EditBatch = ({ isEditable }) => {
               <Form.Item
                 style={{ fontWeight: "600" }}
                 name="name"
-                rules={[{ required: true, message: "Please input your name!" }]}
+                rules={[{ message: "Please input your name!" }]}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <label
@@ -254,7 +140,7 @@ const EditBatch = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 name="description"
                 rules={[
-                  { required: true, message: "Please input your description!" },
+                  { message: "Please input your description!" },
                 ]}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
@@ -274,7 +160,7 @@ const EditBatch = ({ isEditable }) => {
                 style={{ fontWeight: "600" }}
                 // label="Subject"
                 required
-                rules={[{ required: true, message: "Please select grade !" }]}
+                rules={[{ message: "Please select grade !" }]}
               >
                 <div style={{ display: "flex", flexDirection: "column" }}>
                   <label
@@ -286,7 +172,7 @@ const EditBatch = ({ isEditable }) => {
                   </label>
                   <Select
                     placeholder="Please Select Subject"
-                    defaultValue={batchData.subject_id}
+                    defaultValue={batchData.subject}
                     showSearch
                     style={{
                       width: "437px",
@@ -319,7 +205,7 @@ const EditBatch = ({ isEditable }) => {
                   <label>Select Student :</label>
                 </div>
                 <div style={style.category}>
-                  <Checkbox.Group onChange={onSelectCategoryChange}>
+                  <Checkbox.Group onChange={onSelectCategoryChange} defaultValue={batchData.students.map((data)=> data.id)}>
                     <div
                       className={styles.selectGroup}
                       style={{
@@ -333,6 +219,7 @@ const EditBatch = ({ isEditable }) => {
                         overflowY: "scroll",
                         marginBottom: "20px",
                         marginTop: "20px",
+                        width:'423px',
                       }}
                     >
                       {studentList &&

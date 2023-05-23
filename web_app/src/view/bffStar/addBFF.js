@@ -1,4 +1,4 @@
-import { Button, Drawer, Form, Input, Select, theme } from "antd";
+import { Button, Drawer, Form, Input, Modal, Select, Upload, theme } from "antd";
 import { Option } from "antd/es/mentions";
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,11 +6,19 @@ import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
 import { addUserAction, userAction } from "../../redux/action/user";
-import { CloseOutlined } from "@ant-design/icons";
+import { CloseOutlined, PlusOutlined } from "@ant-design/icons";
 
-const AddUser = () => {
+const getBase64 = (file) =>
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
+
+const AddBFFStar = () => {
   const context = useContext(Context);
-  const { addUserOpen, setAddUserOpen, setUserData } = context;
+  const { addBffStarOpen, setAddBffStarOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -58,8 +66,59 @@ const AddUser = () => {
   } = theme.useToken();
 
   const onClose = () => {
-    setAddUserOpen(false);
+    setAddBffStarOpen(false);
   };
+
+
+  const [previewOpen, setPreviewOpen] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const [fileList, setFileList] = useState([
+    {
+      uid: '-1',
+      name: 'image.png',
+      status: 'done',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-xxx',
+      percent: 50,
+      name: 'image.png',
+      status: 'uploading',
+      url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    },
+    {
+      uid: '-5',
+      name: 'image.png',
+      status: 'error',
+    },
+  ]);
+
+  console.log(fileList);
+
+
+  const handleCancel = () => setPreviewOpen(false);
+  const handlePreview = async (file) => {
+    if (!file.url && !file.preview) {
+      file.preview = await getBase64(file.originFileObj);
+    }
+    setPreviewImage(file.url || file.preview);
+    setPreviewOpen(true);
+    setPreviewTitle(file.name || file.url.substring(file.url.lastIndexOf('/') + 1));
+  };
+  const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
+  const uploadButton = (
+    <div>
+      <PlusOutlined />
+      <div
+        style={{
+          marginTop: 8,
+        }}
+      >
+        Upload
+      </div>
+    </div>
+  );
 
   return (
     <>
@@ -67,13 +126,13 @@ const AddUser = () => {
         className="container"
         title={
           <>
-            <CloseOutlined onClick={onClose} /> <span>Add New User</span>{" "}
+            <CloseOutlined onClick={onClose} /> <span>Add BFF Star of the month</span>{" "}
           </>
         }
         width={450}
         closable={false}
         onClose={onClose}
-        open={addUserOpen}
+        open={addBffStarOpen}
         style={{ overflowY: "auto" }}
       >
         <div
@@ -100,53 +159,40 @@ const AddUser = () => {
               <Input style={{ width: "340px" }} />
             </Form.Item>
 
-            <Form.Item
-              style={{ fontWeight: "600" }}
-              label="Email"
-              name="email"
-              rules={[{ required: true, message: "Please input your email!" }]}
-            >
-              <Input />
-            </Form.Item>
-
-            <Form.Item
-              label="Password"
-              style={{ fontWeight: "600" }}
-              name="password"
-              rules={[{ required: true, message: "Please input your name!" }]}
-            >
-              <Input style={{ width: "317px" }} />
-            </Form.Item>
 
             <Form.Item
               label="About"
               style={{ fontWeight: "600" }}
               name="about"
-              rules={[{ required: true, message: "Please input about user!" }]}
+              rules={[{ required: true, message: "Please input about star!" }]}
             >
               <Input style={{ width: "336px" }} />
             </Form.Item>
 
-            <Form.Item
-              name="role_id"
-              label="User Type"
-              style={{ fontWeight: "600" }}
-              required
-              rules={[{ required: true, message: "Please select grade !" }]}
-            >
-              <Select
-                placeholder="Please Select User Type"
-                showSearch
-                style={{
-                  width: "310px",
-                  fontWeight: "600",
-                  textAlign: "center",
-                }}
+            <Upload
+                action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+                listType="picture-circle"
+                // fileList={fileList}
+                onPreview={handlePreview}
+                onChange={handleChange}
               >
-                <Option value="2">Admin</Option>
-                <Option value="3">Mentor</Option>
-              </Select>
-            </Form.Item>
+                {fileList.length >= 8 ? null : uploadButton}
+              </Upload>
+              <Modal
+                open={previewOpen}
+                title={previewTitle}
+                footer={null}
+                onCancel={handleCancel}
+              >
+                <img
+                  alt="example"
+                  style={{
+                    width: "100%",
+                  }}
+                  src={previewImage}
+                />
+              </Modal>
+
 
             <div
               style={{
@@ -180,4 +226,4 @@ const AddUser = () => {
   );
 };
 
-export default AddUser;
+export default AddBFFStar;

@@ -4,7 +4,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
 import { Content } from "antd/es/layout/layout";
-import { addStudentAction, studentAction } from "../../redux/action/student";
+import { editSubjectAction, subjectAction } from "../../redux/action/subject";
 import { gradeAction } from "../../redux/action/grade";
 import PropTypes from "prop-types";
 import Context from "../../components/sidebar/context/Context";
@@ -25,14 +25,22 @@ const EditSubject = ({ isEditable }) => {
 
   const onFinish = (values) => {
     const formData = {
-      name: values.name,
-      email: values.email,
-      grade_id: values.grade_id,
+      id: subjectData.id,
+      name: values.name
+        ? values.name
+        : subjectData.name
+        ? subjectData.name
+        : "",
+      description: values.description
+        ? values.description
+        : subjectData.description
+        ? subjectData.description
+        : "",
     };
     console.log(formData);
     setApiData(formData);
-    dispatch(addStudentAction(formData));
-    dispatch(studentAction());
+    dispatch(editSubjectAction(formData));
+    dispatch(editSubjectAction());
     setEditSubjectOpen(false);
   };
 
@@ -41,7 +49,7 @@ const EditSubject = ({ isEditable }) => {
   };
 
   const onCancel = () => {
-    navigate("/student");
+    navigate("/web/student");
   };
 
   const onClose = () => {
@@ -57,7 +65,7 @@ const EditSubject = ({ isEditable }) => {
     }
     if (state.addStudent.data !== "") {
       if (state.addStudent.data.data.code === 200) {
-        navigate("/student");
+        navigate("/web/student");
         window.location.reload();
       }
     }
@@ -102,7 +110,7 @@ const EditSubject = ({ isEditable }) => {
               autoComplete="off"
               style={{ marginTop: "30px" }}
             >
-              <Form.Item
+              {/* <Form.Item
                 label="Subject Name"
                 style={{ fontWeight: "600" }}
                 name="name"
@@ -123,6 +131,26 @@ const EditSubject = ({ isEditable }) => {
                 ]}
               >
                 <Input defaultValue={subjectData.description} />
+              </Form.Item> */}
+
+              <Form.Item style={{ fontWeight: "600" }} name="name" required>
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                    {" "}
+                    Name :
+                  </label>
+                  <Input style={{ width: "400px" }} defaultValue={subjectData.name} required />
+                </div>
+              </Form.Item>
+
+              <Form.Item style={{ fontWeight: "600" }} name="description">
+                <div style={{ display: "flex", flexDirection: "column" }}>
+                  <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                    {" "}
+                    Description :
+                  </label>
+                  <Input defaultValue={subjectData.description} style={{ width: "400px" }} />
+                </div>
               </Form.Item>
 
               <div

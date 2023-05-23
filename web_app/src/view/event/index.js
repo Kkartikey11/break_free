@@ -1,24 +1,29 @@
 import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Context from "../../components/sidebar/context/Context";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { eventAction } from "../../redux/action/event";
+import { deleteEventAction, eventAction } from "../../redux/action/event";
 import AddEvent from "./addEvent";
 import EditEvent from "./editEvent";
 import {DeleteOutlined, EditOutlined} from '@ant-design/icons'
 import moment from "moment";
+import ViewEvent from "./viewEventDetails";
 
 const Event = () => {
   const context = useContext(Context);
-  const { setAddEventOpen, setEventData, setEditEventOpen } =
+  const { setAddEventOpen, setEventData, setEditEventOpen,
+    setViewEventOpen, } =
     context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
   console.log(state);
   const [eventList, setEventList] = useState("");
+  const [eventId, setEventId] = useState("")
+
+  console.log(eventId);
 
   useEffect(() => {
     dispatch(eventAction());
@@ -36,11 +41,18 @@ const Event = () => {
     {
       title: "Name",
       dataIndex: "name",
+      render: (text, record) => <Link 
+      to="" 
+      style={{fontWeight:'600'}} 
+      onClick={() => {
+        setEventData(record);
+        setViewEventOpen(true);
+      }}>{text}</Link>,
     },
     {
       title: "Event Date",
       dataIndex: "event_datetime",
-      render: (text) => <div>{moment(text).format("DD MMM YYYY")}</div>,
+      render: (text) => <div>{moment(text).format("DD MMM YYYY, hh:mm a")}</div>,
     },
     {
       title: "Description",
@@ -64,7 +76,9 @@ const Event = () => {
           <a
             onClick={() => {
               setEventData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete event ${record.name}?`);
+              dispatch(deleteEventAction(record));
+              dispatch(eventAction());
             }}
             style={{color:'green'}}
           >
@@ -119,6 +133,7 @@ const Event = () => {
         />
         <AddEvent />
         <EditEvent />
+        <ViewEvent />
       </Content>
     </>
   );

@@ -50,3 +50,59 @@ export const addUserAction = (formInput) => (dispatch) => {
       });
     });
 };
+
+// edit user
+export const editUserAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/users/${formInput.id}`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+      }
+      dispatch({
+        type: user.Edit_USERS,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};
+
+// delete user
+export const deleteUserAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/users/${formInput.id}/delete`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+      }
+      dispatch({
+        type: user.Edit_USERS,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};

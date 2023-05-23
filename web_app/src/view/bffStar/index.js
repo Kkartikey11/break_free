@@ -2,31 +2,29 @@ import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
-import { Button, Table, theme, Space } from "antd";
+import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { DeleteGradeAction, gradeAction } from "../../redux/action/grade";
-import AddGrade from "./addGrade";
-import EditGrade from "./editGrade";
+import { deleteSubjectAction, subjectAction } from "../../redux/action/subject";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import Cookies from "universal-cookie";
+import AddBFFStar from "./addBFF";
 
-const Grade = () => {
+const BFFStarList = () => {
   const context = useContext(Context);
-  const { addGradeOpen, setAddGradeOpen, setEditGradeOpen, setGradeData } =
-    context;
+  const { setAddBatchOpen, setSubjectData, setEditSubjectOpen, setAddBffStarOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
-  console.log(state);
-  const [gradeList, setGradeList] = useState("");
+  const [subjectList, setSubjectList] = useState("");
 
   useEffect(() => {
-    dispatch(gradeAction());
+    dispatch(subjectAction());
   }, []);
 
   useEffect(() => {
-    if (state.getGrade.data !== "") {
-      if (state.getGrade.data.data.code === 200) {
-        setGradeList(state.getGrade.data.data.data);
+    if (state.getSubject.data !== "") {
+      if (state.getSubject.data.data.code === 200) {
+        setSubjectList(state.getSubject.data.data.data);
       }
     }
   }, [state]);
@@ -54,8 +52,8 @@ const Grade = () => {
         >
           <a
             onClick={() => {
-              setGradeData(record);
-              setEditGradeOpen(true);
+              setSubjectData(record);
+              setEditSubjectOpen(true);
             }}
             style={{ color: "green" }}
           >
@@ -64,9 +62,11 @@ const Grade = () => {
 
           <a
             onClick={() => {
-              alert(`Are you sure you want to delete grade ${record.name}?`);
-              dispatch(DeleteGradeAction(record));
-              dispatch(gradeAction());
+              setSubjectData(record);
+              // alert(record.id);
+              dispatch(deleteSubjectAction(record));
+              dispatch(subjectAction());
+              
             }}
             style={{ color: "green" }}
           >
@@ -75,11 +75,12 @@ const Grade = () => {
         </Space>
       ),
     },
+    
   ];
 
-  const {
-    token: { colorBgContainer },
-  } = theme.useToken();
+      const {
+        token: { colorBgContainer },
+      } = theme.useToken();
   return (
     <>
       <Content
@@ -97,36 +98,31 @@ const Grade = () => {
             marginBottom: "20px",
           }}
         >
-          <div>
-            <h1 style={{ fontSize: "30px", margin: "0px" }}>Grade List</h1>
-          </div>
-          <div style={{ marginTop: "10px" }}>
-            <Button
-              type="primary"
-              onClick={() => {
-                setAddGradeOpen(true);
-              }}
-              style={{
-                backgroundColor: "black",
-                color: "white",
-                fontWeight: "600",
-              }}
-            >
-              Add Grade
-            </Button>
-          </div>
+        <div >
+            <h1 style={{ fontSize: "30px", margin: "0px" }}>BFF Star's List</h1>
+        </div>
+        <div style={{ marginTop: "10px" }}>
+          <Button
+            type="primary"
+            onClick={() => {
+                setAddBffStarOpen(true);
+            }}
+            style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
+          >
+            Add BFF Star
+          </Button>
+        </div>
         </div>
         <Table
           columns={columns}
-          dataSource={gradeList && gradeList}
+          dataSource={subjectList && subjectList}
           pagination={true}
           scroll={{ x: "100%" }}
         />
-        <AddGrade />
-        <EditGrade />
       </Content>
+      <AddBFFStar />
     </>
   );
 };
 
-export default Grade;
+export default BFFStarList;

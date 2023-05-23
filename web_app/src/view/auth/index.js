@@ -8,49 +8,70 @@ import Polygon_1 from "../../asserts/images/Polygon_1.png";
 import Polygon_2 from "../../asserts/images/Polygon_2.png";
 import Polygon_3 from "../../asserts/images/Polygon_3.png";
 import Subtract from "../../asserts/images/Subtract.png";
+import logo1 from "../../asserts/images/Logo_t.png";
+import logo2 from "../../asserts/images/Logo (1).png";
+import logo3 from "../../asserts/images/Logo (3).png";
 import { Button, Form, Input } from "antd";
 import { authAction } from "../../redux/action/auth";
 
 const Login = () => {
   const context = useContext(Context);
-  const {  } = context;
+  const {} = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
-  console.log(state);
-  const[email, setEmail] = useState("");
-  const[password, setPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [apiData, setApiData] = useState({});
 
   const onFinish = (values) => {
-    console.log("Success:", values);
     const formData = {
-        email: email,
-        password: password,
-      };
-      setApiData(formData);
-      dispatch(authAction(formData));
-      navigate("/users");
+      email: email,
+      password: password,
+    };
+    setApiData(formData);
+    dispatch(authAction(formData));
   };
   const onFinishFailed = (errorInfo) => {
     console.log("Failed:", errorInfo);
   };
+
+  useEffect(() => {
+    if (state.auth.data !== "") {
+      if (state.auth.data.status === 200) {
+        setTimeout(() => {
+          navigate("/web");
+          window.location.reload();
+        }, 500);
+      }
+    }
+  }, [state]);
 
   return (
     <>
       <div
         style={{
           display: "flex",
-          justifyContent: "space-between",
+          // justifyContent: "",
           backgroundColor: "#000",
         }}
       >
-        <div style={{ display: "flex", justifyContent: "start" }}>
-          <img style={{ width: "76%" }} src={image1} alt={loginName} />
+        <div style={{ width: "50%" }}>
+          <img style={{ width: "100%" }} src={logo3} alt={loginName} />
         </div>
-        <div style={{ marginTop: "100px" }}>
-          <img src={loginName} alt={loginName} />
-          <div style={{ marginTop: "100px" }}>
+        <div
+          style={{
+            width: "50%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexDirection: "column",
+          }}
+        >
+          <div>
+            <h1 style={{ color: "white", fontFamily: "sans-serif" }}>Login</h1>
+          </div>
+          <div>
             <Form
               name="basic"
               labelCol={{
@@ -80,7 +101,7 @@ const Login = () => {
                 >
                   Username
                 </label>
-                <Input onChange={(e)=> setEmail(e.target.value)} />
+                <Input onChange={(e) => setEmail(e.target.value)} />
               </Form.Item>
 
               <Form.Item label="Password" name="password">
@@ -94,13 +115,13 @@ const Login = () => {
                 >
                   Password
                 </label>
-                <Input.Password onChange={(e)=> setPassword(e.target.value)} />
+                <Input.Password onChange={(e) => setPassword(e.target.value)} />
               </Form.Item>
 
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <Form.Item>
                   <Button
-                    style={{ width: "286px", marginTop: "25px" }}
+                    style={{ width: "290px", marginTop: "25px" }}
                     type="primary"
                     htmlType="submit"
                     onClick={onFinish}
@@ -111,16 +132,6 @@ const Login = () => {
               </div>
             </Form>
           </div>
-        </div>
-        <div>
-          <div style={{ display: "flex", justifyContent: "end" }}>
-            <img style={{ width: "77%" }} src={Subtract} alt={loginName} />
-          </div>
-          {/* <div>
-          <img src={Polygon_1} alt={loginName} />
-          <img src={Polygon_2} alt={loginName} />
-          <img src={Polygon_3} alt={loginName} />
-        </div> */}
         </div>
       </div>
     </>

@@ -4,14 +4,15 @@ import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { subjectAction } from "../../redux/action/subject";
+import { deleteSubjectAction, subjectAction } from "../../redux/action/subject";
 import AddSubject from "./addSubject";
 import EditSubject from "./editSubject";
 import { DeleteOutlined, EditOutlined } from "@ant-design/icons";
+import Cookies from "universal-cookie";
 
 const Subjects = () => {
   const context = useContext(Context);
-  const { setAddBatchOpen, setSubjectData, setEditSubjectOpen } = context;
+  const { setAddBatchOpen, setSubjectData, setEditSubjectOpen, addNewSubjectOpen, setAddNewSubjectOpen } = context;
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const state = useSelector((state) => state);
@@ -64,7 +65,10 @@ const Subjects = () => {
           <a
             onClick={() => {
               setSubjectData(record);
-              alert(record.id);
+              // alert(record.id);
+              dispatch(deleteSubjectAction(record));
+              dispatch(subjectAction());
+              
             }}
             style={{ color: "green" }}
           >
@@ -103,7 +107,7 @@ const Subjects = () => {
           <Button
             type="primary"
             onClick={() => {
-              setAddBatchOpen(true);
+              setAddNewSubjectOpen(true);
             }}
             style={{backgroundColor: "black", color: "white", fontWeight:'600'}}
           >

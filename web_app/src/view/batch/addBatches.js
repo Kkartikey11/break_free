@@ -38,7 +38,7 @@ const AddBatches = () => {
     setApiData(formData);
     dispatch(addBatchesAction(formData));
     dispatch(batchAction());
-    navigate("/batch");
+    navigate("/web/batch");
   };
 
   console.log(selectSubject);
@@ -83,7 +83,6 @@ const AddBatches = () => {
     setSelectStudentList(checkedValues);
   };
 
-  console.log(subjectList);
 
   return (
     <>
@@ -209,6 +208,7 @@ const AddBatches = () => {
                       overflowY: "scroll",
                       marginBottom: "20px",
                       marginTop: "20px",
+                      width:'423px',
                     }}
                   >
                     {studentList &&

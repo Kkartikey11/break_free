@@ -4,7 +4,7 @@ import Context from "../../components/sidebar/context/Context";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal, Space, Table, Tag, theme } from "antd";
 import { Content } from "antd/es/layout/layout";
-import { studentAction } from "../../redux/action/student";
+import { deleteStudentAction, studentAction } from "../../redux/action/student";
 import AddStudent from "./addStudent";
 import { useContext } from "react";
 import EditStudent from "./editStudent";
@@ -20,7 +20,6 @@ const Student = () => {
   console.log(state);
   const [studentList, setStudentList] = useState("");
   const [isEditable, setIsEditable] = useState(false);
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const onClose = () => {
     setAddStudentOpen(false);
@@ -76,7 +75,9 @@ const Student = () => {
           <a
             onClick={() => {
               setStudentData(record);
-              alert(record.id);
+              alert(`Are you sure you want to delete grade ${record.name}?`);
+              dispatch(deleteStudentAction(record));
+              dispatch(studentAction());
             }}
             style={{ color: "green" }}
           >

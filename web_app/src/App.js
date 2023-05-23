@@ -15,14 +15,14 @@ function App() {
         <Provider store={store}>
           <Routes>
             <Route
-              path="/login"
+              path="/"
               element={
                 <PublicRouter>
                   <Login />
                 </PublicRouter>
               }
             />
-            <Route path="/*" 
+            <Route path="/web/*" 
             element={
               <PrivateRouter>
                 <DashboardRoutes />

@@ -11,6 +11,7 @@ const ContextState = (props) => {
   const [batchData, setBatchData] = useState("");
 
   const [addSubjectOpen, setAddSubjectOpen] = useState(false);
+  const [addNewSubjectOpen, setAddNewSubjectOpen] = useState(false);
   const [editSubjectOpen, setEditSubjectOpen] = useState(false);
   const [subjectData, setSubjectData] = useState("");
 
@@ -25,6 +26,9 @@ const ContextState = (props) => {
   const [addEventOpen, setAddEventOpen] = useState(false);
   const [editEventOpen, setEditEventOpen] = useState(false);
   const [eventData, setEventData] = useState("");
+  const [viewEventOpen, setViewEventOpen] = useState(false);
+
+  const [addBffStarOpen, setAddBffStarOpen] = useState(false);
 
   return (
     <Context.Provider
@@ -42,6 +46,8 @@ const ContextState = (props) => {
         setEditEventOpen,
         eventData,
         setEventData,
+        viewEventOpen,
+        setViewEventOpen,
 
         addGradeOpen,
         setAddGradeOpen,
@@ -63,6 +69,8 @@ const ContextState = (props) => {
         setEditSubjectOpen,
         subjectData,
         setSubjectData,
+        addNewSubjectOpen,
+        setAddNewSubjectOpen,
 
         addBatchOpen,
         setAddBatchOpen,
@@ -70,6 +78,9 @@ const ContextState = (props) => {
         setEditBatchOpen,
         batchData,
         setBatchData,
+
+        addBffStarOpen,
+        setAddBffStarOpen,
       }}
     >
       {props.children}

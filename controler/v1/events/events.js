@@ -25,6 +25,16 @@ exports.getEvent = async (req, res, next) => {
 exports.getEvents = async (req, res, next) => { 
     try {
         let events = await getEvents();
+        for (let index = 0; index < events.length; index++) {
+            let event = await getEvent(events[index].id);
+            events[index] = event;
+            events[index].students = await getStudents(event.batch_id);
+            events[index].mentors = await getMentors(event.id);
+            if (event.has_report === 1) {
+                let report = await getStudentsPerformace(events[index].id);
+                events[index].report = JSON.parse(report);
+            }
+        }
         return res.status(200).send({ code: 200, data: events });
 
     } catch (error) {
@@ -40,7 +50,7 @@ exports.postCreateEvent = async (req, res, next) => {
         let name = query.name;
         let description = query.description ? query.description : "";
         let batch_id = query.batch_id;
-        let event_datetime = query.event_datetime;
+        let event_datetime = query.event_datetime.replace("T", " ").replace("Z", "");
         let mentors = query.mentors;
 
         if (!name || name == '' || !batch_id || batch_id == '' || !event_datetime || event_datetime.length == '' || !mentors || mentors.length == 0) return res.send({ code: 400, message: "Please provide required details." });
@@ -55,6 +65,28 @@ exports.postCreateEvent = async (req, res, next) => {
     } catch (error) {
         console.log("Error: ", error.message);
         return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+// update event
+exports.updateEvent = async (req, res, next) => { 
+    try {
+        let eventId = req.params.eventId;
+        let isEvent = await isEventExist(eventId);
+        if (!isEvent) return res.send({ code: 400, message: "Please provide valid event id." });
+
+        let body = req.body;
+        let name = body.name;
+        let description = body.description;
+        let batch_id = body.batch_id;
+        let event_timestamp = body.event_datetime
+        let added_mentors = body.added_mentors;
+        let deleted_mentors = body.deleted_mentors;
+        if ((!name || name == '') & (!description || description == '') & (!batch_id || batch_id == '')(!event_timestamp || event_timestamp == '') & (!added_mentors || added_mentors.length == 0) & (!deleted_mentors || deleted_mentors.length == 0)) return res, send({ code: 400, message: "Please provide required details." });
+
+        let isUpdated = await updateEvent(eventId, name, description, batch_id, event_timestamp, added_mentors, deleted_mentors);
+        if(!isUpdated) return res.send({code: 400, message: "Failed to update event"})
+    } catch (error) {
+        return res.send({ code: 400, message: error.message });
     }
 };
 
@@ -88,6 +120,7 @@ exports.postEventStudentsPerformance = async (req, res, next) => {
 
         let performance = await savePerformace(eventId, JSON.stringify(performance_data));
         if (!performance) return res.send({ code: 400, message: "Failed to save performance." }); 
+        let isUpdate = await updateEventReportStatus(eventId);
         return res.status(200).send({ code: 201, message: "Performance saved successfully." });
 
     } catch (error) {
@@ -96,15 +129,33 @@ exports.postEventStudentsPerformance = async (req, res, next) => {
     }
 };
 
+
+exports.postDeleteEvent = async (req, res, next) => {
+    try {
+        let eventId = req.params.eventId;
+
+        let isdelete = await deleteEvent(eventId);
+        if (isdelete) {
+            return res.status(200).send({ code: 200, message: "Event deleted successfully." })
+        }
+
+        return res.status(200).send({ code: 400, message: "Event failed to delete." })
+
+    } catch (error) {
+        console.log("Error: ", error.message);
+        return res.status(200).send({ code: 400, message: error.message });
+    }
+};
+
 const getEvent = async (eventId) => {
-    let query = `select e.id, e.name, e.description, e.event_datetime, batch_id, b.name as batch from events as e left join batches as b on e.batch_id=b.id where e.is_deleted=0 and e.id=${eventId}`;
+    let query = `select e.id, e.name, e.description, e.event_datetime, has_report, batch_id, b.name as batch from events as e left join batches as b on e.batch_id=b.id where e.is_deleted=0 and e.id=${eventId}`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result.length > 0 ? result[0] : {};
 };
 
 const getEvents = async () => { 
-    let query = `select id, name, description, event_datetime from events`;
+    let query = `select id, name, description, event_datetime from events where is_deleted=0 order by created_at desc`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result;
@@ -153,4 +204,31 @@ const savePerformace = async (eventId, performance_data) => {
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result.insertId ? result.insertId : 0; 
+};
+
+const updateEvent = async (eventId, name, description, batch_id, event_timestamp, added_mentors, deleted_mentors) => { 
+    let set = [];
+
+    if (name) set.push(`name='${name}'`);
+    if (description) set.push(`description='${description}'`);
+    if (batch_id) set.push(`batch_id='${batch_id}'`);
+    if (event_timestamp) set.push(`event_timestamp='${event_timestamp}'`);
+
+    let query = `update events set ${set.join()} where id=${eventId} and is_deleted=0`;
+    con.query = await util.promisify(con.query);
+    let result = await con.query(query);
+
+};
+
+updateEventReportStatus = async (eventId) => {
+    let query = `update events set has_report=1 where id=${eventId} and is_deleted=0`;
+    con.query = await util.promisify(con.query);
+    let result = await con.query(query);
+};
+ 
+deleteEvent = async (eventId) => {
+    let query = `update events set is_deleted=1 where id=${eventId} and is_deleted=0`;
+    con.query = await util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
 };

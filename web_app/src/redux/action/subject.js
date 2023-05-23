@@ -38,9 +38,75 @@ export const addSubjectAction = (formInput) => (dispatch) => {
         notification.success({
           message: `${response.data.message}`,
         });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
       }
       dispatch({
         type: subjects.ADD_SUBJECT,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};
+
+// edit subject
+export const editSubjectAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/subject/${formInput.id}`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 500);
+      }
+      dispatch({
+        type: subjects.EDIT_SUBJECT,
+        payload: response,
+      });
+    })
+    .catch((err) => {
+      notification.warning({
+        message: `${err.response.data.message}`,
+      });
+    });
+};
+
+
+// edit subject
+export const deleteSubjectAction = (formInput) => (dispatch) => {
+  const cookies = new Cookies();
+  const url = `${BASE_URL}/subject/${formInput.id}/delete`;
+  const data = formInput;
+  const headers = {
+    Authorization: `Bearer ${cookies.get('auth_token')}`,
+  };
+  axios
+    .post(url, data, { headers })
+    .then((response) => {
+      if (response.status === 200) {
+        notification.success({
+          message: `${response.data.message}`,
+        });
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 500);
+      }
+      dispatch({
+        type: subjects.DELETE_SUBJECT,
         payload: response,
       });
     })

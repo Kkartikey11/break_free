@@ -14,10 +14,11 @@ export const authAction = (formInput) => (dispatch) => {
     .then((response) => {
       if (response.status === 200) {
         cookies.set("auth_token", response.data.auth_token, { path: "/" });
-        notification.success({
-          // message: `${response.data.message}`,
-          message: "Login Successful",
-        });
+        cookies.set("role_type", response.data.playload.role_id, { path: "/" });
+        // notification.success({
+        //   // message: `${response.data.message}`,
+        //   message: "Login Successful",
+        // });
       }
       dispatch({
         type: auth.AUTH_LOGIN,

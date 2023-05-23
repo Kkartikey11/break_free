@@ -29,16 +29,28 @@ import AddEvent from "../view/event/addEvent";
 import AddSubject from "../view/subject/addSubject";
 import Login from "../view/auth";
 import Cookies from "universal-cookie";
+import ViewEvent from "../view/event/addReport";
+import AddReport from "../view/event/addReport";
+import BFFStar from "../view/bffStar";
   const { Header, Content, Footer, Sider } = Layout;
 
 
 const DashboardRoutes = () => {
 
   const onLogoutHandle = () => {
-const cookie = new Cookies();
-    cookie.remove('auth_token');
 
+    const cookies = new Cookies();
+    let cookiesList = cookies.getAll();
+    let arrayList = Object.keys(cookiesList);
 
+    for (let i = 0; i < arrayList.length; i++) {
+      console.log(arrayList[i]);
+      cookies.set(arrayList[i], "", { path: "/" });
+    }
+    localStorage.clear();
+    setTimeout(() => {
+      window.location.reload();
+    }, 500);
   }
 
     const {
@@ -85,12 +97,15 @@ const cookie = new Cookies();
             <Route path="/subject" element={<Subjects />} />
             <Route path="/users" element={<Users />} />
             <Route path="/events" element={<Event />} />
+            <Route path="/bff-star" element={<BFFStar />} />
             <Route path="/students/add-student" element={<AddStudent />} />
             <Route path="/batch/add-batch" element={<AddBatches />} />
             <Route path="/grade/add-grade" element={<AddGrade />} />
             <Route path="/users/add-user" element={<AddUser />} />
             <Route path="/events/add-event" element={<AddEvent />} />
+            <Route path="/events/add-report" element={<AddReport />} />
             <Route path="/subject/add-subject" element={<AddSubject />} />
+
           </Routes>
         </Content>
         <Footer
@@ -98,7 +113,7 @@ const cookie = new Cookies();
             textAlign: "center",
           }}
         >
-          BFF ©2023 Created by Rishabh
+          ©2023 Break Free Foundation | made with <span style={{ color: "red"}}>&hearts;</span> 
         </Footer>
       </Layout>
     </Layout>

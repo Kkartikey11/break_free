@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import { AddBatchesReducer, batchReducer } from "./batchReducer";
-import { AddEventReducer, eventReducer } from "./eventReducer";
-import { AddGradeReducer, gradeReducer } from "./gradeReducer";
-import { AddStudentReducer, studentReducer } from "./studentReducer";
-import { AddSubjectReducer, subjectReducer } from "./subjectReducer";
-import { userReducer, AddUserReducer } from "./userReducer";
+import { AddBatchesReducer, DeleteBatchesReducer, EditBatchesReducer, batchReducer } from "./batchReducer";
+import { AddEventReducer, AddReportReducer, DeleteEventReducer, EditEventReducer, eventReducer } from "./eventReducer";
+import { AddGradeReducer, EditGradeReducer, gradeReducer } from "./gradeReducer";
+import { AddStudentReducer, DeleteStudentReducer, EditStudentReducer, studentReducer } from "./studentReducer";
+import { AddSubjectReducer, DeleteSubjectReducer, EditSubjectReducer, subjectReducer } from "./subjectReducer";
+import { userReducer, AddUserReducer, EditUserReducer, DeleteUserReducer } from "./userReducer";
 import { AuthReducer } from "./authReducer";
 
 const RootReducer = combineReducers({
@@ -21,6 +21,20 @@ const RootReducer = combineReducers({
     addEvent: AddEventReducer,
     addSubject: AddSubjectReducer,
     addUser: AddUserReducer,
+    editSubject: EditSubjectReducer,
+    editUser: EditUserReducer,
+    deleteSubject: DeleteSubjectReducer,
+    editGrade: EditGradeReducer,
+    deleteGrade: DeleteSubjectReducer,
+    deleteUser: DeleteUserReducer,
+    editStudent: EditStudentReducer,
+    deleteStudent: DeleteStudentReducer,
+    editBatch: EditBatchesReducer,
+    deleteBatch: DeleteBatchesReducer,
+    editEvent: EditEventReducer,
+    deleteEvent: DeleteEventReducer,
+    addReport: AddReportReducer,
+
 })
 
 export default RootReducer;

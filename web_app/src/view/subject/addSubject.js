@@ -11,7 +11,7 @@ import { CloseOutlined } from "@ant-design/icons";
 
 const AddSubject = () => {
   const context = useContext(Context);
-  const { addSubjectOpen, setAddSubjectOpen } = context;
+  const { addSubjectOpen, setAddSubjectOpen, addNewSubjectOpen, setAddNewSubjectOpen } = context;
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const AddSubject = () => {
     setApiData(formData);
     dispatch(addSubjectAction(formData));
     dispatch(subjectAction());
-    navigate("/subject");
+    navigate("/web/subject");
   };
 
   const onFinishFailed = (errorInfo) => {
@@ -39,7 +39,7 @@ const AddSubject = () => {
   useEffect(() => {
     if (state.addBatches.data !== "") {
       if (state.addBatches.data.data.code === 200) {
-        navigate("/subject");
+        navigate("/web/subject");
         window.location.reload();
       }
     }
@@ -50,7 +50,7 @@ const AddSubject = () => {
   } = theme.useToken();
 
   const onClose = () => {
-    setAddSubjectOpen(false);
+    setAddNewSubjectOpen(false);
   };
 
   return (
@@ -65,7 +65,7 @@ const AddSubject = () => {
         width={450}
         closable={false}
         onClose={onClose}
-        open={addSubjectOpen}
+        open={addNewSubjectOpen}
         style={{ overflowY: "auto" }}
       >
         <div
@@ -83,24 +83,24 @@ const AddSubject = () => {
             autoComplete="off"
             style={{ marginTop: "30px" }}
           >
-            <Form.Item
-              label="Subject Name"
-              style={{ fontWeight: "600" }}
-              name="name"
-              rules={[{ required: true, message: "Please input your name!" }]}
-            >
-              <Input style={{ width: "400px" }} />
+            <Form.Item style={{ fontWeight: "600" }} name="name" required>
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                  {" "}
+                  Name :
+                </label>
+                <Input style={{ width: "400px" }} required />
+              </div>
             </Form.Item>
 
-            <Form.Item
-              style={{ fontWeight: "600" }}
-              label="Description"
-              name="description"
-              rules={[
-                { required: true, message: "Please input your description!" },
-              ]}
-            >
-              <Input />
+            <Form.Item style={{ fontWeight: "600" }} name="description">
+              <div style={{ display: "flex", flexDirection: "column" }}>
+                <label style={{ fontWeight: "600", marginBottom: "10px" }}>
+                  {" "}
+                  Description :
+                </label>
+                <Input style={{ width: "400px" }} />
+              </div>
             </Form.Item>
 
             <div
