@@ -113,7 +113,7 @@ const AddReport = ({ student }) => {
 
   // Handler for the Confidencet input field
   const handleConfidencetChange = (event) => {
-    
+
     setConfidencet(event);
   };
 
@@ -150,7 +150,7 @@ const AddReport = ({ student }) => {
     };
     // setApiData(formData);
     dispatch(addReportAction(formData));
-     
+
   };
 
   return (
@@ -167,7 +167,7 @@ const AddReport = ({ student }) => {
         >
           <div>
             <h1 style={{ fontSize: "25px" }}>Add Report</h1>
-            <h1 style={{color:'red'}}>Impotent Note : Please confirm before press " + " button, you will add one time only</h1>
+            <h1 style={{ color: 'red' }}>Impotent Note : Please confirm before press " + " button, you will add one time only</h1>
           </div>
 
           <div>
@@ -182,19 +182,19 @@ const AddReport = ({ student }) => {
                   <th>Grasping</th>
                   <th>Application Of Concepts</th>
                   <th>Retention</th>
-
                   <th>Confidence</th>
                   <th>Action</th>
                 </tr>
-                {eventData.students.map((item,index) => (
+                {eventData.students.map((item, index) => (
                   <tr key={index}>
-                    <td> <input name="name" type="text" defaultValue={item.name} disabled style={{height:30, borderRadius:'5px', border:'1px solid #E8E8E8', padding:'8px' }} /></td>
+                    <td> <input name="name" type="text" defaultValue={item.name} disabled style={{ height: 30, borderRadius: '5px', border: '1px solid #E8E8E8', padding: '8px' }} /></td>
                     <>
                       <td>
                         <div style={{ width: "100px" }}>
                           <Select
                             name="is_present"
-                            onChange={(e)=>{handlePresentChange(e);
+                            onChange={(e) => {
+                              handlePresentChange(e);
                               setName(item.name)
                             }}
                             style={{
@@ -221,9 +221,11 @@ const AddReport = ({ student }) => {
                             }}
                             disabled={isClicked && getIndex === index ? true : false}
                           >
-                            <Option value="None">None</Option>
-                            <Option value="Poor">Poor</Option>
-                            <Option value="Good">Good</Option>
+                            <Option value="1">1</Option>
+                            <Option value="2">2</Option>
+                            <Option value="3">3</Option>
+                            <Option value="4">4</Option>
+                            <Option value="5">5</Option>
                           </Select>
                         </div>
                       </td>
@@ -257,9 +259,11 @@ const AddReport = ({ student }) => {
                             }}
                             disabled={isClicked && getIndex === index ? true : false}
                           >
-                            <Option value="None">None</Option>
-                            <Option value="Poor">Poor</Option>
-                            <Option value="Good">Good</Option>
+                            <Option value="1">1</Option>
+                            <Option value="2">2</Option>
+                            <Option value="3">3</Option>
+                            <Option value="4">4</Option>
+                            <Option value="5">5</Option>
                           </Select>
                         </div>
                       </td>
@@ -275,9 +279,9 @@ const AddReport = ({ student }) => {
                             }}
                             disabled={isClicked && getIndex === index ? true : false}
                           >
-                            <Option value="None">None</Option>
-                            <Option value="Poor">Poor</Option>
-                            <Option value="Good">Good</Option>
+                            <Option value="Low">Low</Option>
+                            <Option value="Medium">Medium</Option>
+                            <Option value="High">High</Option>
                           </Select>
                         </div>
                       </td>
@@ -293,9 +297,11 @@ const AddReport = ({ student }) => {
                             }}
                             disabled={isClicked && getIndex === index ? true : false}
                           >
-                            <Option value="None">None</Option>
-                            <Option value="Poor">Poor</Option>
-                            <Option value="Good">Good</Option>
+                            <Option value="1">1</Option>
+                            <Option value="2">2</Option>
+                            <Option value="3">3</Option>
+                            <Option value="4">4</Option>
+                            <Option value="5">5</Option>
                           </Select>
                         </div>
                       </td>
@@ -311,9 +317,9 @@ const AddReport = ({ student }) => {
                             }}
                             disabled={isClicked && getIndex === index ? true : false}
                           >
-                            <Option value="None">None</Option>
-                            <Option value="Poor">Poor</Option>
-                            <Option value="Good">Good</Option>
+                            <Option value="Low">Low</Option>
+                            <Option value="Medium">Medium</Option>
+                            <Option value="High">High</Option>
                           </Select>
                         </div>
                       </td>
@@ -331,22 +337,22 @@ const AddReport = ({ student }) => {
                             name="confidence"
                             disabled={isClicked && getIndex === index ? true : false}
                           >
-                            <Option value="None">None</Option>
-                            <Option value="Poor">Poor</Option>
-                            <Option value="Good">Good</Option>
+                            <Option value="Low">Low</Option>
+                            <Option value="Medium">Medium</Option>
+                            <Option value="High">High</Option>
                           </Select>
                         </div>
                       </td>
                       <td>
-                    <div>
-                      {isClicked && getIndex === index ? <></> :<Button type="primary"  style={{color:'white', backgroundColor: 'black'}}   onClick={()=>{
-                        handleSubmit();
-                        setIsClicked(true);
-                        setGetIndex(index)
-                        
-                        }}>
-                      +
-                    </Button>}
+                        <div>
+                          {isClicked && getIndex === index ? <></> : <Button type="primary" style={{ color: 'white', backgroundColor: 'black' }} onClick={() => {
+                            handleSubmit();
+                            setIsClicked(true);
+                            setGetIndex(index)
+
+                          }}>
+                            +
+                          </Button>}
                           {/* <button style={{color:'white', backgroundColor: isClicked == true ?  'green' : 'black', cursor:'pointer'}} onChange={()=> setIsClicked(true)}  type="submit" >+</button> */}
                         </div>
                       </td>
@@ -355,7 +361,7 @@ const AddReport = ({ student }) => {
                 ))}
               </table>
             </form>
-            
+
             {/* <div style={{marginTop:'30px'}}>
                     <Button
                       type="primary"
@@ -365,29 +371,29 @@ const AddReport = ({ student }) => {
                       Save
                     </Button>
                   </div> */}
-                  <div
+            <div
               style={{
                 display: "flex",
                 justifyContent: "end",
                 marginTop: "30px",
               }}
             >
-                <Button
-                  htmlType="submit"
-                  onClick={onClose}
-                  style={{ marginRight: "20px" }}
-                >
-                  Cancel
-                </Button>
+              <Button
+                htmlType="submit"
+                onClick={onClose}
+                style={{ marginRight: "20px" }}
+              >
+                Cancel
+              </Button>
 
-                <Button
-                  type="primary"
-                  htmlType="submit"
-                  style={{ backgroundColor: "#000" }}
-                  onClick={onFinish}
-                >
-                  Add
-                </Button>
+              <Button
+                type="primary"
+                htmlType="submit"
+                style={{ backgroundColor: "#000" }}
+                onClick={onFinish}
+              >
+                Add
+              </Button>
             </div>
           </div>
         </Content>

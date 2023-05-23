@@ -71,7 +71,11 @@ exports.postUploadUserProfilePicture =  async (req, res, next) => {
         console.log(file); // Output information about the uploaded file
         const publicUrl = `${req.protocol}://${req.get('host')}/images/${file.filename}`;
         // res.send(`File uploaded successfully! Public URL: ${publicUrl}`);
-        return res.status(200).send({ code: 200, url: `${publicUrl}`, message: `File uploaded successfully!` });
+        let isUpdated = await updateUserProfile(userId, `images/${file.filename}`);
+        if (!isUpdated) {
+            return res.status(200).send({ code: 400, message: 'Failed to upload user profile.' });
+        }
+        return res.status(200).send({ code: 200, url: `${publicUrl}`, message: `Profile image uploaded successfully!` });
 
     } catch (error) {
         console.log("Error: ", error.message);
@@ -99,7 +103,7 @@ const getUser = async (userId) => {
 };
 
 const getUsers = async () => {
-    let query = `select u.id,u.name, u.about,email,role_id, r.name as role from users as u left join roles as r on u.role_id=r.id where u.is_deleted=0`;
+    let query = `select u.id,u.name, u.about,email,role_id, r.name as role, profile_url from users as u left join roles as r on u.role_id=r.id where u.is_deleted=0`;
     con.query = await util.promisify(con.query);
     let result = await con.query(query);
     return result
@@ -107,6 +111,13 @@ const getUsers = async () => {
 
 const updateUser = async (user_id, name, email, about, role_id) => {
     let query = `update users set name='${name}', email='${email}', about='${about}', role_id='${role_id}' where id=${user_id} and is_deleted=0`;
+    con.query = util.promisify(con.query);
+    let result = await con.query(query);
+    return result.affectedRows;
+};
+
+const updateUserProfile = async (user_id, profile_url) => {
+    let query = `update users set profile_url='${profile_url}' where id=${user_id} and is_deleted=0`;
     con.query = util.promisify(con.query);
     let result = await con.query(query);
     return result.affectedRows;
